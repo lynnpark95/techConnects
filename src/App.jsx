@@ -2,13 +2,13 @@ import React from 'react';
 import SignIn from './Components/SignIn'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from './Dashboard';
-import Calendar from './Dashboard';
-import Overview from './Dashboard';
-import Wallet from './Dashboard';
-import Messaging from './Dashboard';
-import AudioVisual from './Dashboard';
-import History from './Dashboard';
-import TechSupport from './Dashboard';
+import Calendar from './Components/Pages/Calendar';
+import Overview from './Components/Pages/Overview';
+import Wallet from './Components/Pages/Wallet';
+import Messaging from './Components/Pages/Messaging';
+import AudioVisual from './Components/Pages/AudioVisual';
+import History from './Components/Pages/History';
+import TechSupport from './Components/Pages/TechSupport';
 
 function App() {
   return (
@@ -21,9 +21,9 @@ function App() {
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/wallet" element={<Wallet />} />
           <Route path="/messaging" element={<Messaging />} />
-          <Route path="/audiovisual" element={<AudioVisual />} />
+          <Route path="/audio-visual" element={<AudioVisual />} />
           <Route path="/history" element={<History />} />
-          <Route path="/techsupport" element={<TechSupport />} />
+          <Route path="/tech-support" element={<TechSupport />} />
         </Routes>
       </BrowserRouter>
     </div>
