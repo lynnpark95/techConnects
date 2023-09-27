@@ -104,6 +104,7 @@ export default function SignIn() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                href='http://localhost:3000/dash'
               >
                 Sign In
               </Button>
