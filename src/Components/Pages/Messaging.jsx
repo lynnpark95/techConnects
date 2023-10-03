@@ -1,28 +1,61 @@
-import React from 'react';
-import Navbar from '../Navbar Items/Navbar';
-import { Typography } from '@mui/material';
+// MyComponent.js
+
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import MessagingPage from './ChatComponents/MessagingPage';
+import Typography from "@mui/material/Typography";
+import Navbar from "../Navbar Items/Navbar";
+import Cards from "./Cards";
+import FullConversationCard from "./FullConversationCard"; // Import FullConversationCard
 
-const Messaging = () => {
-  const marginValue ='500px'
-    return (
-        <div style={{maginLeft: marginValue}}>
-            <Navbar />
-            <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <Typography variant="h3" component="h1" marginLeft={45} marginTop={5}>
+function Messaging() {
+  const marginLeft = "350px"; // Set your desired margin value here
+
+  const [selectedConversation, setSelectedConversation] = useState(null);
+
+  const handleCardClick = (conversationDetails) => {
+    console.log("Card clicked:", conversationDetails); // Add console log
+    setSelectedConversation(conversationDetails);
+  };
+
+  return (
+    <div>
+      <div>
+        {/* You can replace this with your Navbar component */}
+        <Navbar />
+      </div>
+      <div style={{ marginLeft }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="h3" component="h1">
             Messaging
-            </Typography>
-          </Box>
-          <MessagingPage />
-        </div>
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            alignItems: "left",
+            border: "solid",
+            maxWidth: 400,
+            height: "100vh",
+          }}
+        >
+          {/* Pass handleCardClick function to Cards */}
+          <Cards marginLeft={0} onCardClick={handleCardClick} />
+        </Box>
+      </div>
 
-    )
+      {/* Render selected conversation details */}
+      {selectedConversation && (
+        <FullConversationCard
+          marginLeft={marginLeft}
+          conversation={selectedConversation}
+        />
+      )}
+    </div>
+  );
 }
-export default 
-Messaging;
+
+export default Messaging;

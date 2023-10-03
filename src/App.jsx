@@ -24,6 +24,7 @@ function App() {
           <Route path="/audio-visual" element={<AudioVisual />} />
           <Route path="/history" element={<History />} />
           <Route path="/tech-support" element={<TechSupport />} />
+          
         </Routes>
       </BrowserRouter>
     </div>
