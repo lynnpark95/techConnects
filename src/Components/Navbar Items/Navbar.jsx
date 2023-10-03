@@ -24,6 +24,7 @@ const Navbar = () => {
 
     const navigate = useNavigate();
   return (
+    
     <Drawer
       sx={navStyles.drawer}
       variant="permanent"

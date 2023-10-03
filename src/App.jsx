@@ -5,7 +5,7 @@ import Dashboard from './Dashboard';
 import Calendar from './Components/Pages/Calendar';
 import Overview from './Components/Pages/Overview';
 import Wallet from './Components/Pages/Wallet';
-import Messaging from './Components/Pages/Messaging';
+import Messaging from './Components/Pages/MessagingPage/Messaging';
 import AudioVisual from './Components/Pages/AudioVisual';
 import History from './Components/Pages/History';
 import TechSupport from './Components/Pages/TechSupport';

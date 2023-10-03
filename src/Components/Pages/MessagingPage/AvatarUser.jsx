@@ -8,7 +8,7 @@ export default function AvatarUser() {
       <Avatar
         alt="Remy Sharp"
         src="./AvatarExample.jpg" // Updated relative path
-        sx={{ width: 40, height: 40 }}
+        sx={{ width: 50, height: 50 }}
       />
     </Stack>
   );
