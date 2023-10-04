@@ -34,6 +34,9 @@ const Navbar = () => {
       anchor="left"
     >
       <Toolbar />
+      <div style={{display: "center"}}>
+        <img src="lama.jpg" alt="logo" />
+      </div>
       <div style={{ display: "flex",  marginLeft: '100px' }}>
           <SearchIcon />
           <SearchIcon sx={{paddingLeft: '20px'}}/>
