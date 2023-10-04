@@ -9,6 +9,7 @@ import Messaging from './Components/Pages/MessagingPage/Messaging';
 import AudioVisual from './Components/Pages/AudioVisual';
 import History from './Components/Pages/History';
 import TechSupport from './Components/Pages/TechSupport';
+import Register from './Components/Register';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/audio-visual" element={<AudioVisual />} />
           <Route path="/history" element={<History />} />
           <Route path="/tech-support" element={<TechSupport />} />
+          <Route path="/reg" element={<Register />} />
           
         </Routes>
       </BrowserRouter>

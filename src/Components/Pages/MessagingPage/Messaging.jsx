@@ -59,9 +59,10 @@ function Messaging() {
             <Box
               sx={{
                 alignItems: "left",
-                border: " 1px solid #D3D3D3",
+                border: " 2px solid #D3D3D3",
                 maxWidth: 400,
                 height: "100vh",
+                backgroundColor: '#E2EDF9',
               }}
             >
               <div style={{ display: "flex", padding: '10px' }}>
@@ -87,8 +88,9 @@ function Messaging() {
               flex: 1,
               border: "solid",
               padding: 2,
-
+              backgroundColor: '#E2EDF9',
               height: "100vh",
+              border: "2px solid #D3D3D3",
               width: 300,
             }}
           ></Box>
