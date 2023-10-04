@@ -7,7 +7,7 @@ import PersonIcon from "@mui/icons-material/Person";
 
 function Header() {
   const headerStyles = {
-    backgroundColor: "#87CEEB", // Background color
+    backgroundColor: "#F5F5F5", // Background color
     // Padding to make it thinner
     position: "fixed", // Position fixed to place it at the top
     top: 0, // Position at the top of the screen

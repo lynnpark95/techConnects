@@ -59,7 +59,7 @@ function Messaging() {
             <Box
               sx={{
                 alignItems: "left",
-                border: "solid",
+                border: " 1px solid #D3D3D3",
                 maxWidth: 400,
                 height: "100vh",
               }}
