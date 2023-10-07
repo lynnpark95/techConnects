@@ -1,15 +1,16 @@
-import React from 'react';
-import SignIn from './Components/SignIn'
+import React from "react";
+import SignIn from "./Components/SignIn";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Dashboard from './Dashboard';
-import Calendar from './Components/Pages/Calendar';
-import Overview from './Components/Pages/Overview';
-import Wallet from './Components/Pages/Wallet';
-import Messaging from './Components/Pages/MessagingPage/Messaging';
-import AudioVisual from './Components/Pages/AudioVisual';
-import History from './Components/Pages/History';
-import TechSupport from './Components/Pages/TechSupport';
-import Register from './Components/Register';
+import Dashboard from "./Dashboard";
+import Calendar from "./Components/Pages/Calendar";
+import Overview from "./Components/Pages/Overview";
+import Wallet from "./Components/Pages/Wallet";
+import Messaging from "./Components/Pages/MessagingPage/Messaging";
+import AudioVisual from "./Components/Pages/AudioVisual";
+import History from "./Components/Pages/History";
+import TechSupport from "./Components/Pages/TechSupport";
+import Register from "./Components/Register";
+import ContactUs from "./Components/Pages/ContactUs";
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
           <Route path="/history" element={<History />} />
           <Route path="/tech-support" element={<TechSupport />} />
           <Route path="/reg" element={<Register />} />
-          
+          <Route path="/contact" element={<ContactUs />} />
         </Routes>
       </BrowserRouter>
     </div>
