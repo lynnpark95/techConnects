@@ -1,0 +1,11 @@
+{
+    "name": "messaging-backend",
+    "version": "1.0.0",
+    "description": "Messaging Backend",
+    "main": "server.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test\" && exit 1",
+        "start": "node server.js"
+    }
+}
