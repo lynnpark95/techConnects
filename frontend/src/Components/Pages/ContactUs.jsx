@@ -1,18 +1,15 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import Header from "../Header";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import Navbar from "../Navbar Items/Navbar";
 
 function Copyright(props) {
   return (
@@ -32,9 +29,11 @@ function Copyright(props) {
   );
 }
 
+// TODO remove, this demo shouldn't need to reset the theme.
+
 const defaultTheme = createTheme();
 
-export default function Register() {
+export default function ContactUs() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -46,21 +45,26 @@ export default function Register() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Header />
+      <Navbar />
+      <Container component="main" maxWidth="md" width="100%">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 12,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            marginLeft: 30,
+            marginRight:0
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "green" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Register
+          <Typography component="h1" variant="h2">
+            Contact Us
+          </Typography>
+          <Typography component="p" variant="p">
+            Any questions or concerns? Please write us a message, and we will get back
+            to you as soon as possible.
           </Typography>
           <Box
             component="form"
@@ -76,7 +80,6 @@ export default function Register() {
                   required
                   fullWidth
                   id="firstName"
-                  // value={first}
                   label="First Name"
                   autoFocus
                 />
@@ -86,7 +89,6 @@ export default function Register() {
                   required
                   fullWidth
                   id="lastName"
-                  // value={last}
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
@@ -97,7 +99,6 @@ export default function Register() {
                   required
                   fullWidth
                   id="email"
-                  // value={email}
                   label="Email Address"
                   name="email"
                   autoComplete="email"
@@ -107,22 +108,26 @@ export default function Register() {
                 <TextField
                   required
                   fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  // value={password}
+                  name="phone"
+                  label="Phone"
+                  id="phone"
                   autoComplete="new-password"
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I agree to let this program steal my identity."
+                <TextField
+                  required
+                  fullWidth
+                  id="message"
+                  label="Write Your Message"
+                  name="message"
+                  multiline // Enable multiline input
+                  rows={4} // Adjust the number of rows as needed
+                  autoComplete="message"
+                  sx={{ minHeight: "120px" }} // Customize the minimum height
                 />
               </Grid>
+              
             </Grid>
             <Button
               type="submit"
@@ -130,18 +135,13 @@ export default function Register() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Send Message
             </Button>
             <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/signin" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
+              
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );

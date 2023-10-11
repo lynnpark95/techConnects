@@ -14,7 +14,7 @@ const Calendar = () => {
             }}
           >
             <Typography variant="body2" component="p" marginLeft={45}>
-            Calendar Test
+            Calendar 
             </Typography>
           </Box>
         </div>

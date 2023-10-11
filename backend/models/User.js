@@ -5,6 +5,14 @@ const validator = require('validator')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
+  first: {
+    type: String,
+    required: true,
+  },
+  last: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -65,3 +73,7 @@ userSchema.statics.login = async function(email, password) {
 }
 
 module.exports = mongoose.model('User', userSchema)
+
+const User = mongoose.model("User", userSchema);
+
+module.exports = User;
