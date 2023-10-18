@@ -13,6 +13,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import { useState } from "react"
+import { useSignup } from "../hooks/UseSignup"
+
 function Copyright(props) {
   return (
     <Typography
@@ -34,14 +37,27 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const {signup, error, isLoading} = useSignup()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    await signup(firstName, lastName, email, password);
   };
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //     email: data.get("email"),
+  //     password: data.get("password"),
+  //   });
+  // };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -77,6 +93,8 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  onChange={(e) => setFirstName(e.target.value)} 
+                  value={firstName} 
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -87,6 +105,8 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  onChange={(e) => setLastName(e.target.value)} 
+                  value={lastName} 
                 />
               </Grid>
               <Grid item xs={12}>
@@ -97,6 +117,9 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)} 
+                  value={email} 
                 />
               </Grid>
               <Grid item xs={12}>
@@ -108,6 +131,8 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={(e) => setPassword(e.target.value)} 
+                  value={password} 
                 />
               </Grid>
               <Grid item xs={12}>
