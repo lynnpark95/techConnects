@@ -1,27 +1,23 @@
 import React from 'react';
-import Navbar from '../Navbar Items/Navbar';
+import Navbar from '../../Navbar Items/Navbar';
 import { Typography } from '@mui/material';
 import Box from "@mui/material/Box";
 
-import DataTableHistory from './DataTableHistory';
-import Header from '../Header';
-
-const History = () => {
+const Confirm = () => {
     return (
         <div style={{maginLeft: '500px'}}>
-            <Header />
             <Navbar />
             <Box
             sx={{
               display: "flex",
               alignItems: "center",
-              marginTop: 15
             }}
           >
-              <DataTableHistory />
+            <Typography variant="body2" component="p" marginLeft={45}>
+            Confirm Test
+            </Typography>
           </Box>
         </div>
     )
 }
-
-export default History;
+export default Confirm;

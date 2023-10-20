@@ -4,14 +4,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from './Dashboard';
 import Calendar from './Components/Pages/Calendar';
 import Overview from './Components/Pages/Overview';
-import Wallet from './Components/Pages/Wallet';
+import Wallet from './Components/Pages/WalletComponents/Wallet';
 import Messaging from './Components/Pages/MessagingPage/Messaging';
 import AudioVisual from './Components/Pages/AudioVisual';
-import History from './Components/Pages/History';
-import TechSupport from './Components/Pages/TechSupport';
+import History from './Components/Pages/HistoryComponents/History';
+import TechSupport from './Components/Pages/UserHelp/TechSupport';
 import Register from './Components/Register';
 import Settings from './Components/Pages/Settings Components/Settings';
-import ContactUs from './Components/Pages/ContactUs';
+import ContactUs from './Components/Pages/UserHelp/ContactUs';
+import Confirm from './Components/Pages/UserHelp/Confirm';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/reg" element={<Register />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/contact" element={<ContactUs />} />
+          <Route path="/confirm" element={<Confirm />} />
           
         </Routes>
       </BrowserRouter>

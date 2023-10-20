@@ -2,14 +2,14 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
+import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Header from "../Header";
+import Header from "../../Header";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Navbar from "../Navbar Items/Navbar";
+import Navbar from "../../Navbar Items/Navbar";
 
 function Copyright(props) {
   return (
@@ -56,15 +56,15 @@ export default function ContactUs() {
             flexDirection: "column",
             alignItems: "center",
             marginLeft: 30,
-            marginRight:0
+            marginRight: 0,
           }}
         >
           <Typography component="h1" variant="h2">
             Contact Us
           </Typography>
           <Typography component="p" variant="p">
-            Any questions or concerns? Please write us a message, and we will get back
-            to you as soon as possible.
+            Any questions or concerns? Please write us a message, and we will
+            get back to you as soon as possible.
           </Typography>
           <Box
             component="form"
@@ -127,19 +127,18 @@ export default function ContactUs() {
                   sx={{ minHeight: "120px" }} // Customize the minimum height
                 />
               </Grid>
-              
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Send Message
-            </Button>
-            <Grid container justifyContent="flex-end">
-              
-            </Grid>
+            <Link to="/confirm">
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Send Message
+              </Button>
+            </Link>
+            <Grid container justifyContent="flex-end"></Grid>
           </Box>
         </Box>
       </Container>
