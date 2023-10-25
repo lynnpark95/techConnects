@@ -15,6 +15,8 @@ import userNetwork from "./Components/Pages/TalkJsComponent/userNetwork";
 import TalkMessaging from "./Components/Pages/TalkJsComponent/TalkMessaging";
 import Settings from "./Components/Pages/Settings Components/Settings";
 import Confirm from "./Components/Pages/UserHelp/Confirm";
+import TestFetch from "./Components/Pages/Settings Components/TestFetch";
+
 
 function App() {
   return (
@@ -35,8 +37,9 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/confirm" element={<Confirm />} />
           {/* <Route path="/talklogin" exact component={Login}/>  */}
-          <Route path="/mynetwork" component={userNetwork}/>
-          <Route path="/messaging" component={TalkMessaging}/>
+          <Route path="/mynetwork" element={<userNetwork/>}/>
+          <Route path="/messaging" element={<TalkMessaging/>}/>
+          <Route path="/test" element={<TestFetch />} />
           
         </Routes>
       </BrowserRouter>
