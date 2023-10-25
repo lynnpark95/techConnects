@@ -35,7 +35,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function Register() {
+export default function SignUp() {
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
