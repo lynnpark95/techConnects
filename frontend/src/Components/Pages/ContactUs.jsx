@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,9 +11,8 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import Header from "../Header";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-import { useSignup } from "../hooks/UseSignup"
 
 function Copyright(props) {
   return (
@@ -33,33 +32,23 @@ function Copyright(props) {
   );
 }
 
+// TODO remove, this demo shouldn't need to reset the theme.
+
 const defaultTheme = createTheme();
 
-export default function Register() {
-
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const {signup, error, isLoading} = useSignup()
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    await signup(firstName, lastName, email, password);
+export default function ContactUs() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get("email"),
+      password: data.get("password"),
+    });
   };
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get("email"),
-  //     password: data.get("password"),
-  //   });
-  // };
-
   return (
-    <ThemeProvider theme={createTheme()}>
+    <ThemeProvider theme={defaultTheme}>
+      <Header />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -70,11 +59,12 @@ export default function Register() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "green" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Register
+          <Typography component="h1" variant="h2">
+            Contact Us
+          </Typography>
+          <Typography component="p" variant="p">
+            Any questions or remarks? Just write us a message! We will get back
+            to you as soon as possible.
           </Typography>
           <Box
             component="form"
@@ -92,8 +82,6 @@ export default function Register() {
                   id="firstName"
                   label="First Name"
                   autoFocus
-                  onChange={(e) => setFirstName(e.target.value)} 
-                  value={firstName} 
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -104,8 +92,6 @@ export default function Register() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
-                  onChange={(e) => setLastName(e.target.value)} 
-                  value={lastName} 
                 />
               </Grid>
               <Grid item xs={12}>
@@ -116,28 +102,34 @@ export default function Register() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  type="email"
-                  onChange={(e) => setEmail(e.target.value)} 
-                  value={email} 
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
+                  name="phone"
+                  label="Phone"
+                  id="phone"
                   autoComplete="new-password"
-                  onChange={(e) => setPassword(e.target.value)} 
-                  value={password} 
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="message"
+                  label="Write Your Message"
+                  name="message"
+                  autoComplete="message"
                 />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I agree to let this program steal my identity."
+                  control={
+                    <Checkbox value="allowExtraEmails" color="primary" />
+                  }
+                  label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid>
             </Grid>
@@ -151,15 +143,15 @@ export default function Register() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/signin" variant="body2">
+                <Link href="#" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
+        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );
 }
-

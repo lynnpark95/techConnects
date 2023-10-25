@@ -1,21 +1,20 @@
-import React from 'react';
-import SignIn from './Components/SignIn'
+import React from "react";
+import SignIn from "./Components/SignIn";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Dashboard from './Dashboard';
-import Calendar from './Components/Pages/Calendar';
-import Overview from './Components/Pages/Overview';
-import Wallet from './Components/Pages/WalletComponents/Wallet';
-import Messaging from './Components/Pages/MessagingPage/Messaging';
-import AudioVisual from './Components/Pages/AudioVisual';
-import History from './Components/Pages/HistoryComponents/History';
-import TechSupport from './Components/Pages/UserHelp/TechSupport';
-import Register from './Components/Register';
-import Settings from './Components/Pages/Settings Components/Settings';
-import ContactUs from './Components/Pages/UserHelp/ContactUs';
-import Confirm from './Components/Pages/UserHelp/Confirm';
-// import Login from './Components/Pages/TalkJsComponent/Login';
-import userNetwork from './Components/Pages/TalkJsComponent/userNetwork'
-import TalkMessaging from './Components/Pages/TalkJsComponent/TalkMessaging'
+import Dashboard from "./Dashboard";
+import Calendar from "./Components/Pages/Calendar";
+import Overview from "./Components/Pages/Overview";
+import Wallet from "./Components/Pages/WalletComponents/Wallet";
+import Messaging from "./Components/Pages/MessagingPage/Messaging";
+import AudioVisual from "./Components/Pages/AudioVisual";
+import History from "./Components/Pages/HistoryComponents/History";
+import TechSupport from "./Components/Pages/UserHelp/TechSupport";
+import Register from "./Components/Register";
+import ContactUs from "./Components/Pages/ContactUs";
+import userNetwork from "./Components/Pages/TalkJsComponent/userNetwork";
+import TalkMessaging from "./Components/Pages/TalkJsComponent/TalkMessaging";
+import Settings from "./Components/Pages/Settings Components/Settings";
+import Confirm from "./Components/Pages/UserHelp/Confirm";
 
 function App() {
   return (

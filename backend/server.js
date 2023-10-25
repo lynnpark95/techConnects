@@ -8,15 +8,22 @@ const axios = require('axios');
 const { hashPassword } = require("./passwordUtils"); // Import password hashing utility
 const cors = require('cors');
 
-// Create an instance of the Express application
-const app = express();
+const express = require('express')
+const mongoose = require('mongoose')
+const cors = require('cors')
+const cookieParser = require('cookie-parser')
+const Pusher = require('pusher');
+const userRoutes = require('./routes/user')
+const messageRoutes = require('./routes/message')
+const { setupPusher } = require('./services/pusherService')
 
 // Set the port where the server will listen for incoming requests
 const port = 4444;
 
-// Configure the Express app to parse JSON data in requests
-app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000' }));
+// middleware
+app.use(express.json())
+app.use(cookieParser())
+app.use(cors())
 
 // Define a POST route for user registration
 app.post("/reg", async (req, res) => {
@@ -57,36 +64,52 @@ app.post("/reg", async (req, res) => {
 
 // Middleware: Log information about incoming requests
 app.use((req, res, next) => {
-  console.log(`Received ${req.method} request to path ${req.path}`);
-  next(); // Pass control to the next middleware or route handler
+  console.log(req.path, req.method)
+  next()
+})
+
+// routes
+app.use('/api/user', userRoutes)
+app.use('/api/message', messageRoutes)
+
+// connect to db
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    setupPusher(mongoose.connection);
+    // listen for requests
+    app.listen(process.env.PORT, () => {
+      console.log('connected to db & listening on port', process.env.PORT)
+    })
+  })
+  .catch((error) => {
+    console.log(error)
+  })
+
+// Pusher
+const pusher = new Pusher({
+  appId: "1685414",
+  key: "cb78a53cfed82eb19581",
+  secret: "c52e331e45f7964616d4",
+  cluster: "us3",
+  useTLS: true
 });
 
-// Define routes related to user management (e.g., registration, login)
-app.use('/api/user', userRoutes);
-
-
-// Connect to the MongoDB database
-connectDB().then();
-
-// Start the Express server and listen on the specified port
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
-
-const handleSubmit = async (event) => {
-  event.preventDefault();
-  const formData = new FormData(event.currentTarget);
-  const user = {
-    firstName: formData.get('firstName'),
-    lastName: formData.get('lastName'),
-    email: formData.get('email'),
-    password: formData.get('password'),
-  };
-
-  try {
-    const response = await axios.post('/reg', user); // Assuming the Express.js server is running on the same host
-    console.log(response.data); // You can handle the response from the server here
-  } catch (error) {
-    console.error('Registration failed:', error);
-  }
-};
+const db = mongoose.connection
+  db.once('open', () => {
+    console.log('DB Connected to Pusher')
+    const msgCollection = db.collection('messages')
+    const changeStream = msgCollection.watch()
+    changeStream.on('change', (change) => {
+      if (change.operationType === 'insert') {
+        const messageDetails = change.fullDocument;
+        pusher.trigger('messages', 'inserted', {
+          name: messageDetails.name,
+          message: messageDetails.message,
+          timestamp: messageDetails.timestamp,
+          received: messageDetails.received,
+        });
+      } else {
+        console.log('Error triggering Pusher')
+      }
+    })
+  })
