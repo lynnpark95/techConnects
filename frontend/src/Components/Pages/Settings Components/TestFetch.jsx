@@ -31,14 +31,15 @@ export default function testFetch() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            backgroundColor: 'turquoise',
           }}
         >
         
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" color={'yellow'}>
             Test GET
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} backgroundColor={'red'}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
