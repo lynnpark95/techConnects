@@ -13,6 +13,9 @@ import Register from './Components/Register';
 import Settings from './Components/Pages/Settings Components/Settings';
 import ContactUs from './Components/Pages/UserHelp/ContactUs';
 import Confirm from './Components/Pages/UserHelp/Confirm';
+// import Login from './Components/Pages/TalkJsComponent/Login';
+import userNetwork from './Components/Pages/TalkJsComponent/userNetwork'
+import TalkMessaging from './Components/Pages/TalkJsComponent/TalkMessaging'
 
 function App() {
   return (
@@ -32,6 +35,9 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/confirm" element={<Confirm />} />
+          {/* <Route path="/talklogin" exact component={Login}/>  */}
+          <Route path="/mynetwork" component={userNetwork}/>
+          <Route path="/messaging" component={TalkMessaging}/>
           
         </Routes>
       </BrowserRouter>

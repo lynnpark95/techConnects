@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,40 +12,41 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from 'axios';
 
+function Register() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+  
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-const defaultTheme = createTheme();
-
-export default function Register() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    try {
+      const response = await axios.post("http://localhost:4444/reg", formData);
+
+      if (response.status === 201) {
+        console.log("User added successfully");
+        // Optionally, you can redirect the user or show a success message.
+      } else {
+        console.error("Registration failed:", response.data);
+      }
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={createTheme()}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -76,9 +77,10 @@ export default function Register() {
                   required
                   fullWidth
                   id="firstName"
-                  // value={first}
                   label="First Name"
                   autoFocus
+                  value={formData.firstName}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -86,10 +88,11 @@ export default function Register() {
                   required
                   fullWidth
                   id="lastName"
-                  // value={last}
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  value={formData.lastName}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -97,10 +100,11 @@ export default function Register() {
                   required
                   fullWidth
                   id="email"
-                  // value={email}
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={formData.email}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -111,15 +115,14 @@ export default function Register() {
                   label="Password"
                   type="password"
                   id="password"
-                  // value={password}
                   autoComplete="new-password"
+                  value={formData.password}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
+                  control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="I agree to let this program steal my identity."
                 />
               </Grid>
@@ -141,8 +144,9 @@ export default function Register() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );
 }
+
+export default Register;
