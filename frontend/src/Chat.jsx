@@ -9,6 +9,7 @@ const chat = ({messages}) => {
             timeStamp: new Date().toUTCString(),
             received: true
         })
+        
         SelectInput("")
     }
 }
