@@ -13,6 +13,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { useState } from "react"
+import { useLogin } from "../hooks/UseLogin"
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -31,14 +34,25 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const {login, error, isLoading} = useLogin()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    await login(email, password)
+  }
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //     email: data.get('email'),
+  //     password: data.get('password'),
+  //   });
+  // };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -84,6 +98,9 @@ export default function SignIn() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                type="email" 
+                onChange={(e) => setEmail(e.target.value)} 
+                value={email} 
               />
               <TextField
                 margin="normal"
@@ -94,6 +111,8 @@ export default function SignIn() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e) => setPassword(e.target.value)} 
+                value={password} 
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -104,7 +123,8 @@ export default function SignIn() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                href='http://localhost:3000/'
+                // Link is preventing login for some reason
+                // href='http://localhost:3000/'
               >
                 Sign In
               </Button>

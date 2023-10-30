@@ -1,5 +1,3 @@
-// MyComponent.js
-
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -8,6 +6,7 @@ import Cards from "./Cards";
 import FullConversationCard from "./FullConversationCard"; // Import FullConversationCard
 import PlusIcon from "./PlusIcon";
 import Header from "../../Header";
+// import { useStateValue } from './StateProvider'; 
 
 function Messaging() {
   const marginLeft = "350px"; // Set your desired margin value here
@@ -93,7 +92,9 @@ function Messaging() {
               border: "2px solid #D3D3D3",
               width: 300,
             }}
-          ></Box>
+          >
+            {/* {messages [messages.length - 1]?.timeStamp} */}
+          </Box>
         </div>
       </div>
 

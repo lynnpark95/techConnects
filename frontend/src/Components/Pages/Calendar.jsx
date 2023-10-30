@@ -38,33 +38,15 @@ const Calendar = () => {
             <Header />
             <Navbar />
             <Box
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                }}
-            >
-                <Typography variant="body2" component="p" className="calendar-title">
-                    {months[currentMonth]} {currentYear} Calendar
-                </Typography>
-
-                <div className="calendar">
-                    <div className="weekdays">
-                        {daysOfWeek.map((day, index) => (
-                            <div key={index} className="weekday">
-                                {day}
-                            </div>
-                        ))}
-                    </div>
-                    <div className="days">
-                        {generateCalendarDays().map((day, index) => (
-                            <div key={index} className="day">
-                                {day !== null ? day : ''}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </Box>
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="body2" component="p" marginLeft={45}>
+            Calendar Test
+            </Typography>
+          </Box>
         </div>
     )
 }

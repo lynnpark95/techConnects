@@ -9,6 +9,7 @@ export const navStyles = {
             boxSizing: 'border-box',
             backgroundColor: '#101F33',
             color: 'rgba(255, 255, 255, 0.7)',
+            overflow: 'hidden'
         },
         '& .Mui-selected': {
             color: red,
