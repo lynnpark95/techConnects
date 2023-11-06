@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "@mui/x-data-grid": "^6.16.2",
-    "axios": "^1.5.1",
-    "firebase": "^10.4.0",
-    "pusher": "^5.1.3",
-    "talkjs": "^0.16.6"
-  }
-}
