@@ -7,9 +7,9 @@ import "firebase/storage";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 var firebaseConfig = {
-  apiKey: "AIzaSyAnpbeWvf_NZi62YakWm1s04hfQPodbEhQ",
+  apiKey: "AIzaSyCtN0bHWoSRN4BE-l7QfyEkVpI_kpopfe0",
   authDomain: "react-fireabase-chat-app.firebaseapp.com",
-  projectId: "techconnects-6c2bd",
+  projectId: "react-fireabase-chat-app",
   storageBucket: "react-fireabase-chat-app.appspot.com",
   messagingSenderId: "880511893822",
   appId: "1:880511893822:web:682c67688e990f6524ac6f",

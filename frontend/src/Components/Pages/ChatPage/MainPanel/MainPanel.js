@@ -141,6 +141,12 @@ export class MainPanel extends Component {
       });
       this.userPostsCount(messagesArray);
     });
+
+    setTimeout(() => {
+      this.setState({
+        messagesLoading: false,
+      });
+    }, 1000);
   };
 
   userPostsCount = (messages) => {
@@ -158,15 +164,20 @@ export class MainPanel extends Component {
     this.props.dispatch(setUserPosts(userPosts));
   };
 
-  renderMessages = (messages) =>
-    messages.length > 0 &&
-    messages.map((message) => (
-      <Message
-        key={message.timestamp}
-        message={message}
-        user={this.props.user}
-      />
-    ));
+  renderMessages = (loading, messages) => {
+    if (loading) return null;
+    return messages.length > 0 ? (
+      messages.map((message) => (
+        <Message
+          key={message.timestamp}
+          message={message}
+          user={this.props.user}
+        />
+      ))
+    ) : (
+      <h7>No new messages</h7>
+    );
+  };
 
   renderTypingUsers = (typingUsers) => {
     return (
@@ -210,8 +221,8 @@ export class MainPanel extends Component {
           {this.renderMessageSkeleton(messagesLoading)}
 
           {searchTerm
-            ? this.renderMessages(searchResults)
-            : this.renderMessages(messages)}
+            ? this.renderMessages(messagesLoading, searchResults)
+            : this.renderMessages(messagesLoading, messages)}
 
           {this.renderTypingUsers(typingUsers)}
           <div ref={(node) => (this.messageEndRef = node)} />

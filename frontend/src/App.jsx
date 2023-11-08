@@ -1,6 +1,12 @@
 import React, { useEffect } from "react";
 import SignIn from "./Components/SignIn";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Calendar from "./Components/Pages/Calendar";
 import Overview from "./Components/Pages/Overview";
@@ -27,28 +33,9 @@ import RegisterPage from "./Components/Pages/RegisterPage/RegisterPage";
 
 function App(props) {
   const navigate = useNavigate();
+  const location = useLocation();
   let dispatch = useDispatch();
   const isLoading = useSelector((state) => state.user.isLoading);
-
-  useEffect(() => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      // if (user) {
-      //   navigate("/");
-      //   dispatch(setUser(user));
-
-      //   // User is signed in, see docs for a list of available properties
-      //   // https://firebase.google.com/docs/reference/js/firebase.User
-      //   const uid = user.uid;
-      //   // ...
-      // } else {
-      navigate("/chatPage");
-      dispatch(setUser(user));
-      // dispatch(clearUser());
-      // User is signed out
-      // ...
-    });
-  }, []);
 
   if (isLoading) {
     return <div>...loading</div>;
@@ -68,7 +55,7 @@ function App(props) {
         <Route path="/contact" element={<ContactUs />} />
 
         <Route path="/bill" element={<Bill />} />
-        <Route path="/chatPage" element={<ChatPage />} />
+        <Route path="/chat" element={<ChatPage />} />
         <Route path="/loginPage" element={<LoginPage />} />
         <Route path="/registerPage" element={<RegisterPage />} />
       </Routes>

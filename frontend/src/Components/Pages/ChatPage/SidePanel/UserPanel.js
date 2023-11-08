@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { IoIosChatboxes } from "react-icons/io";
 import Dropdown from "react-bootstrap/Dropdown";
 import Image from "react-bootstrap/Image";
 import { useDispatch, useSelector } from "react-redux";
@@ -107,11 +106,6 @@ function UserPanel() {
 
   return (
     <div>
-      {/* Logo */}
-      <h3 style={{ color: "white" }}>
-        <IoIosChatboxes /> Chat App
-      </h3>
-
       <div style={{ display: "flex", marginBottom: "1rem" }}>
         <Image
           src={user && user.photoURL}

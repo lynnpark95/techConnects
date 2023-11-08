@@ -1,4 +1,14 @@
-import * as React from "react";
+import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import md5 from "md5";
+import { getDatabase, ref, set } from "firebase/database";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -34,13 +44,54 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const {
+    register,
+    watch,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+  const navigate = useNavigate();
+
+  const [errorFromSubmit, setErrorFromSubmit] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const password = useRef();
+  password.current = watch("password");
+
+  const onSubmit = async (data) => {
+    try {
+      setLoading(true);
+
+      const auth = getAuth();
+      let createdUser = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+
+      await updateProfile(auth.currentUser, {
+        displayName: data.name,
+        photoURL: `http://gravatar.com/avatar/${md5(
+          createdUser.user.email
+        )}?d=identicon`,
+      });
+
+      //Firebase save in DB
+      set(ref(getDatabase(), `users/${createdUser.user.uid}`), {
+        name: createdUser.user.displayName,
+        image: createdUser.user.photoURL,
+      });
+
+      setLoading(false);
+
+      navigate("/signin");
+    } catch (error) {
+      setErrorFromSubmit(error.message);
+      setLoading(false);
+      setTimeout(() => {
+        setErrorFromSubmit("");
+      }, 8000);
+    }
   };
 
   return (
@@ -64,7 +115,7 @@ export default function SignUp() {
           <Box
             component="form"
             noValidate
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
@@ -77,7 +128,14 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  {...register("firstName", { required: true, maxLength: 10 })}
                 />
+                {errors.firstName && errors.firstName.type === "required" && (
+                  <p>This firstName field is required</p>
+                )}
+                {errors.firstName && errors.firstName.type === "maxLength" && (
+                  <p>Your input exceed maximum length</p>
+                )}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -87,7 +145,14 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  {...register("lastName", { required: true, maxLength: 10 })}
                 />
+                {errors.lastName && errors.lastName.type === "required" && (
+                  <p>This lastName field is required</p>
+                )}
+                {errors.lastName && errors.lastName.type === "maxLength" && (
+                  <p>Your input exceed maximum length</p>
+                )}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -97,7 +162,12 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  {...register("email", {
+                    required: true,
+                    pattern: /^\S+@\S+$/i,
+                  })}
                 />
+                {errors.email && <p>This email field is required</p>}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -108,7 +178,37 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  {...register("password", { required: true, minLength: 6 })}
                 />
+                {errors.password && errors.password.type === "required" && (
+                  <p>This password field is required</p>
+                )}
+                {errors.password && errors.password.type === "minLength" && (
+                  <p>Password must have at least 6 characters</p>
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password_confirm"
+                  label="Password Confirm"
+                  type="password"
+                  id="password_confirm"
+                  autoComplete="new-password"
+                  {...register("password_confirm", {
+                    required: true,
+                    validate: (value) => value === password.current,
+                  })}
+                />
+                {errors.password_confirm &&
+                  errors.password_confirm.type === "required" && (
+                    <p>This password confirm field is required</p>
+                  )}
+                {errors.password_confirm &&
+                  errors.password_confirm.type === "validate" && (
+                    <p>The passwords do not match</p>
+                  )}
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
@@ -124,9 +224,12 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={loading}
             >
               Sign Up
             </Button>
+            {errorFromSubmit && <p>{errorFromSubmit}</p>}
+
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/signin" variant="body2">

@@ -1,11 +1,14 @@
-import React from 'react';
-import Navbar from './Components/Navbar Items/Navbar'
+import React from "react";
+import Navbar from "./Components/Navbar Items/Navbar";
+import NeedsLogin from "./Components/NeedsLogin";
 
 const Dashboard = () => {
-    return (
-        <div style={{maginLeft: '500px'}}>
-            <Navbar />
-        </div>
-    )
-}
+  return (
+    <NeedsLogin>
+      <div style={{ maginLeft: "500px" }}>
+        <Navbar />
+      </div>
+    </NeedsLogin>
+  );
+};
 export default Dashboard;

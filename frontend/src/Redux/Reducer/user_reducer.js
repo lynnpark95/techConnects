@@ -2,7 +2,7 @@ import { SET_USER, CLEAR_USER, SET_PHOTO_URL } from "../Actions/types";
 
 const initialUserState = {
   currentUser: null,
-  isLoading: true,
+  isLoading: false,
 };
 
 export default function (state = initialUserState, action) {
