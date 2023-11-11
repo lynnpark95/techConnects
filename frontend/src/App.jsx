@@ -24,6 +24,7 @@ import { setUser, clearUser } from "./Redux/Actions/user_action";
 import ChatPage from "./Components/Pages/ChatPage/ChatPage";
 import LoginPage from "./Components/Pages/LoginPage/LoginPage";
 import RegisterPage from "./Components/Pages/RegisterPage/RegisterPage";
+import Blog from './Components/Pages/WelcomePage/Blog';
 
 // function App() {
 //   return (
@@ -41,6 +42,7 @@ function App(props) {
   } else {
     return (
       <Routes>
+        <Route path="/blog" element={<Blog />} />
         <Route path="/" element={<Dashboard />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/overview" element={<Overview />} />
