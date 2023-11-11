@@ -19,7 +19,6 @@ import Register from "./Components/Register";
 import ContactUs from "./Components/Pages/ContactUs";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import Bill from "./Components/Pages/Bill";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, clearUser } from "./Redux/Actions/user_action";
 import ChatPage from "./Components/Pages/ChatPage/ChatPage";
@@ -47,14 +46,13 @@ function App(props) {
         <Route path="/overview" element={<Overview />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/wallet" element={<Wallet />} />
-        <Route path="/messaging" element={<Messaging />} />
+        {/* <Route path="/messaging" element={<Messaging />} /> */}
         <Route path="/audio-visual" element={<AudioVisual />} />
         <Route path="/history" element={<History />} />
         <Route path="/tech-support" element={<TechSupport />} />
         <Route path="/reg" element={<Register />} />
         <Route path="/contact" element={<ContactUs />} />
 
-        <Route path="/bill" element={<Bill />} />
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/loginPage" element={<LoginPage />} />
         <Route path="/registerPage" element={<RegisterPage />} />

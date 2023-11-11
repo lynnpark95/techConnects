@@ -19,7 +19,10 @@ import { mainNavbarItems } from "./NavbarListItems";
 import { navStyles } from "./navStyles";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useParams, useNavigate } from "react-router-dom";
-import UserPanel from "../Pages/ChatPage/SidePanel/UserPanel";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -28,15 +31,28 @@ const Navbar = () => {
 
   return (
     <Drawer sx={navStyles.drawer} variant="permanent" anchor="left">
-      <UserPanel />
       <Toolbar />
       <div style={{ display: "center" }}>
-        <img src="lama.jpg" alt="logo" />
+        <img src="/navbar items/lama.jpg" alt="logo" />
       </div>
       <div style={{ display: "flex", marginLeft: "100px" }}>
-        <SearchIcon />
-        <SearchIcon sx={{ paddingLeft: "20px" }} />
-        <SearchIcon sx={{ paddingLeft: "20px" }} />
+        <Link to="/general" style={{ textDecoration: "none" }}>
+          <PersonOutlineOutlinedIcon style={{ color: "white" }} />
+        </Link>
+
+        <Link to="/settings" style={{ textDecoration: "none" }}>
+          <SettingsOutlinedIcon
+            sx={{ paddingLeft: "20px" }}
+            style={{ color: "white" }}
+          />
+        </Link>
+
+        <Link to="/notifications" style={{ textDecoration: "none" }}>
+          <NotificationsOutlinedIcon
+            sx={{ paddingLeft: "20px" }}
+            style={{ color: "white" }}
+          />
+        </Link>
       </div>
       <Divider />
       {/* Search bar */}
