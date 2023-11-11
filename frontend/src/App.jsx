@@ -2,7 +2,7 @@ import React from "react";
 import SignIn from "./Components/SignIn";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./Dashboard";
-import Calendar from "./Components/Pages/Calendar";
+import Calendar from "./Components/Pages/CalendarComponents/Calendar";
 import Overview from "./Components/Pages/Overview";
 import Wallet from "./Components/Pages/WalletComponents/Wallet";
 import Messaging from "./Components/Pages/MessagingPage/Messaging";
@@ -11,8 +11,6 @@ import History from "./Components/Pages/HistoryComponents/History";
 import TechSupport from "./Components/Pages/UserHelp/TechSupport";
 import Register from "./Components/Register";
 import ContactUs from "./Components/Pages/ContactUs";
-import userNetwork from "./Components/Pages/TalkJsComponent/userNetwork";
-import TalkMessaging from "./Components/Pages/TalkJsComponent/TalkMessaging";
 import Settings from "./Components/Pages/Settings Components/Settings";
 import Confirm from "./Components/Pages/UserHelp/Confirm";
 import TestFetch from "./Components/Pages/Settings Components/TestFetch";
@@ -37,8 +35,6 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/confirm" element={<Confirm />} />
           {/* <Route path="/talklogin" exact component={Login}/>  */}
-          <Route path="/mynetwork" element={<userNetwork/>}/>
-          <Route path="/messaging" element={<TalkMessaging/>}/>
           <Route path="/test" element={<TestFetch />} />
           
         </Routes>
