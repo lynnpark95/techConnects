@@ -32,24 +32,36 @@ const Navbar = () => {
   return (
     <Drawer sx={navStyles.drawer} variant="permanent" anchor="left">
       <Toolbar />
-      <div style={{ display: "center" }}>
-        <img src="/navbar items/lama.jpg" alt="logo" />
+      <div
+        style={{ display: "flex", alignItems: "center", marginLeft: "110px" }}
+      >
+        <img
+          src="../../logo.png"
+          alt="logo"
+          style={{ width: "100px", height: "100px" }}
+        />
       </div>
-      <div style={{ display: "flex", marginLeft: "100px" }}>
+
+      <div
+        style={{ display: "flex", alignItems: "center", marginLeft: "90px" }}
+      >
         <Link to="/general" style={{ textDecoration: "none" }}>
-          <PersonOutlineOutlinedIcon style={{ color: "white" }} />
+          <PersonOutlineOutlinedIcon
+            sx={{ fontSize: 36 }}
+            style={{ color: "white" }}
+          />
         </Link>
 
         <Link to="/settings" style={{ textDecoration: "none" }}>
           <SettingsOutlinedIcon
-            sx={{ paddingLeft: "20px" }}
+            sx={{ paddingLeft: "20px", fontSize: 50 }}
             style={{ color: "white" }}
           />
         </Link>
 
         <Link to="/notifications" style={{ textDecoration: "none" }}>
           <NotificationsOutlinedIcon
-            sx={{ paddingLeft: "20px" }}
+            sx={{ paddingLeft: "20px", fontSize: 50 }}
             style={{ color: "white" }}
           />
         </Link>
@@ -62,10 +74,12 @@ const Navbar = () => {
           sx={{
             ml: 0,
             flex: 1,
-            width: "400px",
+            width: "300px",
             backgroundColor: "white",
             padding: "4px",
-            marginTop: 5,
+            marginTop: 2,
+            marginLeft: 1,
+            borderRadius: "13px",
           }}
           // You can add onChange and other props for search functionality
         />
