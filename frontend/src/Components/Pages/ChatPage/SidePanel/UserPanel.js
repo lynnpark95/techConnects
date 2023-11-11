@@ -106,10 +106,10 @@ function UserPanel() {
 
   return (
     <div>
-      <div style={{ display: "flex", marginBottom: "1rem" }}>
+      <div style={{ display: "flex", marginBottom: "0rem" }}>
         <Image
           src={user && user.photoURL}
-          style={{ width: "30p", height: "30px", marginTop: "3px" }}
+          style={{ width: "30p", height: "30px", marginTop: "0px" }}
           roundedCircle
         />
 

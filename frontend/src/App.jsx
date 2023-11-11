@@ -7,10 +7,10 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
-import Dashboard from "./Dashboard";
+import Dashboard from "./Components/Dashboard";
 import Calendar from "./Components/Pages/Calendar";
 import Overview from "./Components/Pages/Overview";
-import Wallet from "./Components/Pages/Wallet";
+
 import Messaging from "./Components/Pages/MessagingPage/Messaging";
 import AudioVisual from "./Components/Pages/AudioVisual";
 import History from "./Components/Pages/History";
@@ -46,7 +46,6 @@ function App(props) {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/overview" element={<Overview />} />
         <Route path="/calendar" element={<Calendar />} />
-        <Route path="/wallet" element={<Wallet />} />
         <Route path="/messaging" element={<Messaging />} />
         <Route path="/audio-visual" element={<AudioVisual />} />
         <Route path="/history" element={<History />} />

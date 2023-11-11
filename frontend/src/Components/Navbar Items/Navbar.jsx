@@ -29,7 +29,7 @@ const Navbar = () => {
   return (
     <Drawer sx={navStyles.drawer} variant="permanent" anchor="left">
       <UserPanel />
-      <Toolbar />
+      
       <div style={{ display: "center" }}>
         <img src="lama.jpg" alt="logo" />
       </div>

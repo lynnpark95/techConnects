@@ -1,11 +1,13 @@
 import React from 'react';
-import Navbar from '../Navbar Items/Navbar';
+import Navbar from './Navbar Items/Navbar';
 import { Typography } from '@mui/material';
 import Box from "@mui/material/Box";
+import Header from './Header'; 
 
-const Wallet = () => {
+const Dashboard = () => {
     return (
         <div style={{maginLeft: '500px'}}>
+          <Header />
             <Navbar />
             <Box
             sx={{
@@ -14,10 +16,10 @@ const Wallet = () => {
             }}
           >
             <Typography variant="body2" component="p" marginLeft={45}>
-            Wallet Test
+            Dashboard Test
             </Typography>
           </Box>
         </div>
     )
 }
-export default Wallet;
+export default Dashboard;
