@@ -70,7 +70,7 @@ const Navbar = () => {
       {/* Search bar */}
       <div>
         <InputBase
-          placeholder="Search here.."
+          placeholder="  Search here.."
           sx={{
             ml: 0,
             flex: 1,

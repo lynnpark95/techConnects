@@ -9,7 +9,7 @@ function SidePanel() {
   return (
     <div
       style={{
-        backgroundColor: "#7B83EB",
+        backgroundColor: "#4B87C5",
         padding: "2rem",
         minHeight: "100vh",
         color: "white",
@@ -18,7 +18,7 @@ function SidePanel() {
     >
       {/* Logo */}
       <h3 style={{ color: "white" }}>
-        <IoIosChatboxes /> Chat App
+        <IoIosChatboxes /> Chat
       </h3>
 
       <UserPanel />
