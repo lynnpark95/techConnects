@@ -123,6 +123,7 @@ export class ChatRooms extends Component {
   handleClose = () => this.setState({ show: false });
   handleShow = () => this.setState({ show: true });
 
+  //authentication
   handleSubmit = (e) => {
     e.preventDefault();
     const { name, description } = this.state;

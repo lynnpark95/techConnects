@@ -49,6 +49,6 @@ export const mainNavbarItems = [
     id: 8,
     icon: <HelpIcon />,
     label: "Tech Support",
-    route: "ContactUs",
+    route: "tech-support",
   },
 ];
