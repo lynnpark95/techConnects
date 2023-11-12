@@ -12,7 +12,7 @@ import Calendar from "./Components/Pages/Calendar";
 import Overview from "./Components/Pages/Overview";
 
 import Messaging from "./Components/Pages/MessagingPage/Messaging";
-import AudioVisual from "./Components/Pages/AudioVisual";
+
 import History from "./Components/Pages/HistoryComponents/History";
 import TechSupport from "./Components/Pages/UserHelp/TechSupport";
 import Register from "./Components/Register";
@@ -45,13 +45,8 @@ function App(props) {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/overview" element={<Overview />} />
         <Route path="/calendar" element={<Calendar />} />
-<<<<<<< HEAD
         <Route path="/messaging" element={<Messaging />} />
-=======
-        <Route path="/wallet" element={<Wallet />} />
-        {/* <Route path="/messaging" element={<Messaging />} /> */}
->>>>>>> 0ca06e4cea623aa1fa728c84a374082975d57e4c
-        <Route path="/audio-visual" element={<AudioVisual />} />
+
         <Route path="/history" element={<History />} />
         <Route path="/tech-support" element={<TechSupport />} />
         <Route path="/reg" element={<Register />} />

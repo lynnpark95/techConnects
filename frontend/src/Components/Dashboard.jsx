@@ -1,17 +1,3 @@
-<<<<<<< HEAD:frontend/src/Components/Dashboard.jsx
-import React from 'react';
-import Navbar from './Navbar Items/Navbar';
-import { Typography } from '@mui/material';
-import Box from "@mui/material/Box";
-import Header from './Header'; 
-
-const Dashboard = () => {
-    return (
-        <div style={{maginLeft: '500px'}}>
-          <Header />
-            <Navbar />
-            <Box
-=======
 import * as React from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -30,10 +16,10 @@ import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import PersonIcon from "@mui/icons-material/Person";
-import Balance from "./Billing/Balance";
-import Funds from "./Billing/Funds";
-import Transaction from "./Billing/Transaction";
-import Navbar from "../Navbar Items/Navbar";
+import Balance from "./Pages/Billing/Balance";
+import Funds from "./Pages/Billing/Funds";
+import Transaction from "./Pages/Billing/Transaction";
+import Navbar from "./Navbar Items/Navbar";
 
 function Copyright(props) {
   return (
@@ -115,22 +101,11 @@ export default function Wallet() {
         <CssBaseline />
         <AppBar position="absolute" open={open}>
           <Toolbar
->>>>>>> 0ca06e4cea623aa1fa728c84a374082975d57e4c:frontend/src/Components/Pages/Wallet.jsx
             sx={{
               display: "flex",
               justifyContent: "space-between",
             }}
           >
-<<<<<<< HEAD:frontend/src/Components/Dashboard.jsx
-            <Typography variant="body2" component="p" marginLeft={45}>
-            Dashboard Test
-            </Typography>
-          </Box>
-        </div>
-    )
-}
-export default Dashboard;
-=======
             <div>
               <IconButton edge="start" color="inherit" aria-label="open drawer">
                 <MenuIcon />
@@ -248,4 +223,3 @@ export default Dashboard;
     </ThemeProvider>
   );
 }
->>>>>>> 0ca06e4cea623aa1fa728c84a374082975d57e4c:frontend/src/Components/Pages/Wallet.jsx

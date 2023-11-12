@@ -1,28 +1,20 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import SearchIcon from "@mui/icons-material/Search"; // Import SearchIcon
 import InputBase from "@mui/material/InputBase"; // Import InputBase
 import { mainNavbarItems } from "./NavbarListItems";
 import { navStyles } from "./navStyles";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useParams, useNavigate } from "react-router-dom";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import { Link } from "react-router-dom";
+import UserPanel from "../Pages/ChatPage/SidePanel/UserPanel";
 
 const drawerWidth = 240;
 
@@ -31,22 +23,10 @@ const Navbar = () => {
 
   return (
     <Drawer sx={navStyles.drawer} variant="permanent" anchor="left">
-<<<<<<< HEAD
       <UserPanel />
       
       <div style={{ display: "center" }}>
         <img src="lama.jpg" alt="logo" />
-=======
-      <Toolbar />
-      <div
-        style={{ display: "flex", alignItems: "center", marginLeft: "110px" }}
-      >
-        <img
-          src="../../logo.png"
-          alt="logo"
-          style={{ width: "100px", height: "100px" }}
-        />
->>>>>>> 0ca06e4cea623aa1fa728c84a374082975d57e4c
       </div>
 
       <div
