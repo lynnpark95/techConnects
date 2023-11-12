@@ -7,8 +7,8 @@ export const navStyles = {
         '& .MuiDrawer-paper': {
             width: 320,
             boxSizing: 'border-box',
-            backgroundColor: '#101F33',
-            color: 'rgba(255, 255, 255, 0.7)',
+            backgroundColor: '#4B87C5',
+            color: 'rgba(255, 255, 255)',
         },
         '& .Mui-selected': {
             color: red,
