@@ -8,7 +8,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import Dashboard from "./Components/Dashboard";
-import Calendar from "./Components/Pages/Calendar";
+import Calendar from "./Components/Pages/CalendarComponents/Calendar";
 import Overview from "./Components/Pages/Overview";
 
 import Messaging from "./Components/Pages/MessagingPage/Messaging";
