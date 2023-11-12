@@ -15,18 +15,39 @@ const FullCalendar = () => {
     const calendar = new Calendar(calendarEl, {
       plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
       headerToolbar: {
-        left: 'prev,next today',
+        left: 'prev next',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
       },
       initialView: 'dayGridMonth',
-      selectable: true, 
-      select: function(arg) {
-        
+      selectable: true,
+      select: function (arg) {
         alert('You clicked on: ' + arg.startStr);
-        // integrate  actual booking logic, e.g., API calls or modals
-        
-      }
+        // Your booking logic here
+      },
+      dayCellContent: function (arg) {
+        return arg.dayNumberText;
+      },
+      dayCellDidMount: function (arg) {
+        if (arg.el) {
+          arg.el.style.backgroundColor = '#edf3f9';
+      
+          const dayNumber = arg.el.querySelector('.fc-daygrid-day-number');
+          if (dayNumber) {
+            dayNumber.style.textDecoration = 'none';
+            dayNumber.style.fontSize = '20px';
+          }
+      
+          const dayNames = arg.el.querySelectorAll('.fc-col-header-cell-cushion');
+          if (dayNames) {
+            for (let i = 0; i < dayNames.length; i++) {
+              dayNames[i].style.fontSize = '16px';
+            }
+          }
+        }
+      },
+      
+      dayCellClassNames: 'non-link' 
     });
 
     calendar.render();
@@ -36,7 +57,13 @@ const FullCalendar = () => {
     };
   }, []);
 
-  return <div ref={calendarRef} />;
+  return (
+    <div
+      ref={calendarRef}
+      style={{ marginRight: "20px", marginTop: "10px" }}
+      className="non-link"
+    />
+  );
 };
 
 export default FullCalendar;

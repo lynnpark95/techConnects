@@ -6,7 +6,7 @@ import FullCalendar from './FullCalendar';
 
 const Calendar = () => {
     return (
-        <div style={{marginLeft: '325px'}}>
+        <div style={{marginLeft: '330px'}}>
             <Navbar />
             <Box
               sx={{
