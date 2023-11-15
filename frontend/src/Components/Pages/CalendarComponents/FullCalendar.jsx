@@ -23,7 +23,7 @@ const FullCalendar = () => {
       selectable: true,
       select: function (arg) {
         alert('You clicked on: ' + arg.startStr);
-        // Your booking logic here
+        // ADD BOOKING LOGIC
       },
       dayCellContent: function (arg) {
         return arg.dayNumberText;
@@ -38,10 +38,12 @@ const FullCalendar = () => {
             dayNumber.style.fontSize = '20px';
           }
       
-          const dayNames = arg.el.querySelectorAll('.fc-col-header-cell-cushion');
+          //Still trying to get this to work
+          
+          const dayNames = arg.el.querySelectorAll('.fc-col-header-cell fc-day');
           if (dayNames) {
             for (let i = 0; i < dayNames.length; i++) {
-              dayNames[i].style.fontSize = '16px';
+              dayNames[i].style.fontSize = '40px';
             }
           }
         }

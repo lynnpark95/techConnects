@@ -7,9 +7,9 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Header from "../Header";
+import Header from "../../Header";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Navbar from "../Navbar Items/Navbar";
+import Navbar from "../../Navbar Items/Navbar";
 
 function Copyright(props) {
   return (
@@ -19,7 +19,7 @@ function Copyright(props) {
       align="center"
       {...props}
     >
-      {"Copyright © "}
+      {"Copyright Â© "}
       <Link color="inherit" href="https://mui.com/">
         Your Website
       </Link>{" "}
@@ -32,17 +32,38 @@ function Copyright(props) {
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
-
+//tylerh
 export default function ContactUs() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
 
+    try {
+      const response = await fetch('http://localhost:3001/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: data.get('firstName'),
+          lastName: data.get('lastName'),
+          email: data.get('email'),
+          phone: data.get('phone'),
+          message: data.get('message'),
+        }),
+      });
+
+      if (response.ok) {
+        console.log('Email sent successfully');
+        // Redirect or show a success message as needed
+      } else {
+        console.error('Failed to send email');
+      }
+    } catch (error) {
+      console.error('Error sending email', error);
+    }
+  };
+//end tylerh
   return (
     <ThemeProvider theme={defaultTheme}>
       <Header />
