@@ -16,6 +16,7 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import { Link } from "react-router-dom";
 import UserPanel from "../Pages/ChatPage/SidePanel/UserPanel";
 
+
 const drawerWidth = 220;
 
 const Navbar = () => {

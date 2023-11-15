@@ -11,7 +11,7 @@ import {
   getDownloadURL,
   uploadBytesResumable,
 } from "firebase/storage";
-import WalletIcon from "@mui/icons-material/Wallet";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function UserPanel() {
   const user = useSelector((state) => state.user.currentUser);
@@ -121,7 +121,7 @@ function UserPanel() {
             style={{ background: "red", boder: "0px", width:"60px" }}
             id="dropdown-basic"
           >
-            <WalletIcon />
+            <LogoutIcon />
             {user && user.displayName}
           </Dropdown.Toggle>
 
