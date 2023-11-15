@@ -1,3 +1,4 @@
+// MainFeaturedPost.js
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Paper from '@mui/material/Paper';
@@ -11,11 +12,11 @@ function MainFeaturedPost(props) {
 
   return (
     <Paper
-    sx={{
+      sx={{
         position: 'relative',
         backgroundColor: 'grey.800',
         color: '#fff',
-        mb: 4, // Adjust the margin-bottom value to make it taller
+        mb: 4,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
@@ -24,17 +25,17 @@ function MainFeaturedPost(props) {
     >
       {<img style={{ display: 'none' }} src={post.image} alt={post.imageText} />}
       <Box
-        sx={{
-          position: 'absolute',
-          top: 0,
-          bottom: 0,
-          right: 0,
-          left: 0,
-          backgroundColor: 'rgba(0,0,0,.3)',
-        }}
+  sx={{
+    position: 'relative',
+    p: { xs: 3, md: 6 },
+    pr: { md: 0 },
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center', 
+  }}
       />
-      <Grid container>
-        <Grid item md={2}> 
+    <Grid container>
+        <Grid item md={2}>
           <Box
             sx={{
               position: 'relative',
@@ -42,15 +43,13 @@ function MainFeaturedPost(props) {
               pr: { md: 0 },
             }}
           >
-            <Typography component="h1" variant="h3" color="inherit" gutterBottom>
-              {post.title}
-            </Typography>
-            <Typography variant="h5" color="inherit" paragraph>
-              {post.description}
-            </Typography>
-            <Link variant="subtitle1" href="#">
-              
-            </Link>
+           <Typography component="h1" variant="h3" color="inherit" gutterBottom paragraph style={{ whiteSpace: 'nowrap', paddingLeft: '365px', paddingBottom: '100px' }}>
+            {post.title}
+          </Typography>
+          <Typography variant="h5" color="inherit" paragraph style={{ whiteSpace: 'nowrap', paddingLeft: '85px', paddingBottom: '60px' }}>
+            {post.description}
+          </Typography>
+            <Link variant="subtitle1" href="#"></Link>
           </Box>
         </Grid>
       </Grid>

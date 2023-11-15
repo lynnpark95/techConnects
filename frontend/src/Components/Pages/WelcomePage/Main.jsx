@@ -27,12 +27,12 @@ function Main(props) {
             </div>
           ))
         ) : (
-          // Add a welcome message here
           <Typography variant="subtitle1" gutterBottom>
             <span style={{ fontFamily: 'YourDesiredFont', fontSize: '18px' }}>
               Empowering Seamless Care Collaboration<br /><br />
               At Lama Innovationz, we are dedicated to revolutionizing the care experience for care recipients, caregivers, and sponsors alike. Our comprehensive care management system is designed to streamline communication, enhance coordination, and provide real-time insights, all in one secure and user-friendly platform. <br /><br />
-              Features: <br /><br />
+              <b>Features:</b> <br /><br />
+
               1. Centralized Information: Say goodbye to scattered information. Our platform consolidates all essential care-related details, ensuring everyone is on the same page.<br /><br />
               2. Simplified Communication: Communicate effortlessly through our intuitive messaging system. Stay connected and informed, making caregiving a cohesive and collaborative effort.<br /><br />
               3. Real-time Updates: Stay updated with live tracking and notifications. Our system provides real-time insights, so you're always in the loop about care-related activities.<br /><br />

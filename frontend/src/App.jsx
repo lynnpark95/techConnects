@@ -12,7 +12,6 @@ import Calendar from "./Components/Pages/Calendar";
 import Overview from "./Components/Pages/Overview";
 import Wallet from "./Components/Pages/Wallet";
 import Messaging from "./Components/Pages/MessagingPage/Messaging";
-import AudioVisual from "./Components/Pages/AudioVisual";
 import History from "./Components/Pages/HistoryComponents/History";
 import TechSupport from "./Components/Pages/UserHelp/TechSupport";
 import Register from "./Components/Register";
@@ -24,12 +23,9 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, clearUser } from "./Redux/Actions/user_action";
 import ChatPage from "./Components/Pages/ChatPage/ChatPage";
-<<<<<<< HEAD
-import LoginPage from "./Components/Pages/LoginPage/LoginPage";
-import RegisterPage from "./Components/Pages/RegisterPage/RegisterPage";
-import Blog from './Components/Pages/WelcomePage/Blog';
-=======
->>>>>>> origin/Master
+import Welcome from './Components/Pages/WelcomePage/Welcome';
+
+
 
 // function App() {
 //   return (
@@ -47,14 +43,13 @@ function App(props) {
   } else {
     return (
       <Routes>
-        <Route path="/blog" element={<Blog />} />
+        <Route path="/welcome" element={<Welcome />} />
         <Route path="/" element={<Dashboard />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/overview" element={<Overview />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/wallet" element={<Wallet />} />
         {/* <Route path="/messaging" element={<Messaging />} /> */}
-        <Route path="/audio-visual" element={<AudioVisual />} />
         <Route path="/history" element={<History />} />
         <Route path="/tech-support" element={<TechSupport />} />
         <Route path="/reg" element={<Register />} />
