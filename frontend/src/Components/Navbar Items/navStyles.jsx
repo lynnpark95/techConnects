@@ -5,7 +5,7 @@ export const navStyles = {
         width: 320,
         flexShrink: 0,
         '& .MuiDrawer-paper': {
-            width: 320,
+            width: 310,
             boxSizing: 'border-box',
             backgroundColor: '#4B87C5',
             color: 'rgba(255, 255, 255)',

@@ -16,7 +16,7 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import { Link } from "react-router-dom";
 import UserPanel from "../Pages/ChatPage/SidePanel/UserPanel";
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Navbar = () => {
   return (
     <Drawer sx={navStyles.drawer} variant="permanent" anchor="left">
       <UserPanel />
-      
+
       <div
         style={{ display: "flex", alignItems: "center", marginLeft: "110px" }}
       >
@@ -61,7 +61,7 @@ const Navbar = () => {
       </div>
       <Divider />
       {/* Search bar */}
-      
+
       <List
         sx={{
           marginTop: 0,

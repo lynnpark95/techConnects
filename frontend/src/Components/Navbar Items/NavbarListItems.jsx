@@ -1,4 +1,3 @@
-
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import WalletIcon from "@mui/icons-material/Wallet";
@@ -11,24 +10,24 @@ export const mainNavbarItems = [
     id: 1,
     icon: <CalendarMonthIcon />,
     label: "Calendar",
-    route: "calendar",
+    route: "/calendar",
   },
   {
     id: 2,
     icon: <WalletIcon />,
     label: "Wallet",
-    route: "wallet",
+    route: "/wallet",
   },
   {
     id: 3,
     icon: <MessageIcon />,
     label: "Messaging",
-    route: "chat",
+    route: "/chat",
   },
   {
     id: 4,
     icon: <HelpIcon />,
     label: "Tech Support",
-    route: "tech-support",
+    route: "/tech-support",
   },
 ];
