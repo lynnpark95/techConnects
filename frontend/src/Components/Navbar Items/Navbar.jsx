@@ -25,8 +25,14 @@ const Navbar = () => {
     <Drawer sx={navStyles.drawer} variant="permanent" anchor="left">
       <UserPanel />
       
-      <div style={{ display: "center" }}>
-        <img src="lama.jpg" alt="logo" />
+      <div
+        style={{ display: "flex", alignItems: "center", marginLeft: "110px" }}
+      >
+        <img
+          src="../../logo.png"
+          alt="logo"
+          style={{ width: "100px", height: "100px" }}
+        />
       </div>
 
       <div
@@ -55,25 +61,10 @@ const Navbar = () => {
       </div>
       <Divider />
       {/* Search bar */}
-      <div>
-        <InputBase
-          placeholder="Search here.."
-          sx={{
-            ml: 0,
-            flex: 1,
-            width: "300px",
-            backgroundColor: "white",
-            padding: "4px",
-            marginTop: 2,
-            marginLeft: 1,
-            borderRadius: "13px",
-          }}
-          // You can add onChange and other props for search functionality
-        />
-      </div>
+      
       <List
         sx={{
-          marginTop: 5,
+          marginTop: 0,
         }}
       >
         {/* Your existing list items */}

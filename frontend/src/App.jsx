@@ -9,11 +9,11 @@ import {
 } from "react-router-dom";
 import Dashboard from "./Components/Dashboard";
 import Calendar from "./Components/Pages/CalendarComponents/Calendar";
-import Overview from "./Components/Pages/Overview";
+
 
 import Messaging from "./Components/Pages/MessagingPage/Messaging";
 
-import History from "./Components/Pages/HistoryComponents/History";
+
 import TechSupport from "./Components/Pages/UserHelp/TechSupport";
 import Register from "./Components/Register";
 import Settings from "./Components/Pages/Setting Components/Settings";
@@ -43,11 +43,11 @@ function App(props) {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/overview" element={<Overview />} />
+        
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/messaging" element={<Messaging />} />
 
-        <Route path="/history" element={<History />} />
+        
         <Route path="/tech-support" element={<TechSupport />} />
         <Route path="/reg" element={<Register />} />
         <Route path="/contact" element={<ContactUs />} />

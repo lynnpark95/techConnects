@@ -8,37 +8,25 @@ import HelpIcon from "@mui/icons-material/Help";
 
 export const mainNavbarItems = [
   {
-    id: 2,
-    icon: <DashboardIcon />,
-    label: "Overview",
-    route: "overview",
-  },
-  {
-    id: 3,
+    id: 1,
     icon: <CalendarMonthIcon />,
     label: "Calendar",
     route: "calendar",
   },
   {
-    id: 4,
+    id: 2,
     icon: <WalletIcon />,
     label: "Wallet",
     route: "wallet",
   },
   {
-    id: 5,
+    id: 3,
     icon: <MessageIcon />,
     label: "Messaging",
     route: "chat",
   },
   {
-    id: 7,
-    icon: <HistoryIcon />,
-    label: "History",
-    route: "history",
-  },
-  {
-    id: 8,
+    id: 4,
     icon: <HelpIcon />,
     label: "Tech Support",
     route: "tech-support",
