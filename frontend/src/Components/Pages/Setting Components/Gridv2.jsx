@@ -48,7 +48,7 @@ const linkStyles = {
 };
 
 const boxData = [
-  { label: "Account", link: "/general", icon: <MailIcon style={iconStyles} /> },
+  { label: "Account", link: "/profile", icon: <MailIcon style={iconStyles} /> },
   { label: "Notifications", link: "/notifications", icon: <NotificationsIcon style={iconStyles} /> },
   { label: "Language", link: "/language", icon: <TranslateIcon style={iconStyles} /> },
   { label: "Help", link: "/contact", icon: <HelpIcon style={iconStyles} /> },

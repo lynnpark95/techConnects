@@ -18,7 +18,7 @@ import Register from "./Components/Register";
 import Settings from "./Components/Pages/Setting Components/Settings";
 import ContactUs from "./Components/Pages/UserHelp/ContactUs";
 import Confirm from "./Components/Pages/UserHelp/Confirm";
-
+import Profile from "./Components/Pages/UserProfile/Profile";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, clearUser } from "./Redux/Actions/user_action";
@@ -57,6 +57,8 @@ function App(props) {
         <Route path="/settings" element={<Settings />} />
         <Route path="/confirm" element={<Confirm />} />
         <Route path="/chat" element={<ChatPage />} />
+        <Route path="/profile" element={<Profile />} />
+  
       </Routes>
     );
     //   </BrowserRouter>
