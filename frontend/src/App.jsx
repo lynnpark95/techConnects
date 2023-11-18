@@ -11,7 +11,7 @@ import {
 import Calendar from "./Components/Pages/CalendarComponents/Calendar";
 import Wallet from "./Components/Pages/Wallet";
 import Messaging from "./Components/Pages/MessagingPage/Messaging";
-import History from "./Components/Pages/HistoryComponents/History";
+
 import TechSupport from "./Components/Pages/UserHelp/TechSupport";
 import Register from "./Components/Register";
 import Settings from "./Components/Pages/Setting Components/Settings";
@@ -22,9 +22,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, clearUser } from "./Redux/Actions/user_action";
 import ChatPage from "./Components/Pages/ChatPage/ChatPage";
-import Welcome from './Components/Pages/WelcomePage/Welcome';
-
-
+// import Welcome from "./Components/Pages/WelcomePage/Welcome";
 
 // function App() {
 //   return (
@@ -42,13 +40,13 @@ function App(props) {
   } else {
     return (
       <Routes>
-        <Route path="/welcome" element={<Welcome />} />
+        {/* <Route path="/welcome" element={<Welcome />} /> */}
         <Route path="/" element={<Calendar />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/wallet" element={<Wallet />} />
         {/* <Route path="/messaging" element={<Messaging />} /> */}
-        <Route path="/history" element={<History />} />
+
         <Route path="/tech-support" element={<TechSupport />} />
         <Route path="/reg" element={<Register />} />
         <Route path="/contact" element={<ContactUs />} />
@@ -56,7 +54,6 @@ function App(props) {
         <Route path="/confirm" element={<Confirm />} />
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/profile" element={<Profile />} />
-  
       </Routes>
     );
     //   </BrowserRouter>
