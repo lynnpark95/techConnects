@@ -7,9 +7,8 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
-import Dashboard from "./Dashboard";
-import Calendar from "./Components/Pages/Calendar";
-import Overview from "./Components/Pages/Overview";
+
+import Calendar from "./Components/Pages/CalendarComponents/Calendar";
 import Wallet from "./Components/Pages/Wallet";
 import Messaging from "./Components/Pages/MessagingPage/Messaging";
 import History from "./Components/Pages/HistoryComponents/History";
@@ -44,9 +43,8 @@ function App(props) {
     return (
       <Routes>
         <Route path="/welcome" element={<Welcome />} />
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<Calendar />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/overview" element={<Overview />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/wallet" element={<Wallet />} />
         {/* <Route path="/messaging" element={<Messaging />} /> */}
