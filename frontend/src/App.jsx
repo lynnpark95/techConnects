@@ -7,23 +7,20 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
-import Dashboard from "./Dashboard";
-import Calendar from "./Components/Pages/Calendar";
-import Overview from "./Components/Pages/Overview";
+
+import Calendar from "./Components/Pages/CalendarComponents/Calendar";
 import Wallet from "./Components/Pages/Wallet";
-// import Messaging from "./Components/Pages/MessagingPage/Messaging";
-import AudioVisual from "./Components/Pages/AudioVisual";
-import History from "./Components/Pages/HistoryComponents/History";
 import TechSupport from "./Components/Pages/UserHelp/TechSupport";
 import Register from "./Components/Register";
 import Settings from "./Components/Pages/Setting Components/Settings";
 import ContactUs from "./Components/Pages/UserHelp/ContactUs";
 import Confirm from "./Components/Pages/UserHelp/Confirm";
-
+import Profile from "./Components/Pages/UserProfile/Profile";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, clearUser } from "./Redux/Actions/user_action";
 import ChatPage from "./Components/Pages/ChatPage/ChatPage";
+import Welcome from "./Components/Pages/WelcomePage/Welcome";
 
 // function App() {
 //   return (
@@ -41,20 +38,20 @@ function App(props) {
   } else {
     return (
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        {/* <Route path="/welcome" element={<Welcome />} /> */}
+        <Route path="/" element={<Calendar />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/overview" element={<Overview />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/wallet" element={<Wallet />} />
         {/* <Route path="/messaging" element={<Messaging />} /> */}
-        <Route path="/audio-visual" element={<AudioVisual />} />
-        <Route path="/history" element={<History />} />
+
         <Route path="/tech-support" element={<TechSupport />} />
         <Route path="/reg" element={<Register />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/confirm" element={<Confirm />} />
         <Route path="/chat" element={<ChatPage />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     );
     //   </BrowserRouter>
