@@ -11,8 +11,7 @@ import History from "./Components/Pages/HistoryComponents/History";
 import TechSupport from "./Components/Pages/UserHelp/TechSupport";
 import Register from "./Components/Register";
 import ContactUs from "./Components/Pages/ContactUs";
-import userNetwork from "./Components/Pages/TalkJsComponent/userNetwork";
-import TalkMessaging from "./Components/Pages/TalkJsComponent/TalkMessaging";
+import Album from "./Album";
 import Settings from "./Components/Pages/Settings Components/Settings";
 import Confirm from "./Components/Pages/UserHelp/Confirm";
 import TestFetch from "./Components/Pages/Settings Components/TestFetch";
@@ -44,9 +43,11 @@ function App() {
           <Route path="/confirm" element={<Confirm />} />
           {/* <Route path="/talklogin" exact component={Login}/>  */}
           <Route path="/mynetwork" element={<userNetwork/>}/>
-          <Route path="/messaging" element={<TalkMessaging/>}/>
+          
           <Route path="/test" element={<TestFetch />} />
           
+        
+
         </Routes>
       </BrowserRouter>
     </div>
