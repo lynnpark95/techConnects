@@ -8,7 +8,6 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -70,17 +69,22 @@ export default function SignUp() {
       );
 
       await updateProfile(auth.currentUser, {
-        displayName: data.name,
+        displayName: data.firstName,
         photoURL: `http://gravatar.com/avatar/${md5(
           createdUser.user.email
         )}?d=identicon`,
       });
 
       //Firebase save in DB
-      set(ref(getDatabase(), `users/${createdUser.user.uid}`), {
-        name: createdUser.user.displayName,
+      const db = getDatabase();
+      const userRef = ref(db, `users/${createdUser.user.uid}`);
+      const userData = {
+        name: data.firstName,
         image: createdUser.user.photoURL,
-      });
+      };
+
+      console.log('User data to be saved: ', userData);
+      await set(userRef, userData);
 
       setLoading(false);
 
