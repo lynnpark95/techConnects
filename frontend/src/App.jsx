@@ -22,7 +22,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, clearUser } from "./Redux/Actions/user_action";
 import ChatPage from "./Components/Pages/ChatPage/ChatPage";
-// import Welcome from "./Components/Pages/WelcomePage/Welcome";
+import Welcome from "./Components/Pages/WelcomePage/Welcome";
 
 // function App() {
 //   return (
