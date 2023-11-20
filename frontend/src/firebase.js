@@ -9,7 +9,7 @@ import "firebase/storage";
 var firebaseConfig = {
   apiKey: "AIzaSyCtN0bHWoSRN4BE-l7QfyEkVpI_kpopfe0",
   authDomain: "react-fireabase-chat-app.firebaseapp.com",
-  projectId: "react-fireabase-chat-app", // Update this line
+  projectId: "react-fireabase-chat-app",
   storageBucket: "react-fireabase-chat-app.appspot.com",
   messagingSenderId: "880511893822",
   appId: "1:880511893822:web:682c67688e990f6524ac6f",
