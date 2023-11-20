@@ -1,18 +1,15 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
+import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Header from "../Header";
+import Header from "../../Header";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Navbar from "../../Navbar Items/Navbar";
 
 function Copyright(props) {
   return (
@@ -22,7 +19,7 @@ function Copyright(props) {
       align="center"
       {...props}
     >
-      {"Copyright © "}
+      {"Copyright Â© "}
       <Link color="inherit" href="https://mui.com/">
         Your Website
       </Link>{" "}
@@ -35,36 +32,60 @@ function Copyright(props) {
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
-
+//tylerh
 export default function ContactUs() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
 
+    try {
+      const response = await fetch('http://localhost:3001/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: data.get('firstName'),
+          lastName: data.get('lastName'),
+          email: data.get('email'),
+          phone: data.get('phone'),
+          message: data.get('message'),
+        }),
+      });
+
+      if (response.ok) {
+        console.log('Email sent successfully');
+        // Redirect or show a success message as needed
+      } else {
+        console.error('Failed to send email');
+      }
+    } catch (error) {
+      console.error('Error sending email', error);
+    }
+  };
+//end tylerh
   return (
     <ThemeProvider theme={defaultTheme}>
       <Header />
-      <Container component="main" maxWidth="xs">
+      <Navbar />
+      <Container component="main" maxWidth="md" width="100%">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 12,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            marginLeft: 30,
+            marginRight: 0,
           }}
         >
           <Typography component="h1" variant="h2">
             Contact Us
           </Typography>
           <Typography component="p" variant="p">
-            Any questions or remarks? Just write us a message! We will get back
-            to you as soon as possible.
+            Any questions or concerns? Please write us a message, and we will
+            get back to you as soon as possible.
           </Typography>
           <Box
             component="form"
@@ -121,36 +142,26 @@ export default function ContactUs() {
                   id="message"
                   label="Write Your Message"
                   name="message"
+                  multiline // Enable multiline input
+                  rows={4} // Adjust the number of rows as needed
                   autoComplete="message"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  sx={{ minHeight: "120px" }} // Customize the minimum height
                 />
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
+            <Link to="/confirm">
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Send Message
+              </Button>
+            </Link>
+            <Grid container justifyContent="flex-end"></Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );
