@@ -7,27 +7,16 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
-
 import Calendar from "./Components/Pages/CalendarComponents/Calendar";
 import Wallet from "./Components/Pages/Wallet";
-import Messaging from "./Components/Pages/MessagingPage/Messaging";
-
 import TechSupport from "./Components/Pages/UserHelp/TechSupport";
 import Register from "./Components/Register";
 import Settings from "./Components/Pages/Setting Components/Settings";
 import ContactUs from "./Components/Pages/UserHelp/ContactUs";
-import Confirm from "./Components/Pages/UserHelp/Confirm";
 import Profile from "./Components/Pages/UserProfile/Profile";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, clearUser } from "./Redux/Actions/user_action";
 import ChatPage from "./Components/Pages/ChatPage/ChatPage";
 import Welcome from "./Components/Pages/WelcomePage/Welcome";
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <BrowserRouter>
 
 function App(props) {
   const navigate = useNavigate();
@@ -50,13 +39,9 @@ function App(props) {
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/confirm" element={<Confirm />} />
-        {/* <Route path="/messaging" element={<Messaging />} /> */}
       </Routes>
     );
-    //   </BrowserRouter>
-    // </div>
-    // );
+    
   }
 }
 
