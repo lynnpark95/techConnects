@@ -57,7 +57,7 @@ export default function SignIn() {
       console.log(email, password);
       const result = await signInWithEmailAndPassword(auth, email, password);
       console.log("result", result);
-      navigate("/");
+      navigate("/calendar");
     } catch (error) {
       // TODO: error handle
     }
@@ -68,7 +68,7 @@ export default function SignIn() {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       console.log("Google sign-in result", result);
-      navigate("/");
+      navigate("/calendar");
     } catch (error) {
       // TODO: error handle
     }

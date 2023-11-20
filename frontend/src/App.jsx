@@ -38,8 +38,8 @@ function App(props) {
   } else {
     return (
       <Routes>
-        {/* <Route path="/welcome" element={<Welcome />} /> */}
-        <Route path="/" element={<Calendar />} />
+        <Route path="/" element={<Welcome />} />
+        <Route path="/calender" element={<Calendar />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/wallet" element={<Wallet />} />
