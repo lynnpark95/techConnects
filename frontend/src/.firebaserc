@@ -1,6 +1,7 @@
 {
   "projects": {
-    "test": "techconnect-e0e01"
+    "test": "react-fireabase-chat-app",
+    "staging": "techconnect-e0e01"
   },
   "targets": {},
   "etags": {}

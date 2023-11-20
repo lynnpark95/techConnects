@@ -86,6 +86,7 @@ export const AccountProfile = () => {
                 borderRadius: '50%', // Make it circular
               }}
             />
+            // Add what we want populated here
             <Typography gutterBottom variant="h5">
               {user.name}
             </Typography>

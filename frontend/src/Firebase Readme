@@ -1,0 +1,12 @@
+firebase init
+
+
+Get-ExecutionPolicy
+
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+firebase login
+
+firebase use --add
+
+firebase deploy --only database

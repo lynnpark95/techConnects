@@ -69,7 +69,7 @@ export default function SignUp() {
       );
 
       await updateProfile(auth.currentUser, {
-        displayName: data.firstName,
+        displayName: data.firstName + data.lastName,
         photoURL: `http://gravatar.com/avatar/${md5(
           createdUser.user.email
         )}?d=identicon`,
@@ -78,6 +78,7 @@ export default function SignUp() {
       //Firebase save in DB
       const db = getDatabase();
       const userRef = ref(db, `users/${createdUser.user.uid}`);
+      //What is being saved for user
       const userData = {
         name: data.firstName,
         image: createdUser.user.photoURL,
