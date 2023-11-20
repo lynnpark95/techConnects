@@ -17,6 +17,7 @@ import Profile from "./Components/Pages/UserProfile/Profile";
 import { useDispatch, useSelector } from "react-redux";
 import ChatPage from "./Components/Pages/ChatPage/ChatPage";
 import Welcome from "./Components/Pages/WelcomePage/Welcome";
+import NeedsLogin from "./Components/NeedsLogin";
 
 function App(props) {
   const navigate = useNavigate();
@@ -41,7 +42,6 @@ function App(props) {
         <Route path="/settings" element={<Settings />} />
       </Routes>
     );
-    
   }
 }
 
