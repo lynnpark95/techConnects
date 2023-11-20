@@ -40,20 +40,18 @@ function App(props) {
   } else {
     return (
       <Routes>
-        {/* <Route path="/welcome" element={<Welcome />} /> */}
-        <Route path="/" element={<Calendar />} />
+        <Route path="/" element={<Welcome />} />
+        <Route path="/reg" element={<Register />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/wallet" element={<Wallet />} />
-        {/* <Route path="/messaging" element={<Messaging />} /> */}
-
+        <Route path="/chat" element={<ChatPage />} />
         <Route path="/tech-support" element={<TechSupport />} />
-        <Route path="/reg" element={<Register />} />
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/confirm" element={<Confirm />} />
-        <Route path="/chat" element={<ChatPage />} />
-        <Route path="/profile" element={<Profile />} />
+        {/* <Route path="/messaging" element={<Messaging />} /> */}
       </Routes>
     );
     //   </BrowserRouter>
