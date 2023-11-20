@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser, clearUser } from "./Redux/Actions/user_action";
 import ChatPage from "./Components/Pages/ChatPage/ChatPage";
 import Welcome from "./Components/Pages/WelcomePage/Welcome";
+import NeedsLogin from "./Components/NeedsLogin";
 
 // function App() {
 //   return (
@@ -43,14 +44,14 @@ function App(props) {
         <Route path="/" element={<Welcome />} />
         <Route path="/reg" element={<Register />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/calendar" element={<Calendar />} />
-        <Route path="/wallet" element={<Wallet />} />
-        <Route path="/chat" element={<ChatPage />} />
-        <Route path="/tech-support" element={<TechSupport />} />
-        <Route path="/contact" element={<ContactUs />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/confirm" element={<Confirm />} />
+        <Route path="/calendar" element={<NeedsLogin><Calendar /></NeedsLogin>} />
+        <Route path="/wallet" element={<NeedsLogin><Wallet /></NeedsLogin>} />
+        <Route path="/chat" element={<NeedsLogin><ChatPage /></NeedsLogin>} />
+        <Route path="/tech-support" element={<NeedsLogin><TechSupport /></NeedsLogin>} />
+        <Route path="/contact" element={<NeedsLogin><ContactUs /></NeedsLogin>} />
+        <Route path="/profile" element={<NeedsLogin><Profile /></NeedsLogin>} />
+        <Route path="/settings" element={<NeedsLogin><Settings /></NeedsLogin>} />
+        <Route path="/confirm" element={<NeedsLogin><Confirm /></NeedsLogin>} />
         {/* <Route path="/messaging" element={<Messaging />} /> */}
       </Routes>
     );
