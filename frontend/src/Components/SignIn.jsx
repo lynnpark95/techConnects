@@ -13,7 +13,14 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
+import app from "../firebase";
+import GoogleIcon from "@mui/icons-material/Google";
 
 function Copyright(props) {
   return (
@@ -55,7 +62,17 @@ export default function SignIn() {
       // TODO: error handle
     }
   };
-
+  const handleGoogleSignIn = async () => {
+    try {
+      const auth = getAuth(app);
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      console.log("Google sign-in result", result);
+      navigate("/");
+    } catch (error) {
+      // TODO: error handle
+    }
+  };
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -126,10 +143,26 @@ export default function SignIn() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 2 }}
                 onClick={handleSubmit}
               >
                 Sign In
+              </Button>
+
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onClick={handleGoogleSignIn}
+              >
+                <GoogleIcon style={{ width: "24px", marginRight: "8px" }} />
+                Sign In with Google
               </Button>
               <Grid container>
                 <Grid item xs>

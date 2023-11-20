@@ -4,20 +4,27 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import PersonIcon from "@mui/icons-material/Person";
+import { useNavigate } from "react-router-dom"; // Import the useNavigate hook
 
 function Header() {
   const headerStyles = {
-    backgroundColor: "#F5F5F5", // Background color
-    // Padding to make it thinner
-    position: "fixed", // Position fixed to place it at the top
-    top: 0, // Position at the top of the screen
-    width: "100%", // Full width
-    zIndex: 1000, // Optional: Adjust the z-index as needed
+    backgroundColor: "#F5F5F5",
+    position: "fixed",
+    top: 0,
+    width: "100%",
+    zIndex: 1000,
   };
 
   const buttonStyles = {
-    backgroundColor: "#007bff", // Button background color
-    color: "white", // Button font color
+    backgroundColor: "#007bff",
+    color: "white",
+  };
+
+  const navigate = useNavigate(); // Initialize the useNavigate hook
+
+  const handleMyAccountClick = () => {
+    // Navigate to the "/profile" route when the button is clicked
+    navigate("/profile");
   };
 
   return (
@@ -26,13 +33,13 @@ function Header() {
         <Typography variant="h6">Page Title</Typography>
         <div style={{ flexGrow: 1 }}></div>
         <div>
-          <Button style={buttonStyles}>
-            <PersonIcon sx={{marginRight: "5px"}} />
+          <Button style={buttonStyles} onClick={handleMyAccountClick}>
+            <PersonIcon sx={{ marginRight: "5px" }} />
             My Account
           </Button>
         </div>
       </Toolbar>
-    </AppBar> 
+    </AppBar>
   );
 }
 

@@ -22,7 +22,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, clearUser } from "./Redux/Actions/user_action";
 import ChatPage from "./Components/Pages/ChatPage/ChatPage";
-// import Welcome from "./Components/Pages/WelcomePage/Welcome";
+import Welcome from "./Components/Pages/WelcomePage/Welcome";
 
 // function App() {
 //   return (
@@ -40,20 +40,18 @@ function App(props) {
   } else {
     return (
       <Routes>
-        {/* <Route path="/welcome" element={<Welcome />} /> */}
-        <Route path="/" element={<Calendar />} />
+        <Route path="/" element={<Welcome />} />
+        <Route path="/reg" element={<Register />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/wallet" element={<Wallet />} />
-        {/* <Route path="/messaging" element={<Messaging />} /> */}
-
+        <Route path="/chat" element={<ChatPage />} />
         <Route path="/tech-support" element={<TechSupport />} />
-        <Route path="/reg" element={<Register />} />
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/confirm" element={<Confirm />} />
-        <Route path="/chat" element={<ChatPage />} />
-        <Route path="/profile" element={<Profile />} />
+        {/* <Route path="/messaging" element={<Messaging />} /> */}
       </Routes>
     );
     //   </BrowserRouter>

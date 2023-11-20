@@ -6,7 +6,7 @@ import Navbar from "../../Navbar Items/Navbar";
 
 const Profile = () => (
   <>
-    <Navbar />
+    {/* <Navbar /> */}
     <Box
       component="main"
       sx={{
@@ -23,7 +23,7 @@ const Profile = () => (
               <AccountProfile />
             </Grid>
             <Grid item xs={12} md={6} lg={8}>
-              <AccountProfileDetails />
+              {/* <AccountProfileDetails /> */}
             </Grid>
           </Grid>
         </Stack>
