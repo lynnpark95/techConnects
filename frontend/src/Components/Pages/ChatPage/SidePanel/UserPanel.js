@@ -11,6 +11,7 @@ import {
   getDownloadURL,
   uploadBytesResumable,
 } from "firebase/storage";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function UserPanel() {
   const user = useSelector((state) => state.user.currentUser);
@@ -106,6 +107,7 @@ function UserPanel() {
 
   return (
     <div>
+      
       <div style={{ display: "flex", marginBottom: "0rem" }}>
         <Image
           src={user && user.photoURL}
@@ -114,17 +116,17 @@ function UserPanel() {
         />
 
         <Dropdown>
+        
           <Dropdown.Toggle
-            style={{ background: "transparent", boder: "0px" }}
+            style={{ background: "red", boder: "0px", width:"60px" }}
             id="dropdown-basic"
           >
+            <LogoutIcon />
             {user && user.displayName}
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            <Dropdown.Item onClick={handleOpenImageRef}>
-              Change Profile
-            </Dropdown.Item>
+            
             <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
