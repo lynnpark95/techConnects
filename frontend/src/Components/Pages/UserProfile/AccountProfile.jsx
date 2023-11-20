@@ -35,7 +35,10 @@ export const AccountProfile = () => {
                 if (userData) {
                     setUser({
                         avatar: userData.image,
-                        name: userData.name,
+                        first: userData.first,
+                        last: userData.last,
+                        email: userData.email,
+                        phone: userData.phone
                     });
                 } else {
                     // Handle if user info not found
@@ -61,12 +64,6 @@ export const AccountProfile = () => {
       return <div>Loading....</div>;
     }
   
-    // Set generic defaults if the user data is not available
-    const defaultCity = 'Unknown City';
-    const defaultCountry = 'Unknown Country';
-    const defaultTimezone = 'Unknown Timezone';
-    const defaultRole = 'Unknown Role';
-  
     return (
       <Card sx={{ boxShadow: 'none' }}>
         <CardContent>
@@ -86,18 +83,14 @@ export const AccountProfile = () => {
                 borderRadius: '50%', // Make it circular
               }}
             />
-            // Add what we want populated here
             <Typography gutterBottom variant="h5">
-              {user.name}
+              {user.first} {user.last}
             </Typography>
             <Typography color="text.secondary" variant="body2">
-              {user.city || defaultCity} {user.country || defaultCountry}
+              {user.email}
             </Typography>
             <Typography color="text.secondary" variant="body2">
-              {user.timezone || defaultTimezone}
-            </Typography>
-            <Typography color="text.secondary" variant="body2">
-              {user.role || defaultRole}
+              {user.phone}
             </Typography>
           </Box>
         </CardContent>

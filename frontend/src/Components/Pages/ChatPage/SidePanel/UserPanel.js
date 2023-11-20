@@ -115,7 +115,7 @@ function UserPanel() {
           roundedCircle
         />
 
-        <Dropdown>
+        <Dropdown style={{marginLeft: "20px"}}>
         
           <Dropdown.Toggle
             style={{ background: "red", boder: "0px", width:"60px" }}

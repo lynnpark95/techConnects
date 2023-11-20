@@ -3,10 +3,12 @@ import { Box, Container, Stack, Typography, Grid } from "@mui/material";
 import { AccountProfile } from "./AccountProfile";
 import { AccountProfileDetails } from "./AccountDetails";
 import Navbar from "../../Navbar Items/Navbar";
+import Header from "../../Header";
 
 const Profile = () => (
   <>
-    {/* <Navbar /> */}
+  <Header />
+    <Navbar />
     <Box
       component="main"
       sx={{
@@ -23,7 +25,7 @@ const Profile = () => (
               <AccountProfile />
             </Grid>
             <Grid item xs={12} md={6} lg={8}>
-              {/* <AccountProfileDetails /> */}
+              <AccountProfileDetails />
             </Grid>
           </Grid>
         </Stack>

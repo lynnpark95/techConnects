@@ -8,6 +8,25 @@ import listPlugin from "@fullcalendar/list";
 const FullCalendar = () => {
   const calendarRef = useRef(null);
 
+  function showCalendarAlert() {
+    const time = prompt("Enter a time for the meeting: ");
+    const title = prompt("Enter a meetign title: ");
+  
+    if (time === null || time.trim() === '' || title === null || title.trim() === '') {
+      alert("Enter the information first");
+      return;
+    }
+  
+    alert(`Event added: \nTime: ${time}\nTitle: ${title}`);
+  
+    updateCalendar(time,title);
+
+    function updateCalendar(time, title) {
+      console.log('Updated');
+    }
+  }
+  
+
   useEffect(() => {
     const calendarEl = calendarRef.current;
 
@@ -21,11 +40,12 @@ const FullCalendar = () => {
       initialView: "dayGridMonth",
       selectable: true,
       select: function (arg) {
-        alert("You clicked on: " + arg.startStr);
+        alert(showCalendarAlert());
         // ADD BOOKING LOGIC
       },
       dayCellContent: function (arg) {
-        return arg.dayNumberText;
+        
+        return arg.dayNumberText + `<div></div>`;
       },
       dayCellDidMount: function (arg) {
         if (arg.el) {
