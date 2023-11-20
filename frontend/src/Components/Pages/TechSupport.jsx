@@ -1,9 +1,9 @@
 import React from 'react';
-import Navbar from '../../Navbar Items/Navbar';
+import Navbar from '../Navbar Items/Navbar';
 import { Typography } from '@mui/material';
 import Box from "@mui/material/Box";
 
-const Confirm = () => {
+const TechSupport = () => {
     return (
         <div style={{maginLeft: '500px'}}>
             <Navbar />
@@ -14,10 +14,10 @@ const Confirm = () => {
             }}
           >
             <Typography variant="body2" component="p" marginLeft={45}>
-            Confirm Test
+            Tech support Test
             </Typography>
           </Box>
         </div>
     )
 }
-export default Confirm;
+export default TechSupport;

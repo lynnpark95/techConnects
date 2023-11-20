@@ -5,11 +5,10 @@ export const navStyles = {
         width: 320,
         flexShrink: 0,
         '& .MuiDrawer-paper': {
-            width: 320,
+            width: 310,
             boxSizing: 'border-box',
-            backgroundColor: '#101F33',
-            color: 'rgba(255, 255, 255, 0.7)',
-            overflow: 'hidden'
+            backgroundColor: '#4B87C5',
+            color: 'rgba(255, 255, 255)',
         },
         '& .Mui-selected': {
             color: red,
