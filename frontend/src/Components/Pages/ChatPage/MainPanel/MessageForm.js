@@ -85,17 +85,14 @@ function MessageForm() {
   };
 
   const getPath = () => {
-    if (isPrivateChatRoom) {
-      return `/message/private/${chatRoom.id}`;
-    } else {
-      return `/message/public`;
-    }
+    return isPrivateChatRoom
+      ? `/message/private/${chatRoom.id}`
+      : `/message/public`;
   };
 
   const handleUploadImage = (event) => {
     const file = event.target.files[0];
     const storage = getStorage();
-
     const filePath = `${getPath()}/${file.name}`;
     const metadata = { contentType: file.type };
     setLoading(true);
@@ -185,7 +182,6 @@ function MessageForm() {
 
       <Grid container spacing={1}>
         <Grid item xs={6}>
-          {/* Switched positions of SEND and UPLOAD buttons */}
           <Button
             onClick={handleOpenImageRef}
             fullWidth

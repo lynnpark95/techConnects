@@ -34,7 +34,7 @@ export class ChatRooms extends Component {
   };
 
   componentDidMount() {
-    this.AddChatRoomsListeners();
+    this.addChatRoomsListeners();
   }
 
   componentWillUnmount() {
@@ -50,7 +50,7 @@ export class ChatRooms extends Component {
     this.setState({ firstLoad: false });
   };
 
-  AddChatRoomsListeners = () => {
+  addChatRoomsListeners = () => {
     let chatRoomsArray = [];
 
     onChildAdded(this.state.chatRoomsRef, (DataSnapshot) => {
@@ -98,7 +98,6 @@ export class ChatRooms extends Component {
     } else {
       if (chatRoomId !== currentChatRoomId) {
         lastTotal = notifications[index].lastKnownTotal;
-
         if (DataSnapshot.size - lastTotal > 0) {
           notifications[index].count = DataSnapshot.size - lastTotal;
         }
@@ -255,7 +254,6 @@ const mapStateToProps = (state) => {
   return {
     user: state.user.currentUser,
     chatRoom: state.chatRoom.currentChatRoom,
-
   };
 };
 

@@ -62,17 +62,7 @@ export default function SignIn() {
       // TODO: error handle
     }
   };
-  const handleGoogleSignIn = async () => {
-    try {
-      const auth = getAuth(app);
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      console.log("Google sign-in result", result);
-      navigate("/calendar");
-    } catch (error) {
-      // TODO: error handle
-    }
-  };
+ 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -149,21 +139,7 @@ export default function SignIn() {
                 Sign In
               </Button>
 
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{
-                  mt: 3,
-                  mb: 2,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                onClick={handleGoogleSignIn}
-              >
-                <GoogleIcon style={{ width: "24px", marginRight: "8px" }} />
-                Sign In with Google
-              </Button>
+              
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
