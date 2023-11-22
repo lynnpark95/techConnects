@@ -17,7 +17,6 @@ import {
   Button,
 } from "@mui/material";
 
-
 export const AccountProfile = () => {
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
@@ -38,7 +37,8 @@ export const AccountProfile = () => {
                         first: userData.first,
                         last: userData.last,
                         email: userData.email,
-                        phone: userData.phone
+                        phone: userData.phone,
+                        role: userData.role
                     });
                 } else {
                     // Handle if user info not found
@@ -90,7 +90,10 @@ export const AccountProfile = () => {
               {user.email}
             </Typography>
             <Typography color="text.secondary" variant="body2">
-              {user.phone}
+              {user.phone || "No phone number"}
+            </Typography>
+            <Typography color="text.secondary" variant="body2">
+              {user.role || "No role given"}
             </Typography>
           </Box>
         </CardContent>

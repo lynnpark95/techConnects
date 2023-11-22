@@ -20,6 +20,8 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import InputLabel from "@mui/material/InputLabel";
+import { Select, MenuItem } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function Copyright(props) {
@@ -69,7 +71,7 @@ export default function SignUp() {
       );
   
       await updateProfile(auth.currentUser, {
-        displayName: data.firstName + data.lastName,
+        displayName: data.firstName + " " + data.lastName,
         photoURL: `http://gravatar.com/avatar/${md5(
           createdUser.user.email
         )}?d=identicon`,
@@ -83,7 +85,8 @@ export default function SignUp() {
         first: data.firstName,
         last: data.lastName,
         email: data.email,
-        phone: "fake number. Add later",
+        phone: data.phone,
+        role: data.role,
         image: createdUser.user.photoURL,
       };
   
@@ -234,13 +237,44 @@ export default function SignUp() {
                   )}
               </Grid>
               <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="phone"
+                  label="Phone"
+                  name="phone"
+                  {...register("phone", { required: true, maxLength: 15 })}
+                />
+                {errors.phone && errors.phone.type === "required" && (
+                  <p>This phone field is required</p>
+                )}
+                {errors.phone && errors.phone.type === "maxLength" && (
+                  <p>Your input exceed maximum length</p>
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                <InputLabel id="role-label">Role</InputLabel>
+                <Select
+                  labelId="role-label"
+                  id="role"
+                  fullWidth
+                  {...register("role", { required: true })}
+                >
+                  <MenuItem value="careReceiver">Care Receiver</MenuItem>
+                  <MenuItem value="careGiver">Care Giver</MenuItem>
+                  <MenuItem value="careTaker">Care Taker</MenuItem>
+                  <MenuItem value="careSponsor">Care Sponsor</MenuItem>
+                </Select>
+                {errors.role && <p>This role field is required</p>}
+              </Grid>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
                   label="I agree to let this program steal my identity."
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"
