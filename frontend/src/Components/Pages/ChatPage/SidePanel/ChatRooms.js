@@ -32,6 +32,7 @@ export class ChatRooms extends Component {
     firstLoad: true,
     activeChatRoomId: "",
     notifications: [],
+    participatingChatRooms: [],
   };
 
   componentDidMount() {
@@ -53,12 +54,22 @@ export class ChatRooms extends Component {
 
   AddChatRoomsListeners = () => {
     let chatRoomsArray = [];
-
+    let participatingChatRooms = [];
+  
     onChildAdded(this.state.chatRoomsRef, (DataSnapshot) => {
-      chatRoomsArray.push(DataSnapshot.val());
-      this.setState({ chatRooms: chatRoomsArray }, () =>
-        this.setFirstChatRoom()
-      );
+      const chatRoom = DataSnapshot.val();
+      chatRoomsArray.push(chatRoom);
+  
+      if (chatRoom.participatingUsers && chatRoom.participatingUsers.includes(this.props.user.uid?.uid)) {
+        participatingChatRooms.push(chatRoom);
+      }
+  
+      this.setState((prevState) => ({
+        chatRooms: chatRoomsArray,
+        participatingChatRooms,
+        firstLoad: !prevState.chatRooms.length,
+      }), () => this.setFirstChatRoom());
+
       this.addNotificationListener(DataSnapshot.key);
     });
   };
@@ -134,9 +145,15 @@ export class ChatRooms extends Component {
   };
 
   addChatRoom = async () => {
-    const key = push(this.state.chatRoomsRef).key;
     const { name, description } = this.state;
     const { user } = this.props;
+  
+    if (!user || !user.displayName) {
+      console.error("User information is missing or not available");
+      return;
+    }
+  
+    const key = push(this.state.chatRoomsRef).key;
     const newChatRoom = {
       id: key,
       name: name,
@@ -146,7 +163,7 @@ export class ChatRooms extends Component {
         image: user.photoURL,
       },
     };
-
+  
     try {
       await update(child(this.state.chatRoomsRef, key), newChatRoom);
       this.setState({
@@ -158,6 +175,7 @@ export class ChatRooms extends Component {
       alert(error);
     }
   };
+  
 
   isFormValid = (name, description) => name && description;
 
@@ -180,24 +198,27 @@ export class ChatRooms extends Component {
   };
 
   renderChatRooms = (chatRooms) =>
-    chatRooms.length > 0 &&
-    chatRooms.map((room) => (
-      <li
-        key={room.id}
-        style={{
-          backgroundColor:
-            room.id === this.state.activeChatRoomId && "#ffffff45",
-        }}
-        onClick={() => this.changeChatRoom(room)}
-      >
-        # {room.name}
-        <Badge style={{ float: "right", marginTop: "4px" }} variant="danger">
-          {this.getNotificationCount(room)}
-        </Badge>
-      </li>
-    ));
+  chatRooms.length > 0 &&
+  chatRooms.map((room) => (
+    <li
+      key={room.id}
+      style={{
+        backgroundColor:
+          room.id === this.state.activeChatRoomId && "#ffffff45",
+      }}
+      onClick={() => this.changeChatRoom(room)}
+    >
+      # {room.name}
+      <Badge style={{ float: "right", marginTop: "4px" }} variant="danger">
+        {this.getNotificationCount(room)}
+      </Badge>
+    </li>
+  ));
 
   render() {
+    const { chatRooms } = this.state;
+    const { user } = this.props;
+  
     return (
       <div>
         <div
@@ -209,7 +230,7 @@ export class ChatRooms extends Component {
           }}
         >
           <FaRegSmileWink style={{ marginRight: 3 }} />
-          CHAT ROOMS ({this.state.chatRooms.length})
+          CHAT ROOMS ({chatRooms.length})
           <FaPlus
             onClick={this.handleShow}
             style={{
@@ -219,11 +240,11 @@ export class ChatRooms extends Component {
             }}
           />
         </div>
-
+  
         <ul style={{ listStyleType: "none", padding: 0 }}>
-          {this.renderChatRooms(this.state.chatRooms)}
+          {this.renderChatRooms(chatRooms)}
         </ul>
-
+  
         {/* ADD CHAT ROOM MODAL */}
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
@@ -239,7 +260,7 @@ export class ChatRooms extends Component {
                   placeholder="Enter a chat room name"
                 />
               </Form.Group>
-
+  
               <Form.Group controlId="formBasicPassword">
                 <Form.Label>Chat Room Description</Form.Label>
                 <Form.Control
@@ -270,6 +291,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.user.currentUser,
     chatRoom: state.chatRoom.currentChatRoom,
+    participatingChatRooms: state.chatRoom.participatingChatRooms,
   };
 };
 
