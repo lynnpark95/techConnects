@@ -9,6 +9,12 @@ function ChatPage() {
   const currentUser = useSelector((state) => state.user.currentUser);
   console.log(currentUser);
 
+  // Check if the user is authenticated
+  if (!currentUser) {
+    // Redirect to the sign-in page if the user is not authenticated
+    return <Navigate to="/signin" />;
+  }
+
   // If the user is authenticated, render the ChatPage
   return (
     <div style={{ display: "flex" }}>
