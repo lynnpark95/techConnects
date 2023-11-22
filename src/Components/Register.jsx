@@ -69,7 +69,7 @@ export default function SignUp() {
       );
   
       await updateProfile(auth.currentUser, {
-        displayName: data.firstName + data.lastName,
+        displayName: data.firstName + " " + data.lastName,
         photoURL: `http://gravatar.com/avatar/${md5(
           createdUser.user.email
         )}?d=identicon`,
@@ -83,7 +83,7 @@ export default function SignUp() {
         first: data.firstName,
         last: data.lastName,
         email: data.email,
-        phone: "fake number. Add later",
+        phone: data.phone,
         image: createdUser.user.photoURL,
       };
   
@@ -233,14 +233,30 @@ export default function SignUp() {
                     <p>The passwords do not match</p>
                   )}
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  name="phone"
+                  required
+                  fullWidth
+                  id="phone"
+                  label="Phone Number"
+                  {...register("phone", { required: true, maxLength: 20 })}
+                />
+                {errors.phone && errors.phone.type === "required" && (
+                  <p>This phone field is required</p>
+                )}
+                {errors.phone && errors.phone.type === "maxLength" && (
+                  <p>Your input exceed maximum length</p>
+                )}
+              </Grid>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
                   label="I agree to let this program steal my identity."
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"
