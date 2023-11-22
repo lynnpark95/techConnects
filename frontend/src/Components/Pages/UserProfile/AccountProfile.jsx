@@ -17,7 +17,7 @@ import {
   Button,
 } from "@mui/material";
 
-export const AccountProfile = () => {
+export const AccountProfile = ({ isEditMode, onEditClick }) => {
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
   
@@ -34,8 +34,8 @@ export const AccountProfile = () => {
                 if (userData) {
                     setUser({
                         avatar: userData.image,
-                        first: userData.first,
-                        last: userData.last,
+                        firstName: userData.firstName,
+                        lastName: userData.lastName,
                         email: userData.email,
                         phone: userData.phone,
                         role: userData.role
@@ -84,7 +84,7 @@ export const AccountProfile = () => {
               }}
             />
             <Typography gutterBottom variant="h5">
-              {user.first} {user.last}
+              {user.firstName} {user.lastName}
             </Typography>
             <Typography color="text.secondary" variant="body2">
               {user.email}
@@ -98,7 +98,16 @@ export const AccountProfile = () => {
           </Box>
         </CardContent>
         <Divider />
-        {/* ... (CardActions or other components) */}
+        <CardActions
+          sx={{
+            justifyContent: 'center', // Align the button with the center of the Card
+            paddingBottom: 2, // Add some padding to the bottom
+          }}
+        >
+          <Button onClick={onEditClick}>
+            {isEditMode ? "Cancel Edit" : "Edit Profile"}
+          </Button>
+        </CardActions>
       </Card>
     );
   };

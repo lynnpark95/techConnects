@@ -82,8 +82,8 @@ export default function SignUp() {
       const userRef = ref(db, `users/${createdUser.user.uid}`);
       // What is being saved for the user
       const userData = {
-        first: data.firstName,
-        last: data.lastName,
+        firstName: data.firstName,
+        lastName: data.lastName,
         email: data.email,
         phone: data.phone,
         role: data.role,
@@ -260,10 +260,10 @@ export default function SignUp() {
                   fullWidth
                   {...register("role", { required: true })}
                 >
-                  <MenuItem value="careReceiver">Care Receiver</MenuItem>
-                  <MenuItem value="careGiver">Care Giver</MenuItem>
-                  <MenuItem value="careTaker">Care Taker</MenuItem>
-                  <MenuItem value="careSponsor">Care Sponsor</MenuItem>
+                  <MenuItem value="Care Receiver">Care Receiver</MenuItem>
+                  <MenuItem value="Care Giver">Care Giver</MenuItem>
+                  <MenuItem value="Care Taker">Care Taker</MenuItem>
+                  <MenuItem value="Care Sponsor">Care Sponsor</MenuItem>
                 </Select>
                 {errors.role && <p>This role field is required</p>}
               </Grid>
