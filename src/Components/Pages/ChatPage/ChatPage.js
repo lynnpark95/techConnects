@@ -2,7 +2,6 @@ import React from "react";
 import SidePanel from "./SidePanel/SidePanel";
 import MainPanel from "./MainPanel/MainPanel";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
 import NeedsLogin from "../../NeedsLogin"; // Update the path
 
 function ChatPage() {
