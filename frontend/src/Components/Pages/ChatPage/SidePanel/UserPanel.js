@@ -1,9 +1,14 @@
 import React, { useRef } from "react";
-import Dropdown from "react-bootstrap/Dropdown";
-import Image from "react-bootstrap/Image";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import LogoutIcon from "@mui/icons-material/Logout";
+import Box from "@mui/material/Box";  // Import the Box component
 import { useDispatch, useSelector } from "react-redux";
 import { setPhotoURL } from "../../../../Redux/Actions/user_action";
-import { getDatabase, ref, child, update } from "firebase/database";
+import { getDatabase, ref, update } from "firebase/database";
 import { getAuth, signOut, updateProfile } from "firebase/auth";
 import {
   getStorage,
@@ -11,12 +16,12 @@ import {
   getDownloadURL,
   uploadBytesResumable,
 } from "firebase/storage";
-import LogoutIcon from '@mui/icons-material/Logout';
 
 function UserPanel() {
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
   const inputOpenImageRef = useRef();
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleLogout = () => {
     const auth = getAuth();
@@ -99,37 +104,52 @@ function UserPanel() {
           });
         }
       );
-      // console.log('uploadTaskSnapshot', uploadTaskSnapshot)
     } catch (error) {
       console.log(error);
     }
   };
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <div>
-      
       <div style={{ display: "flex", marginBottom: "0rem" }}>
-        <Image
+        <Avatar
           src={user && user.photoURL}
           style={{ width: "30p", height: "30px", marginTop: "0px" }}
-          roundedCircle
+          alt={user && user.displayName}
         />
 
-        <Dropdown style={{marginLeft: "20px"}}>
+        {/* Wrap the IconButton in a Box with a red background */}
+        <Box
+          bgcolor="red"
+          borderRadius="4px"  // Adjust the border radius as needed
+          marginLeft="20px"
+          display="inline-block"
+        >
+          <IconButton onClick={handleClick} style={{ padding: "8px" }}>
+            <LogoutIcon style={{ color: "white" }} />
+          </IconButton>
+        </Box>
         
-          <Dropdown.Toggle
-            style={{ background: "red", boder: "0px", width:"60px" }}
-            id="dropdown-basic"
-          >
-            <LogoutIcon />
-            {user && user.displayName}
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu>
-            
-            <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          {/* Wrap the MenuItem in a Box with a red background */}
+          <Box bgcolor="red">
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </Box>
+        </Menu>
       </div>
 
       <input
