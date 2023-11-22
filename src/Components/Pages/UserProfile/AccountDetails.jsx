@@ -17,8 +17,6 @@ const AccountProfileDetails = () => {
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
-    email: "",
-    password: "",
     phone: ""
   });
 
@@ -45,7 +43,6 @@ const AccountProfileDetails = () => {
         await update(userRef, {
           firstName: values.firstName,
           lastName: values.lastName,
-          email: values.email,
           phone: values.phone
         });
   
