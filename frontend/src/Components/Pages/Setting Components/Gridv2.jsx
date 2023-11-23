@@ -6,9 +6,8 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import AccessibleIcon from "@mui/icons-material/Accessible";
-import TranslateIcon from "@mui/icons-material/Translate";
+import { getAuth, signOut, updateProfile } from "firebase/auth";
+
 import HelpIcon from "@mui/icons-material/Help";
 import InfoIcon from "@mui/icons-material/Info";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -35,6 +34,17 @@ const IconWrapper = styled("div")({
   textShadow: "1px 1px 2px rgba(0,0,0,0.6)",
 });
 
+const handleLogout = () => {
+  const auth = getAuth();
+  signOut(auth)
+    .then(() => {
+      // Sign-out successful.
+    })
+    .catch((error) => {
+      // An error happened.
+    });
+};
+
 const TextWithShadow = styled(Typography)({
   textShadow: "1px 1px 2px rgba(0,0,0,0.6)",
 });
@@ -49,11 +59,9 @@ const linkStyles = {
 
 const boxData = [
   { label: "Account", link: "/profile", icon: <MailIcon style={iconStyles} /> },
-  { label: "Notifications", link: "/notifications", icon: <NotificationsIcon style={iconStyles} /> },
-  { label: "Language", link: "/language", icon: <TranslateIcon style={iconStyles} /> },
   { label: "Help", link: "/contact", icon: <HelpIcon style={iconStyles} /> },
   { label: "About", link: "/contact", icon: <InfoIcon style={iconStyles} /> },
-  { label: "Log Out", link: "/log-out", icon: <LogoutIcon style={iconStyles} /> },
+  { label: "Log Out", onClick: {handleLogout}, icon: <LogoutIcon style={iconStyles}  /> },
 ];
 
 export default function Gridv2() {

@@ -55,7 +55,9 @@ export class ChatRooms extends Component {
 
     onChildAdded(this.state.chatRoomsRef, (DataSnapshot) => {
       chatRoomsArray.push(DataSnapshot.val());
-      this.setState({ chatRooms: chatRoomsArray }, () =>
+      this.setState({ chatRooms: chatRoomsArray.filter((room) => {
+        return room.users && room.users.includes(this.props.user.uid);
+      }) }, () =>
         this.setFirstChatRoom()
       );
       this.addNotificationListener(DataSnapshot.key);
@@ -131,6 +133,7 @@ export class ChatRooms extends Component {
         name: user.displayName,
         image: user.photoURL,
       },
+      users: [user.uid],
     };
 
     try {
@@ -164,25 +167,31 @@ export class ChatRooms extends Component {
     if (count > 0) return count;
   };
 
-  renderChatRooms = (chatRooms) =>
-    chatRooms.length > 0 &&
-    chatRooms.map((room) => (
-      <li
-        key={room.id}
-        style={{
-          backgroundColor:
-            room.id === this.state.activeChatRoomId && "#ffffff45",
-        }}
-        onClick={() => this.changeChatRoom(room)}
-      >
-        # {room.name}
-        <Badge
-          style={{ float: "right", marginTop: "4px" }}
-          badgeContent={this.getNotificationCount(room)}
-          color="error"
-        />
-      </li>
-    ));
+  //List of user rooms. Userroom array needs to be array.
+  renderChatRooms = (chatRooms) => {
+    const currentUser = this.props.user;
+    return (
+      chatRooms.length > 0 &&
+      chatRooms
+        .map((room) => (
+          <li
+            key={room.id}
+            style={{
+              backgroundColor:
+                room.id === this.state.activeChatRoomId && "#ffffff45",
+            }}
+            onClick={() => this.changeChatRoom(room)}
+          >
+            # {room.name}
+            <Badge
+              style={{ float: "right", marginTop: "4px" }}
+              badgeContent={this.getNotificationCount(room)}
+              color="error"
+            />
+          </li>
+        ))
+    );
+  };
 
   render() {
     return (
@@ -212,7 +221,9 @@ export class ChatRooms extends Component {
         </ul>
 
         <Modal open={this.state.show} onClose={this.handleClose}>
-          <div style={{ margin: "20px", backgroundColor: "#fff", padding: "15px" }}>
+          <div
+            style={{ margin: "20px", backgroundColor: "#fff", padding: "15px" }}
+          >
             <h2>Create a chat room</h2>
             <form onSubmit={this.handleSubmit}>
               <TextField
@@ -226,6 +237,16 @@ export class ChatRooms extends Component {
 
               <TextField
                 label="Chat Room Description"
+                variant="outlined"
+                fullWidth
+                onChange={(e) => this.setState({ description: e.target.value })}
+                value={this.state.description}
+                margin="normal"
+              />
+
+              {/* add more users to the chat room. Should be dynamic but we'll see what happens. Add the users to an array and add them to the group chat through that */}
+              <TextField
+                label="Chat Room Particpants"
                 variant="outlined"
                 fullWidth
                 onChange={(e) => this.setState({ description: e.target.value })}

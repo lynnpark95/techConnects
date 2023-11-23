@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState } from "react";
 import {
   Box,
   Button,
@@ -8,55 +8,37 @@ import {
   CardHeader,
   Divider,
   TextField,
-  Unstable_Grid2 as Grid
-} from '@mui/material';
+  Unstable_Grid2 as Grid,
+} from "@mui/material";
 
 export const AccountProfileDetails = () => {
   const [values, setValues] = useState({
-    firstName: 'Jacob',
-    lastName: 'Wilson',
-    email: 'JacobWilson@gmail.com',
-    password: '', // Replace phone with password
+    firstName: "Jacob",
+    lastName: "Wilson",
+    email: "JacobWilson@gmail.com",
+    password: "", // Replace phone with password
   });
 
-  const handleChange = useCallback(
-    (event) => {
-      setValues((prevState) => ({
-        ...prevState,
-        [event.target.name]: event.target.value
-      }));
-    },
-    []
-  );
+  const handleChange = useCallback((event) => {
+    setValues((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value,
+    }));
+  }, []);
 
-  const handleSubmit = useCallback(
-    (event) => {
-      event.preventDefault();
-      // Add logic to handle form submission, e.g., dispatching an action
-    },
-    []
-  );
+  const handleSubmit = useCallback((event) => {
+    event.preventDefault();
+    // Add logic to handle form submission, e.g., dispatching an action
+  }, []);
 
   return (
-    <form
-      autoComplete="off"
-      noValidate
-      onSubmit={handleSubmit}
-    >
-      <Card sx={{ boxShadow: 'none' }}>
-        <CardHeader
-          title="Profile"
-        />
+    <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+      <Card sx={{ boxShadow: "none" }}>
+        <CardHeader title="Profile" />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
-            <Grid
-              container
-              spacing={3}
-            >
-              <Grid
-                xs={12}
-                md={6}
-              >
+            <Grid container spacing={3}>
+              <Grid xs={12} md={6}>
                 <TextField
                   fullWidth
                   helperText="Please specify the first name"
@@ -67,10 +49,7 @@ export const AccountProfileDetails = () => {
                   value={values.firstName}
                 />
               </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
+              <Grid xs={12} md={6}>
                 <TextField
                   fullWidth
                   label="Last name"
@@ -80,10 +59,7 @@ export const AccountProfileDetails = () => {
                   value={values.lastName}
                 />
               </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
+              <Grid xs={12} md={6}>
                 <TextField
                   fullWidth
                   label="Email Address"
@@ -93,10 +69,7 @@ export const AccountProfileDetails = () => {
                   value={values.email}
                 />
               </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
+              <Grid xs={12} md={6}>
                 <TextField
                   fullWidth
                   label="Password"
@@ -111,7 +84,7 @@ export const AccountProfileDetails = () => {
           </Box>
         </CardContent>
         <Divider />
-        <CardActions sx={{ justifyContent: 'flex-end' }}>
+        <CardActions sx={{ justifyContent: "flex-end" }}>
           <Button variant="contained" type="submit">
             Save details
           </Button>

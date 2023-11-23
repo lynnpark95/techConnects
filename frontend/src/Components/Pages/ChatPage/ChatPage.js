@@ -3,6 +3,7 @@ import SidePanel from "./SidePanel/SidePanel";
 import MainPanel from "./MainPanel/MainPanel";
 import { useSelector } from "react-redux";
 import NeedsLogin from "../../../Components/NeedsLogin";
+import Header from "../../Header";
 
 function ChatPage() {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -12,6 +13,7 @@ function ChatPage() {
   return (
     <NeedsLogin>
       <div style={{ display: "flex" }}>
+       
         <div style={{ width: "300px" }}>
           <SidePanel key={currentUser && currentUser.uid} />
         </div>
