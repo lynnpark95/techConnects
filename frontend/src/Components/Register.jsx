@@ -234,12 +234,7 @@ export default function SignUp() {
                   )}
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I agree to let this program steal my identity."
-                />
+                
               </Grid>
             </Grid>
             <Button

@@ -31,12 +31,53 @@ export class ChatRooms extends Component {
     firstLoad: true,
     activeChatRoomId: "",
     notifications: [],
+    userList: [],
   };
 
   componentDidMount() {
     this.addChatRoomsListeners();
+    this.fetchUserList();
   }
 
+  fetchUserList = () => {
+    const usersRef = ref(getDatabase(), "users");
+  
+    onValue(usersRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const userList = Object.values(snapshot.val()).map((user) => ({
+          ...user,
+          selected: false,
+        }));
+        this.setState({ userList });
+      }
+    });
+  };
+
+  handleUserCheckboxChange = (user) => {
+    if (!user || !user.target) {
+      console.error('Event or target is undefined.');
+      return;
+    }
+  
+    const { target } = user;
+    const { value, checked } = target; // Use `checked` to determine if the checkbox is checked or unchecked
+    const { userList } = this.state;
+  
+    const index = userList.findIndex((u) => u.uid === value);
+  
+    if (index !== -1) {
+      // Toggle the selected property of the user in the userList
+      this.setState((prevState) => {
+        const updatedUserList = [...prevState.userList];
+        updatedUserList[index].selected = checked;
+        return { userList: updatedUserList };
+      });
+    }
+  };
+  
+  
+  
+  
   componentWillUnmount() {
     off(this.state.chatRoomsRef);
   }
@@ -54,11 +95,16 @@ export class ChatRooms extends Component {
     let chatRoomsArray = [];
 
     onChildAdded(this.state.chatRoomsRef, (DataSnapshot) => {
+      console.log("Received DataSnapshot:", DataSnapshot.val());
+
       chatRoomsArray.push(DataSnapshot.val());
-      this.setState({ chatRooms: chatRoomsArray.filter((room) => {
-        return room.users && room.users.includes(this.props.user.uid);
-      }) }, () =>
-        this.setFirstChatRoom()
+      this.setState(
+        {
+          chatRooms: chatRoomsArray.filter((room) => {
+            return room.users && room.users.includes(this.props.user.uid);
+          }),
+        },
+        () => this.setFirstChatRoom()
       );
       this.addNotificationListener(DataSnapshot.key);
     });
@@ -123,7 +169,7 @@ export class ChatRooms extends Component {
 
   addChatRoom = async () => {
     const key = push(this.state.chatRoomsRef).key;
-    const { name, description } = this.state;
+    const { name, description, participants } = this.state;
     const { user } = this.props;
     const newChatRoom = {
       id: key,
@@ -133,7 +179,7 @@ export class ChatRooms extends Component {
         name: user.displayName,
         image: user.photoURL,
       },
-      users: [user.uid],
+      users: [user.uid, ...participants], // Include participants in the users array
     };
 
     try {
@@ -141,6 +187,7 @@ export class ChatRooms extends Component {
       this.setState({
         name: "",
         description: "",
+        participants: [],
         show: false,
       });
     } catch (error) {
@@ -172,28 +219,28 @@ export class ChatRooms extends Component {
     const currentUser = this.props.user;
     return (
       chatRooms.length > 0 &&
-      chatRooms
-        .map((room) => (
-          <li
-            key={room.id}
-            style={{
-              backgroundColor:
-                room.id === this.state.activeChatRoomId && "#ffffff45",
-            }}
-            onClick={() => this.changeChatRoom(room)}
-          >
-            # {room.name}
-            <Badge
-              style={{ float: "right", marginTop: "4px" }}
-              badgeContent={this.getNotificationCount(room)}
-              color="error"
-            />
-          </li>
-        ))
+      chatRooms.map((room) => (
+        <li
+          key={room.id}
+          style={{
+            backgroundColor:
+              room.id === this.state.activeChatRoomId && "#ffffff45",
+          }}
+          onClick={() => this.changeChatRoom(room)}
+        >
+          # {room.name}
+          <Badge
+            style={{ float: "right", marginTop: "4px" }}
+            badgeContent={this.getNotificationCount(room)}
+            color="error"
+          />
+        </li>
+      ))
     );
   };
 
   render() {
+    console.log('Render:', this.state.userList);
     return (
       <div>
         <div
@@ -246,13 +293,31 @@ export class ChatRooms extends Component {
 
               {/* add more users to the chat room. Should be dynamic but we'll see what happens. Add the users to an array and add them to the group chat through that */}
               <TextField
-                label="Chat Room Particpants"
-                variant="outlined"
-                fullWidth
-                onChange={(e) => this.setState({ description: e.target.value })}
-                value={this.state.description}
-                margin="normal"
-              />
+  label="Chat Room Participants"
+  variant="outlined"
+  fullWidth
+  onChange={(e) => this.handleUserCheckboxChange(e)}
+  value={this.state.userList
+    .filter((user) => user.selected)
+    .map((user) => user.name)
+    .join(', ')}
+  margin="normal"
+/>
+
+<ul style={{ listStyleType: "none", padding: 0 }}>
+    {this.state.userList.map((user) => (
+      <li key={user.uid}>
+       <input
+  type="checkbox"
+  onChange={() => this.handleUserCheckboxChange(user)}
+  checked={user.selected || false}
+/>
+        {user.firstName} {user.lastName}
+      </li>
+    ))}
+  </ul>
+
+
 
               <Button
                 type="submit"
