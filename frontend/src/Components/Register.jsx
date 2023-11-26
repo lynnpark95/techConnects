@@ -60,21 +60,21 @@ export default function SignUp() {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-  
+
       const auth = getAuth();
       let createdUser = await createUserWithEmailAndPassword(
         auth,
         data.email,
         data.password
       );
-  
+
       await updateProfile(auth.currentUser, {
         displayName: data.firstName + data.lastName,
         photoURL: `http://gravatar.com/avatar/${md5(
           createdUser.user.email
         )}?d=identicon`,
       });
-  
+
       // Firebase save in DB
       const db = getDatabase();
       const userRef = ref(db, `users/${createdUser.user.uid}`);
@@ -85,16 +85,17 @@ export default function SignUp() {
         email: data.email,
         phone: "fake number. Add later",
         image: createdUser.user.photoURL,
+        //populate to include the room ids when they are added to them or create them
       };
-  
-      console.log('Created User:', createdUser.user);
-      console.log('User data to be saved: ', userData);
-  
+
+      console.log("Created User:", createdUser.user);
+      console.log("User data to be saved: ", userData);
+
       // Separate function for database update
       await saveUserData(userRef, userData);
-  
+
       setLoading(false);
-  
+
       navigate("/signin");
     } catch (error) {
       setErrorFromSubmit(error.message);
@@ -104,18 +105,17 @@ export default function SignUp() {
       }, 8000);
     }
   };
-  
+
   // New function for database update
   const saveUserData = async (userRef, userData) => {
     try {
       await set(userRef, userData);
-      console.log('User data saved successfully');
+      console.log("User data saved successfully");
     } catch (error) {
-      console.error('Error saving user data:', error.message);
+      console.error("Error saving user data:", error.message);
       // Handle the error as needed
     }
   };
-  
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -234,12 +234,7 @@ export default function SignUp() {
                   )}
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I agree to let this program steal my identity."
-                />
+                
               </Grid>
             </Grid>
             <Button

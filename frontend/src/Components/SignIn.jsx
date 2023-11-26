@@ -19,6 +19,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+import { setUser } from "../Redux/Actions/user_action";
 import app from "../firebase";
 import GoogleIcon from "@mui/icons-material/Google";
 
@@ -40,11 +41,10 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
-export default function SignIn() {
+function SignIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -54,25 +54,29 @@ export default function SignIn() {
       event.preventDefault();
       const auth = getAuth();
 
-      console.log(email, password);
-      const result = await signInWithEmailAndPassword(auth, email, password);
-      console.log("result", result);
+      // Sign in with email and password, setting remember to 'local'
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password,
+        { remember: 'local' }
+      );
+
+      // User signed in successfully
+      const user = userCredential.user;
+      console.log("User signed in:", user);
+
+      // Dispatch the setUser action to update the Redux state
+      setUser(user); // Assuming setUser is connected to your Redux store
+
+      // Navigate to the desired page (e.g., "/calendar")
       navigate("/calendar");
     } catch (error) {
-      // TODO: error handle
+      console.error("Sign-in error:", error.message);
+      // TODO: Handle the error as needed
     }
   };
-  const handleGoogleSignIn = async () => {
-    try {
-      const auth = getAuth(app);
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      console.log("Google sign-in result", result);
-      navigate("/calendar");
-    } catch (error) {
-      // TODO: error handle
-    }
-  };
+ 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -135,10 +139,6 @@ export default function SignIn() {
                 id="password"
                 autoComplete="current-password"
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
               <Button
                 type="submit"
                 fullWidth
@@ -149,21 +149,7 @@ export default function SignIn() {
                 Sign In
               </Button>
 
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{
-                  mt: 3,
-                  mb: 2,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                onClick={handleGoogleSignIn}
-              >
-                <GoogleIcon style={{ width: "24px", marginRight: "8px" }} />
-                Sign In with Google
-              </Button>
+              
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
@@ -184,3 +170,4 @@ export default function SignIn() {
     </ThemeProvider>
   );
 }
+export default SignIn;
