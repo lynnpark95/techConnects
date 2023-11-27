@@ -69,7 +69,7 @@ export default function SignUp() {
       );
 
       await updateProfile(auth.currentUser, {
-        displayName: data.firstName + data.lastName,
+        displayName: data.first + data.last,
         photoURL: `http://gravatar.com/avatar/${md5(
           createdUser.user.email
         )}?d=identicon`,
@@ -80,8 +80,8 @@ export default function SignUp() {
       const userRef = ref(db, `users/${createdUser.user.uid}`);
       // What is being saved for the user
       const userData = {
-        firstName: data.first,
-        lastName: data.last,
+        first: data.first,
+        last: data.last,
         email: data.email,
         phone: "fake number. Add later",
         image: createdUser.user.photoURL,
@@ -90,6 +90,7 @@ export default function SignUp() {
 
       console.log("Created User:", createdUser.user);
       console.log("User data to be saved: ", userData);
+      
 
       // Separate function for database update
       await saveUserData(userRef, userData);
@@ -145,13 +146,13 @@ export default function SignUp() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="first"
                   required
                   fullWidth
-                  id="firstName"
+                  id="first"
                   label="First Name"
                   autoFocus
-                  {...register("firstName", { required: true, maxLength: 10 })}
+                  {...register("first", { required: true, maxLength: 10 })}
                 />
                 {errors.firstName && errors.firstName.type === "required" && (
                   <p>This firstName field is required</p>
@@ -164,11 +165,11 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
+                  id="last"
                   label="Last Name"
-                  name="lastName"
+                  name="last"
                   autoComplete="family-name"
-                  {...register("lastName", { required: true, maxLength: 10 })}
+                  {...register("last", { required: true, maxLength: 10 })}
                 />
                 {errors.lastName && errors.lastName.type === "required" && (
                   <p>This lastName field is required</p>
