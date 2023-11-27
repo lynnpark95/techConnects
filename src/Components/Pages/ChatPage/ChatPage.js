@@ -2,27 +2,27 @@ import React from "react";
 import SidePanel from "./SidePanel/SidePanel";
 import MainPanel from "./MainPanel/MainPanel";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import NeedsLogin from "../../NeedsLogin"; // Update the path
+import NeedsLogin from "../../../Components/NeedsLogin";
+import Header from "../../Header";
 
 function ChatPage() {
   const currentUser = useSelector((state) => state.user.currentUser);
-  console.log(currentUser);
-
-  // If the user is authenticated, render the ChatPage
+  const currentChatRoom = useSelector(
+    (state) => state.chatRoom.currentChatRoom
+  );
   return (
-    <div style={{ display: "flex" }}>
-      <div style={{ width: "300px" }}>
-        <SidePanel key={currentUser && currentUser.uid} />
+    <NeedsLogin>
+      <div style={{ display: "flex" }}>
+       
+        <div style={{ width: "300px" }}>
+          <SidePanel key={currentUser && currentUser.uid} />
+        </div>
+        <div style={{ width: "100%" }}>
+          <MainPanel key={currentChatRoom && currentChatRoom.id} />
+        </div>
       </div>
-      <div style={{ width: "100%" }}>
-        <MainPanel />
-      </div>
-    </div>
+    </NeedsLogin>
   );
 }
 
-// Wrap the ChatPage component with NeedsLogin
-const ChatPageWithAuth = () => <NeedsLogin children={<ChatPage />} />;
-
-export default ChatPageWithAuth;
+export default ChatPage;
