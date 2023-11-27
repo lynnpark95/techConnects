@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import {
   Box,
   Button,
@@ -10,14 +10,32 @@ import {
   TextField,
   Unstable_Grid2 as Grid,
 } from "@mui/material";
+import { getAuth, updateProfile, updateEmail, updatePassword } from "firebase/auth";
 
 export const AccountProfileDetails = () => {
   const [values, setValues] = useState({
     firstName: "Jacob",
     lastName: "Wilson",
     email: "JacobWilson@gmail.com",
-    password: "", // Replace phone with password
+    password: "",//Replace phone with password
   });
+
+  // Display the current name and email on the field
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setValues((prevValues) => ({
+          ...prevValues,
+          firstName: user.displayName ? user.displayName.split(" ")[0] : "",
+          lastName: user.displayName ? user.displayName.split(" ")[1] : "",
+          email: user.email || "",
+        }));
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const handleChange = useCallback((event) => {
     setValues((prevState) => ({
@@ -26,13 +44,30 @@ export const AccountProfileDetails = () => {
     }));
   }, []);
 
-  const handleSubmit = useCallback((event) => {
-    event.preventDefault();
-    // Add logic to handle form submission, e.g., dispatching an action
-  }, []);
+  const handleSaveDetails = async () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    try {
+      // Update display name
+      await updateProfile(user, {
+        displayName: `${values.firstName} ${values.lastName}`,
+      });
+
+      // Update email
+      await updateEmail(user, values.email);
+
+      // Update password
+      await updatePassword(user, values.password);
+
+      console.log("User profile updated successfully");
+    } catch (error) {
+      console.error("Error updating user profile:", error.message);
+    }
+  };
 
   return (
-    <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+    <form autoComplete="off" noValidate>
       <Card sx={{ boxShadow: "none" }}>
         <CardHeader title="Profile" />
         <CardContent sx={{ pt: 0 }}>
@@ -85,7 +120,7 @@ export const AccountProfileDetails = () => {
         </CardContent>
         <Divider />
         <CardActions sx={{ justifyContent: "flex-end" }}>
-          <Button variant="contained" type="submit">
+          <Button variant="contained" onClick={handleSaveDetails}>
             Save details
           </Button>
         </CardActions>

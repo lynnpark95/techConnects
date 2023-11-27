@@ -8,6 +8,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
+import DOMPurify from "dompurify";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -61,6 +62,10 @@ export default function SignUp() {
     try {
       setLoading(true);
 
+      // Sanitize user inputs to prevent XSS attacks
+      const sanitizedFirstName = DOMPurify.sanitize(data.firstName);
+      const sanitizedLastName = DOMPurify.sanitize(data.lastName);
+  
       const auth = getAuth();
       let createdUser = await createUserWithEmailAndPassword(
         auth,
@@ -69,7 +74,7 @@ export default function SignUp() {
       );
 
       await updateProfile(auth.currentUser, {
-        displayName: data.firstName + data.lastName,
+        displayName: sanitizedFirstName + sanitizedLastName,
         photoURL: `http://gravatar.com/avatar/${md5(
           createdUser.user.email
         )}?d=identicon`,
@@ -98,8 +103,16 @@ export default function SignUp() {
 
       navigate("/signin");
     } catch (error) {
-      setErrorFromSubmit(error.message);
-      setLoading(false);
+      // This will show Email is already in use instead of firebase error message - John
+      if (error.code === "auth/email-already-in-use") {
+        setErrorFromSubmit("Email is already in use. Please use another email.");
+      } else {
+        // Avoid exposing detailed error messages to users
+        setErrorFromSubmit("An error occurred. Please try again later.");
+        // Log detailed error information on the server side
+        console.error("Error:", error);
+      }
+
       setTimeout(() => {
         setErrorFromSubmit("");
       }, 8000);
@@ -154,7 +167,7 @@ export default function SignUp() {
                   {...register("firstName", { required: true, maxLength: 10 })}
                 />
                 {errors.firstName && errors.firstName.type === "required" && (
-                  <p>This firstName field is required</p>
+                  <p>First Name required</p>
                 )}
                 {errors.firstName && errors.firstName.type === "maxLength" && (
                   <p>Your input exceed maximum length</p>
@@ -171,7 +184,7 @@ export default function SignUp() {
                   {...register("lastName", { required: true, maxLength: 10 })}
                 />
                 {errors.lastName && errors.lastName.type === "required" && (
-                  <p>This lastName field is required</p>
+                  <p>Last Name is required</p>
                 )}
                 {errors.lastName && errors.lastName.type === "maxLength" && (
                   <p>Your input exceed maximum length</p>
@@ -190,7 +203,7 @@ export default function SignUp() {
                     pattern: /^\S+@\S+$/i,
                   })}
                 />
-                {errors.email && <p>This email field is required</p>}
+                {errors.email && <p>Email is required</p>}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -204,7 +217,7 @@ export default function SignUp() {
                   {...register("password", { required: true, minLength: 6 })}
                 />
                 {errors.password && errors.password.type === "required" && (
-                  <p>This password field is required</p>
+                  <p>Password is required</p>
                 )}
                 {errors.password && errors.password.type === "minLength" && (
                   <p>Password must have at least 6 characters</p>
@@ -226,16 +239,14 @@ export default function SignUp() {
                 />
                 {errors.password_confirm &&
                   errors.password_confirm.type === "required" && (
-                    <p>This password confirm field is required</p>
+                    <p>Confirm password is required</p>
                   )}
                 {errors.password_confirm &&
                   errors.password_confirm.type === "validate" && (
                     <p>The passwords do not match</p>
                   )}
               </Grid>
-              <Grid item xs={12}>
-                
-              </Grid>
+              <Grid item xs={12}></Grid>
             </Grid>
             <Button
               type="submit"
@@ -262,4 +273,3 @@ export default function SignUp() {
     </ThemeProvider>
   );
 }
-
