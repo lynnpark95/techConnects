@@ -57,7 +57,6 @@ export class ChatRooms extends Component {
   };
 
   handleUserCheckboxChange = (e, uid) => {
-    
     if (!e || !e.target) {
       console.error("Event or target is undefined.");
       return;
@@ -67,9 +66,6 @@ export class ChatRooms extends Component {
     const { value, checked } = target; 
     const { userList } = this.state;
     const index = userList.findIndex((u) => u.uid === uid);
-    console.log(uid)
-console.log(index)
-console.log(value)
     if (index !== -1) {
       const updatedUserList = [...this.state.userList];
         updatedUserList[index].selected = !updatedUserList[index].selected;
@@ -170,8 +166,10 @@ console.log(value)
 
   addChatRoom = async () => {
     const key = push(this.state.chatRoomsRef).key;
-    const { name, description, participants } = this.state;
+    const { name, description } = this.state;
     const { user } = this.props;
+    const selectedUsers = this.state.userList.filter((user) => user.selected);
+
     const newChatRoom = {
       id: key,
       name: name,
@@ -180,7 +178,7 @@ console.log(value)
         name: user.displayName,
         image: user.photoURL,
       },
-      users: [user.uid, ...participants], 
+      users: [user.uid, ...selectedUsers.map((user) => user.uid)], 
     };
 
     try {
@@ -300,7 +298,7 @@ console.log(value)
                 onChange={(e) => this.handleUserCheckboxChange(e)}
                 value={this.state.userList
                   .filter((user) => user.selected)
-                  .map((user) => user.name)
+                  .map((user) => user.first +" " + user.last)
                   .join(", ")}
                 margin="normal"
               />
