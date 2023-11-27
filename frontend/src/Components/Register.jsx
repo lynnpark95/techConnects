@@ -80,8 +80,8 @@ export default function SignUp() {
       const userRef = ref(db, `users/${createdUser.user.uid}`);
       // What is being saved for the user
       const userData = {
-        first: data.firstName,
-        last: data.lastName,
+        firstName: data.first,
+        lastName: data.last,
         email: data.email,
         phone: "fake number. Add later",
         image: createdUser.user.photoURL,

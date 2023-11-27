@@ -41,11 +41,14 @@ export class ChatRooms extends Component {
 
   fetchUserList = () => {
     const usersRef = ref(getDatabase(), "users");
-  
+
     onValue(usersRef, (snapshot) => {
+      console.log(snapshot)
+      console.log(snapshot.val())
       if (snapshot.exists()) {
-        const userList = Object.values(snapshot.val()).map((user) => ({
-          ...user,
+        const userList = Object.entries(snapshot.val()).map((obj) => ({
+          uid: obj[0],
+          ...obj[1],
           selected: false,
         }));
         this.setState({ userList });
@@ -53,31 +56,29 @@ export class ChatRooms extends Component {
     });
   };
 
-  handleUserCheckboxChange = (user) => {
-    if (!user || !user.target) {
-      console.error('Event or target is undefined.');
+  handleUserCheckboxChange = (e, uid) => {
+    
+    if (!e || !e.target) {
+      console.error("Event or target is undefined.");
       return;
     }
-  
-    const { target } = user;
-    const { value, checked } = target; // Use `checked` to determine if the checkbox is checked or unchecked
+
+    const { target } = e;
+    const { value, checked } = target; 
     const { userList } = this.state;
-  
-    const index = userList.findIndex((u) => u.uid === value);
-  
+    const index = userList.findIndex((u) => u.uid === uid);
+    console.log(uid)
+console.log(index)
+console.log(value)
     if (index !== -1) {
-      // Toggle the selected property of the user in the userList
-      this.setState((prevState) => {
-        const updatedUserList = [...prevState.userList];
-        updatedUserList[index].selected = checked;
-        return { userList: updatedUserList };
-      });
+      const updatedUserList = [...this.state.userList];
+        updatedUserList[index].selected = !updatedUserList[index].selected;
+      this.setState( 
+         { userList: updatedUserList }
+      );
     }
   };
-  
-  
-  
-  
+
   componentWillUnmount() {
     off(this.state.chatRoomsRef);
   }
@@ -179,7 +180,7 @@ export class ChatRooms extends Component {
         name: user.displayName,
         image: user.photoURL,
       },
-      users: [user.uid, ...participants], // Include participants in the users array
+      users: [user.uid, ...participants], 
     };
 
     try {
@@ -240,7 +241,7 @@ export class ChatRooms extends Component {
   };
 
   render() {
-    console.log('Render:', this.state.userList);
+    console.log("Render:", this.state.userList);
     return (
       <div>
         <div
@@ -293,31 +294,29 @@ export class ChatRooms extends Component {
 
               {/* add more users to the chat room. Should be dynamic but we'll see what happens. Add the users to an array and add them to the group chat through that */}
               <TextField
-  label="Chat Room Participants"
-  variant="outlined"
-  fullWidth
-  onChange={(e) => this.handleUserCheckboxChange(e)}
-  value={this.state.userList
-    .filter((user) => user.selected)
-    .map((user) => user.name)
-    .join(', ')}
-  margin="normal"
-/>
+                label="Chat Room Participants"
+                variant="outlined"
+                fullWidth
+                onChange={(e) => this.handleUserCheckboxChange(e)}
+                value={this.state.userList
+                  .filter((user) => user.selected)
+                  .map((user) => user.name)
+                  .join(", ")}
+                margin="normal"
+              />
 
-<ul style={{ listStyleType: "none", padding: 0 }}>
-    {this.state.userList.map((user) => (
-      <li key={user.uid}>
-       <input
-  type="checkbox"
-  onChange={() => this.handleUserCheckboxChange(user)}
-  checked={user.selected || false}
-/>
-        {user.firstName} {user.lastName}
-      </li>
-    ))}
-  </ul>
-
-
+              <ul style={{ listStyleType: "none", padding: 0 }}>
+                {this.state.userList.map((user) => (
+                  <li key={user.uid}>
+                    <input
+                      type="checkbox"
+                      onChange={(e) => this.handleUserCheckboxChange(e, user.uid)}
+                      checked={user.selected || false}
+                    />
+                    {user.first}, {user.last}, {user.selected}
+                  </li>
+                ))}
+              </ul>
 
               <Button
                 type="submit"
