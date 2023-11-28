@@ -64,6 +64,7 @@ const boxData = [
   { label: "Log Out", onClick: {handleLogout}, icon: <LogoutIcon style={iconStyles}  /> },
 ];
 
+// Able to make a new page to the lama's website - John 
 export default function Gridv2() {
   return (
     <Box
@@ -77,14 +78,25 @@ export default function Gridv2() {
       <Grid container spacing={4} sx={{ width: "100%", maxWidth: "1000px" }}>
         {boxData.map((item, index) => (
           <Grid item xs={6} key={item.label}>
-            <Link to={item.link} style={linkStyles}> {/* Apply the linkStyles */}
-              <Paper elevation={8}>
-                <Item>
-                  <IconWrapper>{item.icon}</IconWrapper>
-                  <TextWithShadow variant="h4">{item.label}</TextWithShadow>
-                </Item>
-              </Paper>
-            </Link>
+            {item.link && item.link.startsWith("http") ? (
+              <a href={item.link} target="_blank" rel="noopener noreferrer" style={linkStyles}> 
+                <Paper elevation={8}>
+                  <Item>
+                    <IconWrapper>{item.icon}</IconWrapper>
+                    <TextWithShadow variant="h4">{item.label}</TextWithShadow>
+                  </Item>
+                </Paper>
+              </a>
+            ) : (
+              <Link to={item.link} style={linkStyles}>
+                <Paper elevation={8}>
+                  <Item>
+                    <IconWrapper>{item.icon}</IconWrapper>
+                    <TextWithShadow variant="h4">{item.label}</TextWithShadow>
+                  </Item>
+                </Paper>
+              </Link>
+            )}
           </Grid>
         ))}
       </Grid>
