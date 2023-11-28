@@ -16,6 +16,9 @@ function Header(props) {
         <img src="https://lamainnovationz.com/wp-content/uploads/2022/08/Logo-01.png" alt="Logo" style={{ width: '100px', marginRight: 'auto' }} />
         <div>
           {/* Use the Link component from react-router-dom */}
+          <Button component={RouterLink} to="/reg" variant="outlined" size="medium" sx={{ marginRight: '8px' }}>
+            Sign Up
+          </Button>
           <Button component={RouterLink} to="/signin" variant="outlined" size="medium">
             Sign In
           </Button>
