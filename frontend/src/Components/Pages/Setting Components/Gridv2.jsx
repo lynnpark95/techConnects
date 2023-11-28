@@ -11,6 +11,7 @@ import { getAuth, signOut, updateProfile } from "firebase/auth";
 import HelpIcon from "@mui/icons-material/Help";
 import InfoIcon from "@mui/icons-material/Info";
 import LogoutIcon from "@mui/icons-material/Logout";
+import Button from "@mui/material/Button";
 
 const customBackgroundColor = "#75A9DE";
 
@@ -45,6 +46,10 @@ const handleLogout = () => {
     });
 };
 
+// Call the handleLogout function - John Crudo
+const handleLogoutClick = () => {
+  handleLogout(); 
+};
 const TextWithShadow = styled(Typography)({
   textShadow: "1px 1px 2px rgba(0,0,0,0.6)",
 });
@@ -61,10 +66,11 @@ const boxData = [
   { label: "Account", link: "/profile", icon: <MailIcon style={iconStyles} /> },
   { label: "Help", link: "/contact", icon: <HelpIcon style={iconStyles} /> },
   { label: "About", link: "https://lamainnovationz.com", icon: <InfoIcon style={iconStyles} /> },
-  { label: "Log Out", onClick: {handleLogout}, icon: <LogoutIcon style={iconStyles}  /> },
+  { label: "Log Out", onClick: {handleLogout}, link: "/logout", icon: <LogoutIcon style={iconStyles}  /> },
 ];
 
 // Able to make a new page to the lama's website - John 
+// Also fix the log-out - John
 export default function Gridv2() {
   return (
     <Box
@@ -88,7 +94,7 @@ export default function Gridv2() {
                 </Paper>
               </a>
             ) : (
-              <Link to={item.link} style={linkStyles}>
+              <Link to={item.link} style={linkStyles} onClick={item.label === "Log Out" ? handleLogoutClick : null}>
                 <Paper elevation={8}>
                   <Item>
                     <IconWrapper>{item.icon}</IconWrapper>
