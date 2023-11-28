@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -8,15 +8,16 @@ import {
   CardHeader,
   Divider,
   TextField,
-  Unstable_Grid2 as Grid,
+  Grid,
 } from "@mui/material";
+import { getAuth, updateProfile } from "firebase/auth";
+import { getDatabase, ref, update, get } from "firebase/database";
 
-export const AccountProfileDetails = () => {
+const AccountProfileDetails = () => {
   const [values, setValues] = useState({
-    firstName: "Jacob",
-    lastName: "Wilson",
-    email: "JacobWilson@gmail.com",
-    password: "", // Replace phone with password
+    first: "",
+    last: "",
+    phone: ""
   });
 
   const handleChange = useCallback((event) => {
@@ -26,58 +27,99 @@ export const AccountProfileDetails = () => {
     }));
   }, []);
 
-  const handleSubmit = useCallback((event) => {
+  const handleSubmit = useCallback(async (event) => {
     event.preventDefault();
-    // Add logic to handle form submission, e.g., dispatching an action
+  
+    const auth = getAuth();
+    const db = getDatabase();
+  
+    // Get the currently authenticated user from Firebase
+    const user = auth.currentUser;
+  
+    if (user) {
+      try {
+        // Update user information in Firebase Realtime Database using update
+        const userRef = ref(db, `/users/${user.uid}`);
+        await update(userRef, {
+          first: values.first,
+          last: values.last,
+          phone: values.phone
+        });
+  
+        // Update user profile in Firebase Authentication
+        await updateProfile(user, {
+          displayName: `${values.first} ${values.last}`,
+        });
+  
+        alert("User information saved!");
+      } catch (error) {
+        console.error("Error updating user information:", error.message);
+        alert("Failed to save user information. Please try again.");
+      }
+    } else {
+      alert("User not authenticated. Please log in.");
+    }
+  }, [values]);
+
+  // Fetch user data when the component mounts
+  useEffect(() => {
+    const auth = getAuth();
+    const db = getDatabase();
+
+    const fetchData = async () => {
+      const user = auth.currentUser;
+
+      if (user) {
+        const userRef = ref(db, `/users/${user.uid}`);
+        const snapshot = await get(userRef);
+
+        if (snapshot.exists()) {
+          const userData = snapshot.val();
+          setValues(userData);
+        }
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
     <form autoComplete="off" noValidate onSubmit={handleSubmit}>
       <Card sx={{ boxShadow: "none" }}>
-        <CardHeader title="Profile" />
+        <CardHeader title="Edit Profile" />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
-            <Grid container spacing={3}>
-              <Grid xs={12} md={6}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   fullWidth
-                  helperText="Please specify the first name"
                   label="First name"
-                  name="firstName"
+                  name="first"
                   onChange={handleChange}
                   required
-                  value={values.firstName}
+                  value={values.first}
+                  placeholder="Enter your first name"
                 />
               </Grid>
-              <Grid xs={12} md={6}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   fullWidth
                   label="Last name"
-                  name="lastName"
+                  name="last"
                   onChange={handleChange}
                   required
-                  value={values.lastName}
+                  value={values.last}
+                  placeholder="Enter your last name"
                 />
               </Grid>
-              <Grid xs={12} md={6}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   fullWidth
-                  label="Email Address"
-                  name="email"
+                  label="Phone"
+                  name="phone"
                   onChange={handleChange}
-                  required
-                  value={values.email}
-                />
-              </Grid>
-              <Grid xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Password"
-                  name="password"
-                  onChange={handleChange}
-                  type="password"
-                  required
-                  value={values.password}
+                  value={values.phone}
+                  placeholder="Enter your phone number"
                 />
               </Grid>
             </Grid>
@@ -93,3 +135,5 @@ export const AccountProfileDetails = () => {
     </form>
   );
 };
+
+export default AccountProfileDetails;

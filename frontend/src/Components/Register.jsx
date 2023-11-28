@@ -20,6 +20,8 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import InputLabel from "@mui/material/InputLabel";
+import { Select, MenuItem } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function Copyright(props) {
@@ -69,7 +71,7 @@ export default function SignUp() {
       );
 
       await updateProfile(auth.currentUser, {
-        displayName: data.firstName + data.lastName,
+        displayName: data.first + data.last,
         photoURL: `http://gravatar.com/avatar/${md5(
           createdUser.user.email
         )}?d=identicon`,
@@ -80,10 +82,11 @@ export default function SignUp() {
       const userRef = ref(db, `users/${createdUser.user.uid}`);
       // What is being saved for the user
       const userData = {
-        first: data.firstName,
-        last: data.lastName,
+        first: data.first,
+        last: data.last,
         email: data.email,
-        phone: "fake number. Add later",
+        phone: data.phone,
+        role: data.role,
         image: createdUser.user.photoURL,
         //populate to include the room ids when they are added to them or create them
       };
@@ -145,18 +148,18 @@ export default function SignUp() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="first"
                   required
                   fullWidth
-                  id="firstName"
+                  id="first"
                   label="First Name"
                   autoFocus
-                  {...register("firstName", { required: true, maxLength: 10 })}
+                  {...register("first", { required: true, maxLength: 10 })}
                 />
-                {errors.firstName && errors.firstName.type === "required" && (
-                  <p>This firstName field is required</p>
+                {errors.first && errors.first.type === "required" && (
+                  <p>This first name field is required</p>
                 )}
-                {errors.firstName && errors.firstName.type === "maxLength" && (
+                {errors.first && errors.first.type === "maxLength" && (
                   <p>Your input exceed maximum length</p>
                 )}
               </Grid>
@@ -164,16 +167,16 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
+                  id="last"
                   label="Last Name"
-                  name="lastName"
+                  name="last"
                   autoComplete="family-name"
-                  {...register("lastName", { required: true, maxLength: 10 })}
+                  {...register("last", { required: true, maxLength: 10 })}
                 />
-                {errors.lastName && errors.lastName.type === "required" && (
-                  <p>This lastName field is required</p>
+                {errors.last && errors.last.type === "required" && (
+                  <p>This last name field is required</p>
                 )}
-                {errors.lastName && errors.lastName.type === "maxLength" && (
+                {errors.last && errors.last.type === "maxLength" && (
                   <p>Your input exceed maximum length</p>
                 )}
               </Grid>
@@ -234,13 +237,44 @@ export default function SignUp() {
                   )}
               </Grid>
               <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="phone"
+                  label="Phone"
+                  name="phone"
+                  {...register("phone", { required: true, maxLength: 15 })}
+                />
+                {errors.phone && errors.phone.type === "required" && (
+                  <p>This phone field is required</p>
+                )}
+                {errors.phone && errors.phone.type === "maxLength" && (
+                  <p>Your input exceed maximum length</p>
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                <InputLabel id="role-label">Role</InputLabel>
+                <Select
+                  labelId="role-label"
+                  id="role"
+                  fullWidth
+                  {...register("role", { required: true })}
+                >
+                  <MenuItem value="Care Receiver">Care Receiver</MenuItem>
+                  <MenuItem value="Care Giver">Care Giver</MenuItem>
+                  <MenuItem value="Care Taker">Care Taker</MenuItem>
+                  <MenuItem value="Care Sponsor">Care Sponsor</MenuItem>
+                </Select>
+                {errors.role && <p>This role field is required</p>}
+              </Grid>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
                   label="I agree to let this program steal my identity."
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"

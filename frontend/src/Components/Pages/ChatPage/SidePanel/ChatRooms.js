@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { FaRegSmileWink, FaPlus } from "react-icons/fa";
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -31,11 +32,49 @@ export class ChatRooms extends Component {
     firstLoad: true,
     activeChatRoomId: "",
     notifications: [],
+    userList: [],
   };
 
   componentDidMount() {
     this.addChatRoomsListeners();
+    this.fetchUserList();
   }
+
+  fetchUserList = () => {
+    const usersRef = ref(getDatabase(), "users");
+
+    onValue(usersRef, (snapshot) => {
+      console.log(snapshot)
+      console.log(snapshot.val())
+      if (snapshot.exists()) {
+        const userList = Object.entries(snapshot.val()).map((obj) => ({
+          uid: obj[0],
+          ...obj[1],
+          selected: false,
+        }));
+        this.setState({ userList });
+      }
+    });
+  };
+
+  handleUserCheckboxChange = (e, uid) => {
+    if (!e || !e.target) {
+      console.error("Event or target is undefined.");
+      return;
+    }
+
+    const { target } = e;
+    const { value, checked } = target; 
+    const { userList } = this.state;
+    const index = userList.findIndex((u) => u.uid === uid);
+    if (index !== -1) {
+      const updatedUserList = [...this.state.userList];
+        updatedUserList[index].selected = !updatedUserList[index].selected;
+      this.setState( 
+         { userList: updatedUserList }
+      );
+    }
+  };
 
   componentWillUnmount() {
     off(this.state.chatRoomsRef);
@@ -54,11 +93,16 @@ export class ChatRooms extends Component {
     let chatRoomsArray = [];
 
     onChildAdded(this.state.chatRoomsRef, (DataSnapshot) => {
+      console.log("Received DataSnapshot:", DataSnapshot.val());
+
       chatRoomsArray.push(DataSnapshot.val());
-      this.setState({ chatRooms: chatRoomsArray.filter((room) => {
-        return room.users && room.users.includes(this.props.user.uid);
-      }) }, () =>
-        this.setFirstChatRoom()
+      this.setState(
+        {
+          chatRooms: chatRoomsArray.filter((room) => {
+            return room.users && room.users.includes(this.props.user.uid);
+          }),
+        },
+        () => this.setFirstChatRoom()
       );
       this.addNotificationListener(DataSnapshot.key);
     });
@@ -125,6 +169,8 @@ export class ChatRooms extends Component {
     const key = push(this.state.chatRoomsRef).key;
     const { name, description } = this.state;
     const { user } = this.props;
+    const selectedUsers = this.state.userList.filter((user) => user.selected);
+
     const newChatRoom = {
       id: key,
       name: name,
@@ -133,7 +179,7 @@ export class ChatRooms extends Component {
         name: user.displayName,
         image: user.photoURL,
       },
-      users: [user.uid],
+      users: [user.uid, ...selectedUsers.map((user) => user.uid)], 
     };
 
     try {
@@ -141,6 +187,7 @@ export class ChatRooms extends Component {
       this.setState({
         name: "",
         description: "",
+        participants: [],
         show: false,
       });
     } catch (error) {
@@ -172,28 +219,28 @@ export class ChatRooms extends Component {
     const currentUser = this.props.user;
     return (
       chatRooms.length > 0 &&
-      chatRooms
-        .map((room) => (
-          <li
-            key={room.id}
-            style={{
-              backgroundColor:
-                room.id === this.state.activeChatRoomId && "#ffffff45",
-            }}
-            onClick={() => this.changeChatRoom(room)}
-          >
-            # {room.name}
-            <Badge
-              style={{ float: "right", marginTop: "4px" }}
-              badgeContent={this.getNotificationCount(room)}
-              color="error"
-            />
-          </li>
-        ))
+      chatRooms.map((room) => (
+        <li
+          key={room.id}
+          style={{
+            backgroundColor:
+              room.id === this.state.activeChatRoomId && "#ffffff45",
+          }}
+          onClick={() => this.changeChatRoom(room)}
+        >
+          # {room.name}
+          <Badge
+            style={{ float: "right", marginTop: "5px" }}
+            badgeContent={this.getNotificationCount(room)}
+            color="error"
+          />
+        </li>
+      ))
     );
   };
 
   render() {
+    console.log("Render:", this.state.userList);
     return (
       <div>
         <div
@@ -202,11 +249,12 @@ export class ChatRooms extends Component {
             width: "100%",
             display: "flex",
             alignItems: "center",
+            fontSize: "1.1em",
           }}
         >
-          <FaRegSmileWink style={{ marginRight: 3 }} />
-          CHAT ROOMS ({this.state.chatRooms.length})
-          <FaPlus
+          <ChatBubbleOutlineOutlinedIcon style={{ marginRight: 3 }} />
+          USER ROOMS ({this.state.chatRooms.length})
+          <AddOutlinedIcon
             onClick={this.handleShow}
             style={{
               position: "absolute",
@@ -246,13 +294,29 @@ export class ChatRooms extends Component {
 
               {/* add more users to the chat room. Should be dynamic but we'll see what happens. Add the users to an array and add them to the group chat through that */}
               <TextField
-                label="Chat Room Particpants"
+                label="Chat Room Participants"
                 variant="outlined"
                 fullWidth
-                onChange={(e) => this.setState({ description: e.target.value })}
-                value={this.state.description}
+                onChange={(e) => this.handleUserCheckboxChange(e)}
+                value={this.state.userList
+                  .filter((user) => user.selected)
+                  .map((user) => user.first +" " + user.last)
+                  .join(", ")}
                 margin="normal"
               />
+
+              <ul style={{ listStyleType: "none", padding: 0 }}>
+                {this.state.userList.map((user) => (
+                  <li key={user.uid}>
+                    <input
+                      type="checkbox"
+                      onChange={(e) => this.handleUserCheckboxChange(e, user.uid)}
+                      checked={user.selected || false}
+                    />
+                    {user.first}, {user.last}, {user.selected}
+                  </li>
+                ))}
+              </ul>
 
               <Button
                 type="submit"

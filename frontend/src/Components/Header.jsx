@@ -11,7 +11,7 @@ function Header() {
     backgroundColor: "#F5F5F5",
     position: "fixed",
     top: 0,
-    width: "100%",
+    width: "85.6%",
     zIndex: 1000,
   };
 
@@ -30,7 +30,7 @@ function Header() {
   return (
     <AppBar style={headerStyles}>
       <Toolbar>
-        <Typography variant="h6">Page Title</Typography>
+        <Typography variant="h6">P</Typography>
         <div style={{ flexGrow: 1 }}></div>
         <div>
           <Button style={buttonStyles} onClick={handleMyAccountClick}>

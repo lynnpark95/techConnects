@@ -35,7 +35,7 @@ function App(props) {
         // You can customize this logic based on your requirements
       } else {
         // User is not authenticated, navigate to the welcome page or sign-in
-        if (location.pathname !== "/" && location.pathname !== "/signin") {
+        if (location.pathname !== "/" && location.pathname !== "/signin" && location.pathname !== "/reg") {
           navigate("/");
         }
       }

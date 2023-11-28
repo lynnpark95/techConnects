@@ -61,7 +61,7 @@ const TechSupport = () => {
       <Typography
         variant="h7"
         component="p"
-        marginTop={10}
+        marginTop={1}
         marginBottom={5}
         fontSize={"45px"}
         style={{
