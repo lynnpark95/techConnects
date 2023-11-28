@@ -12,14 +12,14 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import InputLabel from "@mui/material/InputLabel";
+import { Select, MenuItem } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function Copyright(props) {
@@ -87,7 +87,8 @@ export default function SignUp() {
         first: data.first,
         last: data.last,
         email: data.email,
-        phone: "fake number. Add later",
+        phone: data.phone,
+        role: data.role,
         image: createdUser.user.photoURL,
         //populate to include the room ids when they are added to them or create them
       };
@@ -167,10 +168,10 @@ export default function SignUp() {
                   autoFocus
                   {...register("first", { required: true, maxLength: 10 })}
                 />
-                {errors.firstName && errors.firstName.type === "required" && (
-                  <p>First Name required</p>
+                {errors.first && errors.first.type === "required" && (
+                  <p>This first name field is required</p>
                 )}
-                {errors.firstName && errors.firstName.type === "maxLength" && (
+                {errors.first && errors.first.type === "maxLength" && (
                   <p>Your input exceed maximum length</p>
                 )}
               </Grid>
@@ -184,10 +185,10 @@ export default function SignUp() {
                   autoComplete="family-name"
                   {...register("last", { required: true, maxLength: 10 })}
                 />
-                {errors.lastName && errors.lastName.type === "required" && (
-                  <p>Last Name is required</p>
+                {errors.last && errors.last.type === "required" && (
+                  <p>This last name field is required</p>
                 )}
-                {errors.lastName && errors.lastName.type === "maxLength" && (
+                {errors.last && errors.last.type === "maxLength" && (
                   <p>Your input exceed maximum length</p>
                 )}
               </Grid>
@@ -247,7 +248,45 @@ export default function SignUp() {
                     <p>The passwords do not match</p>
                   )}
               </Grid>
-              <Grid item xs={12}></Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="phone"
+                  label="Phone"
+                  name="phone"
+                  {...register("phone", { required: true, maxLength: 15 })}
+                />
+                {errors.phone && errors.phone.type === "required" && (
+                  <p>This phone field is required</p>
+                )}
+                {errors.phone && errors.phone.type === "maxLength" && (
+                  <p>Your input exceed maximum length</p>
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                <InputLabel id="role-label">Role</InputLabel>
+                <Select
+                  labelId="role-label"
+                  id="role"
+                  fullWidth
+                  {...register("role", { required: true })}
+                >
+                  <MenuItem value="Care Receiver">Care Receiver</MenuItem>
+                  <MenuItem value="Care Giver">Care Giver</MenuItem>
+                  <MenuItem value="Care Taker">Care Taker</MenuItem>
+                  <MenuItem value="Care Sponsor">Care Sponsor</MenuItem>
+                </Select>
+                {errors.role && <p>This role field is required</p>}
+              </Grid>
+              {/* <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox value="allowExtraEmails" color="primary" />
+                  }
+                  label="I agree to let this program steal my identity."
+                />
+              </Grid> */}
             </Grid>
             <Button
               type="submit"
