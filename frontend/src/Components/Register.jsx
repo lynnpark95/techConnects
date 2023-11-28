@@ -8,7 +8,6 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import DOMPurify from "dompurify";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -62,9 +61,10 @@ export default function SignUp() {
     try {
       setLoading(true);
 
+      // How to install: npm install dompurify
       // Sanitize user inputs to prevent XSS attacks
-      const sanitizedFirstName = DOMPurify.sanitize(data.firstName);
-      const sanitizedLastName = DOMPurify.sanitize(data.lastName);
+      //const sanitizedFirstName = DOMPurify.sanitize(data.firstName);
+      //const sanitizedLastName = DOMPurify.sanitize(data.lastName);
   
       const auth = getAuth();
       let createdUser = await createUserWithEmailAndPassword(
