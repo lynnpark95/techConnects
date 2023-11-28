@@ -8,7 +8,6 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import DOMPurify from "dompurify";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -63,9 +62,9 @@ export default function SignUp() {
       setLoading(true);
 
       // Sanitize user inputs to prevent XSS attacks
-      const sanitizedFirstName = DOMPurify.sanitize(data.firstName);
-      const sanitizedLastName = DOMPurify.sanitize(data.lastName);
-  
+      // const sanitizedFirstName = DOMPurify.sanitize(data.firstName);
+      // const sanitizedLastName = DOMPurify.sanitize(data.lastName);
+
       const auth = getAuth();
       let createdUser = await createUserWithEmailAndPassword(
         auth,
@@ -95,7 +94,6 @@ export default function SignUp() {
 
       console.log("Created User:", createdUser.user);
       console.log("User data to be saved: ", userData);
-      
 
       // Separate function for database update
       await saveUserData(userRef, userData);
@@ -106,7 +104,9 @@ export default function SignUp() {
     } catch (error) {
       // This will show Email is already in use instead of firebase error message - John
       if (error.code === "auth/email-already-in-use") {
-        setErrorFromSubmit("Email is already in use. Please use another email.");
+        setErrorFromSubmit(
+          "Email is already in use. Please use another email."
+        );
       } else {
         // Avoid exposing detailed error messages to users
         setErrorFromSubmit("An error occurred. Please try again later.");
