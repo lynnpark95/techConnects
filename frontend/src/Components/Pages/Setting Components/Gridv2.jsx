@@ -60,7 +60,7 @@ const linkStyles = {
 const boxData = [
   { label: "Account", link: "/profile", icon: <MailIcon style={iconStyles} /> },
   { label: "Help", link: "/contact", icon: <HelpIcon style={iconStyles} /> },
-  { label: "About", link: "/contact", icon: <InfoIcon style={iconStyles} /> },
+  { label: "About", link: "https://lamainnovationz.com", icon: <InfoIcon style={iconStyles} /> },
   { label: "Log Out", onClick: {handleLogout}, icon: <LogoutIcon style={iconStyles}  /> },
 ];
 
