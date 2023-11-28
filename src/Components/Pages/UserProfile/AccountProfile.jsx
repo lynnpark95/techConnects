@@ -34,8 +34,8 @@ export const AccountProfile = ({ isEditMode, onEditClick }) => {
                 if (userData) {
                     setUser({
                         avatar: userData.image,
-                        firstName: userData.firstName,
-                        lastName: userData.lastName,
+                        first: userData.first,
+                        last: userData.last,
                         email: userData.email,
                         phone: userData.phone,
                         role: userData.role
@@ -84,7 +84,7 @@ export const AccountProfile = ({ isEditMode, onEditClick }) => {
               }}
             />
             <Typography gutterBottom variant="h5">
-              {user.firstName} {user.lastName}
+              {user.first} {user.last}
             </Typography>
             <Typography color="text.secondary" variant="body2">
               {user.email}

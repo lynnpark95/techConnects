@@ -15,8 +15,8 @@ import { getDatabase, ref, update, get } from "firebase/database";
 
 const AccountProfileDetails = () => {
   const [values, setValues] = useState({
-    firstName: "",
-    lastName: "",
+    first: "",
+    last: "",
     phone: ""
   });
 
@@ -41,14 +41,14 @@ const AccountProfileDetails = () => {
         // Update user information in Firebase Realtime Database using update
         const userRef = ref(db, `/users/${user.uid}`);
         await update(userRef, {
-          firstName: values.firstName,
-          lastName: values.lastName,
+          first: values.first,
+          last: values.last,
           phone: values.phone
         });
   
         // Update user profile in Firebase Authentication
         await updateProfile(user, {
-          displayName: `${values.firstName} ${values.lastName}`,
+          displayName: `${values.first} ${values.last}`,
         });
   
         alert("User information saved!");
@@ -94,10 +94,10 @@ const AccountProfileDetails = () => {
                 <TextField
                   fullWidth
                   label="First name"
-                  name="firstName"
+                  name="first"
                   onChange={handleChange}
                   required
-                  value={values.firstName}
+                  value={values.first}
                   placeholder="Enter your first name"
                 />
               </Grid>
@@ -105,10 +105,10 @@ const AccountProfileDetails = () => {
                 <TextField
                   fullWidth
                   label="Last name"
-                  name="lastName"
+                  name="last"
                   onChange={handleChange}
                   required
-                  value={values.lastName}
+                  value={values.last}
                   placeholder="Enter your last name"
                 />
               </Grid>
