@@ -292,7 +292,7 @@ export class ChatRooms extends Component {
                 margin="normal"
               />
 
-              {/* add more users to the chat room. Should be dynamic but we'll see what happens. Add the users to an array and add them to the group chat through that */}
+              
               <TextField
                 label="Chat Room Participants"
                 variant="outlined"

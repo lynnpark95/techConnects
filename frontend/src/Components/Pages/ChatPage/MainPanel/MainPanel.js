@@ -45,7 +45,6 @@ export class MainPanel extends Component {
   }
 
   componentWillUnmount() {
-    // ref(getDatabase(), "messages")
     off(this.state.messagesRef);
     this.removeListeners(this.state.listenerLists);
   }
@@ -58,7 +57,6 @@ export class MainPanel extends Component {
 
   addTypingListeners = (chatRoomId) => {
     let typingUsers = [];
-    //typing이 새로 들어올 때
     let { typingRef } = this.state;
 
     onChildAdded(child(typingRef, chatRoomId), (DataSnapshot) => {
