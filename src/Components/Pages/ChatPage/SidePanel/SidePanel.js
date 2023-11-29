@@ -6,6 +6,7 @@ import Favorited from "./Favorited";
 import ChatRooms from "./ChatRooms";
 import Header from "../../../Header";
 import Box from "@mui/material/Box";
+import DirectMessages from "./DirectMessages"
 
 function SidePanel() {
   const navigate = useNavigate();
@@ -43,22 +44,28 @@ function SidePanel() {
             Back
           </span>
         </div>
+        <div>
+          <h4 style={{ color: 'white', marginBottom: '2rem' }}>
+            <IoIosChatboxes /> Messaging
+          </h4>
 
-        <h4 style={{ color: "white", marginBottom: "2rem" }}>
-          <IoIosChatboxes /> Messaging
-        </h4>
+          <UserPanel style={{ marginBottom: '3rem' }} />
 
-        <UserPanel style={{ marginBottom: "3rem" }} />
+          <div style={{ marginBottom: '3rem', marginTop: '1rem' }}>
+            <Favorited />
+          </div>
 
-        <div style={{ marginBottom: "3rem", marginTop: "1rem" }}>
-          <Favorited />
-        </div>
+          <div style={{ marginBottom: '3rem' }}>
+            <ChatRooms />
+          </div>
 
-        <div style={{ marginBottom: "3rem" }}>
-          <ChatRooms />
+          <div style={{ marginBottom: '3rem' }}>
+            <DirectMessages />
+          </div>
+
+          {/* Add the missing closing tag for the div element */}
         </div>
       </Box>
-
       <Header />
     </div>
   );
