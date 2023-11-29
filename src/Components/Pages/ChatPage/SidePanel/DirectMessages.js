@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { FaRegSmile } from "react-icons/fa";
+import ForwardIcon from '@mui/icons-material/Forward';
 import firebase from "../../../../firebase";
 import { connect } from "react-redux";
 import {
   setCurrentChatRoom,
   setPrivateChatRoom,
 } from "../../../../Redux/Actions/chatRoom_action";
-import { getDatabase, ref, onChildAdded } from "firebase/database";
+import { getDatabase, ref, onChildAdded, onValue } from "firebase/database";
 
 export class DirectMessages extends Component {
   state = {
@@ -18,6 +18,26 @@ export class DirectMessages extends Component {
   componentDidMount() {
     if (this.props.user) {
       this.addUsersListeners(this.props.user.uid);
+      this.setActiveChatRoom(this.props.user.uid);
+
+      // Add the onValue listener here
+      onValue(this.state.usersRef, (snapshot) => {
+        const updatedUsers = [];
+
+        snapshot.forEach((childSnapshot) => {
+          const user = childSnapshot.val();
+          user.uid = childSnapshot.key;
+
+          
+          user.status = "online"; // You need to get the actual status from your data
+
+          updatedUsers.push(user);
+        });
+
+        this.setState({ users: updatedUsers }, () => {
+          console.log("Users Array:", this.state.users);
+        });
+      });
     }
   }
 
@@ -31,7 +51,9 @@ export class DirectMessages extends Component {
         user["uid"] = DataSnapshot.key;
         user["status"] = "offline";
         usersArray.push(user);
-        this.setState({ users: usersArray });
+        this.setState({ users: usersArray }, () => {
+          console.log("Users Array:", this.state.users);
+        });
       }
     });
   };
@@ -40,15 +62,15 @@ export class DirectMessages extends Component {
     const currentUserId = this.props.user.uid;
 
     return userId > currentUserId
-      ? `${userId}/${currentUserId}`
-      : `${currentUserId}/${userId}`;
+      ? `${currentUserId}/${userId}`
+      : `${userId}/${currentUserId}`;
   };
 
   changeChatRoom = (user) => {
     const chatRoomId = this.getChatRoomId(user.uid);
     const chatRoomData = {
       id: chatRoomId,
-      name: user.name,
+      name: `${user.first} ${user.last}`, // Change this line
     };
 
     this.props.dispatch(setCurrentChatRoom(chatRoomData));
@@ -60,6 +82,7 @@ export class DirectMessages extends Component {
     this.setState({ activeChatRoom: userId });
   };
 
+  //Able to render names - John
   renderDirectMessages = (users) =>
     users.length > 0 &&
     users.map((user) => (
@@ -71,7 +94,7 @@ export class DirectMessages extends Component {
         }}
         onClick={() => this.changeChatRoom(user)}
       >
-        # {user.name}
+        {user.first} {user.last}
       </li>
     ));
 
@@ -79,8 +102,8 @@ export class DirectMessages extends Component {
     const { users } = this.state;
     return (
       <div>
-        <span style={{ display: "flex", alignItems: "center", marginBottom: "8px" }}>
-          <FaRegSmile style={{ marginRight: 3 }} /> DIRECT MESSAGES ({users.length})
+        <span style={{ display: "flex", alignItems: "center", marginBottom: "8px", fontSize: "1.1em", }}>
+          <ForwardIcon style={{ marginRight: 3 }} /> DIRECT MESSAGES ({users.length})
         </span>
 
         <ul style={{ listStyleType: "none", padding: 0 }}>
@@ -90,7 +113,6 @@ export class DirectMessages extends Component {
     );
   }
 }
-
 const mapStateToProps = (state) => {
   return {
     user: state.user.currentUser,
