@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import SignIn from "./Components/SignIn";
 import {
-  BrowserRouter,
   Routes,
   Route,
   useNavigate,

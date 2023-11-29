@@ -48,6 +48,7 @@ function SignIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
     try {
@@ -73,7 +74,7 @@ function SignIn() {
       navigate("/calendar");
     } catch (error) {
       console.error("Sign-in error:", error.message);
-      // TODO: Handle the error as needed
+      setError(error.message);
     }
   };
  
@@ -139,10 +140,6 @@ function SignIn() {
                 id="password"
                 autoComplete="current-password"
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
               <Button
                 type="submit"
                 fullWidth
@@ -153,7 +150,12 @@ function SignIn() {
                 Sign In
               </Button>
 
-              
+                {error && (
+              <Typography variant="body2" color="error" sx={{ mt: 1 }}>
+                {error}
+              </Typography>
+              )}
+
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">

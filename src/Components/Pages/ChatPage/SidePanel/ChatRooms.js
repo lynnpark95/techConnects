@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import { FaRegSmileWink, FaPlus } from "react-icons/fa";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -230,7 +229,7 @@ export class ChatRooms extends Component {
         >
           # {room.name}
           <Badge
-            style={{ float: "right", marginTop: "5px" }}
+            style={{ float: "right", marginTop: "4px" }}
             badgeContent={this.getNotificationCount(room)}
             color="error"
           />
@@ -249,12 +248,11 @@ export class ChatRooms extends Component {
             width: "100%",
             display: "flex",
             alignItems: "center",
-            fontSize: "1.1em",
           }}
         >
-          <ChatBubbleOutlineOutlinedIcon style={{ marginRight: 3 }} />
-          USER ROOMS ({this.state.chatRooms.length})
-          <AddOutlinedIcon
+          <FaRegSmileWink style={{ marginRight: 3 }} />
+          CHAT ROOMS ({this.state.chatRooms.length})
+          <FaPlus
             onClick={this.handleShow}
             style={{
               position: "absolute",
@@ -292,7 +290,7 @@ export class ChatRooms extends Component {
                 margin="normal"
               />
 
-              
+              {/* add more users to the chat room. Should be dynamic but we'll see what happens. Add the users to an array and add them to the group chat through that */}
               <TextField
                 label="Chat Room Participants"
                 variant="outlined"
