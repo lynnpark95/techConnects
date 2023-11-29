@@ -2,12 +2,11 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';  // Import Link from react-router-dom
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 
 function Header(props) {
-  const { sections, title } = props;
+  const { sections } = props;
 
   return (
     <React.Fragment>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FaRegSmile } from "react-icons/fa";
+import ForwardIcon from '@mui/icons-material/Forward';
 import firebase from "../../../../firebase";
 import { connect } from "react-redux";
 import {
@@ -102,9 +102,8 @@ export class DirectMessages extends Component {
     const { users } = this.state;
     return (
       <div>
-        <span style={{ display: "flex", alignItems: "center" }}>
-          <FaRegSmile style={{ marginRight: 3 }} /> DIRECT MESSAGES(
-          {users.length})
+        <span style={{ display: "flex", alignItems: "center", marginBottom: "8px", fontSize: "1.1em", }}>
+          <ForwardIcon style={{ marginRight: 3 }} /> DIRECT MESSAGES ({users.length})
         </span>
 
         <ul style={{ listStyleType: "none", padding: 0 }}>

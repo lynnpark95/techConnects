@@ -1,49 +1,72 @@
 import React from "react";
 import { IoIosChatboxes, IoIosArrowBack } from "react-icons/io";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import UserPanel from "./UserPanel";
 import Favorited from "./Favorited";
 import ChatRooms from "./ChatRooms";
-import DirectMessages from "./DirectMessages";
+import Header from "../../../Header";
+import Box from "@mui/material/Box";
+import DirectMessages from "./DirectMessages"
 
 function SidePanel() {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    // Navigate to the specified route when the back icon is clicked
     navigate("/calendar");
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: "#4B87C5",
-        padding: "2rem",
-        minHeight: "100vh",
-        color: "white",
-        minWidth: "275px",
-      }}
-    >
-      {/* Back Icon */}
-      <IoIosArrowBack
-        style={{ cursor: "pointer", marginBottom: "1rem" }}
-        size={24}
-        color="white"
-        onClick={handleGoBack}
-      />
+    <div style={{ position: "relative", display: "flex" }}>
+      <Box
+        sx={{
+          backgroundColor: "#4B87C5",
+          padding: "2rem",
+          minHeight: "100vh",
+          color: "white",
+          minWidth: "275px",
+          zIndex: 1,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
+          <IoIosArrowBack
+            style={{ cursor: "pointer" }}
+            size={24}
+            color="white"
+            onClick={handleGoBack}
+          />
+          <span
+            style={{
+              marginLeft: "0.5rem",
+              cursor: "pointer",
+            }}
+            onClick={handleGoBack}
+          >
+            Back
+          </span>
+        </div>
+        <div>
+          <h4 style={{ color: 'white', marginBottom: '2rem' }}>
+            <IoIosChatboxes /> Messaging
+          </h4>
 
-      {/* Logo */}
-      <h4 style={{ color: "white" }}>
-        <IoIosChatboxes /> Chat App
-      </h4>
+          <UserPanel style={{ marginBottom: '3rem' }} />
 
-      <UserPanel />
+          <div style={{ marginBottom: '3rem', marginTop: '1rem' }}>
+            <Favorited />
+          </div>
 
-      <Favorited />
+          <div style={{ marginBottom: '3rem' }}>
+            <ChatRooms />
+          </div>
 
-      <ChatRooms />
+          <div style={{ marginBottom: '3rem' }}>
+            <DirectMessages />
+          </div>
 
-      <DirectMessages />
+          {/* Add the missing closing tag for the div element */}
+        </div>
+      </Box>
+      <Header />
     </div>
   );
 }
