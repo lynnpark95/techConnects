@@ -4,7 +4,6 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import firebase from "../../../../firebase";
 import { useSelector } from "react-redux";
 import {
   getDatabase,
