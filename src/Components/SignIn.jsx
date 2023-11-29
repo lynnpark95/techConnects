@@ -20,8 +20,6 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { app } from "../firebase";
-import { setUser } from "../Redux/Actions/user_action";
-import app from "../firebase";
 import GoogleIcon from "@mui/icons-material/Google";
 
 function Copyright(props) {
@@ -59,22 +57,6 @@ function SignIn() {
       console.log(email, password);
       const result = await signInWithEmailAndPassword(auth, email, password);
       console.log("result", result);
-      // Sign in with email and password, setting remember to 'local'
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password,
-        { remember: 'local' }
-      );
-
-      // User signed in successfully
-      const user = userCredential.user;
-      console.log("User signed in:", user);
-
-      // Dispatch the setUser action to update the Redux state
-      setUser(user); // Assuming setUser is connected to your Redux store
-
-      // Navigate to the desired page (e.g., "/calendar")
       navigate("/calendar");
     } catch (error) {
       console.error("Sign-in error:", error.message);
@@ -95,7 +77,6 @@ function SignIn() {
   const handleForgotPassword = () => {
     navigate("/reset"); // Navigate to the '/reset' route when clicking 'Forgot password?'
   };
- 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -183,12 +164,6 @@ function SignIn() {
                 <GoogleIcon style={{ width: "24px", marginRight: "8px" }} />
                 Sign In with Google
               </Button> */}
-                {error && (
-              <Typography variant="body2" color="error" sx={{ mt: 1 }}>
-                {error}
-              </Typography>
-              )}
-
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2" onClick={handleForgotPassword}>

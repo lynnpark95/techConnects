@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React, { useCallback, useState } from "react";
-=======
 import React, { useCallback, useState, useEffect } from "react";
->>>>>>> origin/Master
 import {
   Box,
   Button,
@@ -12,17 +8,6 @@ import {
   CardHeader,
   Divider,
   TextField,
-<<<<<<< HEAD
-  Unstable_Grid2 as Grid,
-} from "@mui/material";
-
-export const AccountProfileDetails = () => {
-  const [values, setValues] = useState({
-    firstName: "Jacob",
-    lastName: "Wilson",
-    email: "JacobWilson@gmail.com",
-    password: "", // Replace phone with password
-=======
   Grid,
 } from "@mui/material";
 import { getAuth, updateProfile } from "firebase/auth";
@@ -33,7 +18,6 @@ const AccountProfileDetails = () => {
     first: "",
     last: "",
     phone: ""
->>>>>>> origin/Master
   });
 
   const handleChange = useCallback((event) => {
@@ -43,11 +27,6 @@ const AccountProfileDetails = () => {
     }));
   }, []);
 
-<<<<<<< HEAD
-  const handleSubmit = useCallback((event) => {
-    event.preventDefault();
-    // Add logic to handle form submission, e.g., dispatching an action
-=======
   const handleSubmit = useCallback(async (event) => {
     event.preventDefault();
   
@@ -102,58 +81,11 @@ const AccountProfileDetails = () => {
     };
 
     fetchData();
->>>>>>> origin/Master
   }, []);
 
   return (
     <form autoComplete="off" noValidate onSubmit={handleSubmit}>
       <Card sx={{ boxShadow: "none" }}>
-<<<<<<< HEAD
-        <CardHeader title="Profile" />
-        <CardContent sx={{ pt: 0 }}>
-          <Box sx={{ m: -1.5 }}>
-            <Grid container spacing={3}>
-              <Grid xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  helperText="Please specify the first name"
-                  label="First name"
-                  name="firstName"
-                  onChange={handleChange}
-                  required
-                  value={values.firstName}
-                />
-              </Grid>
-              <Grid xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Last name"
-                  name="lastName"
-                  onChange={handleChange}
-                  required
-                  value={values.lastName}
-                />
-              </Grid>
-              <Grid xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Email Address"
-                  name="email"
-                  onChange={handleChange}
-                  required
-                  value={values.email}
-                />
-              </Grid>
-              <Grid xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Password"
-                  name="password"
-                  onChange={handleChange}
-                  type="password"
-                  required
-                  value={values.password}
-=======
         <CardHeader title="Edit Profile" />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
@@ -188,7 +120,6 @@ const AccountProfileDetails = () => {
                   onChange={handleChange}
                   value={values.phone}
                   placeholder="Enter your phone number"
->>>>>>> origin/Master
                 />
               </Grid>
             </Grid>
@@ -204,8 +135,5 @@ const AccountProfileDetails = () => {
     </form>
   );
 };
-<<<<<<< HEAD
-=======
 
 export default AccountProfileDetails;
->>>>>>> origin/Master

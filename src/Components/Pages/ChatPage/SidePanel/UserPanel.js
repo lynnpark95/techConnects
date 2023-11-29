@@ -16,11 +16,7 @@ import {
   getDownloadURL,
   uploadBytesResumable,
 } from "firebase/storage";
-<<<<<<< HEAD
-import LogoutIcon from "@mui/icons-material/Logout";
-=======
 import MessageHeader from "../MainPanel/MessageHeader";
->>>>>>> origin/Master
 
 function UserPanel() {
   const user = useSelector((state) => state.user.currentUser);
@@ -125,27 +121,6 @@ function UserPanel() {
   return (
     <div>
       <div style={{ display: "flex", marginBottom: "0rem" }}>
-<<<<<<< HEAD
-        <Image
-          src={user && user.photoURL}
-          style={{ width: "30p", height: "30px", marginTop: "0px" }}
-          roundedCircle
-        />
-
-        <Dropdown>
-          <Dropdown.Toggle
-            style={{ background: "red", boder: "0px", width: "60px" }}
-            id="dropdown-basic"
-          >
-            <LogoutIcon />
-            {user && user.displayName}
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu>
-            <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-=======
         <Avatar
           src={user && user.photoURL}
           style={{ width: "30p", height: "30px", marginTop: "0px" }}
@@ -176,7 +151,6 @@ function UserPanel() {
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Box>
         </Menu>
->>>>>>> origin/Master
       </div>
 
       <input

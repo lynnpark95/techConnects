@@ -1,35 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-import { IoIosChatboxes } from "react-icons/io";
-import UserPanel from "./UserPanel";
-import Favorited from "./Favorited";
-import ChatRooms from "./ChatRooms";
-import DirectMessages from "./DirectMessages";
-
-function SidePanel() {
-  return (
-    <div
-      style={{
-        backgroundColor: "#4B87C5",
-        padding: "2rem",
-        minHeight: "100vh",
-        color: "white",
-        minWidth: "275px",
-      }}
-    >
-      {/* Logo */}
-      <h3 style={{ color: "white" }}>
-        <IoIosChatboxes /> Chat
-      </h3>
-
-      <UserPanel />
-
-      <Favorited />
-
-      <ChatRooms />
-
-      <DirectMessages />
-=======
 import { IoIosChatboxes, IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import UserPanel from "./UserPanel";
@@ -91,7 +60,6 @@ function SidePanel() {
       </Box>
 
       <Header />
->>>>>>> origin/Master
     </div>
   );
 }

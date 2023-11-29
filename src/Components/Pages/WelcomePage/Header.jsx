@@ -2,19 +2,11 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';  // Import Link from react-router-dom
 import Toolbar from '@mui/material/Toolbar';
-<<<<<<< HEAD
-import Typography from '@mui/material/Typography';
-=======
->>>>>>> origin/Master
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 
 function Header(props) {
-<<<<<<< HEAD
-  const { sections, title } = props;
-=======
   const { sections } = props;
->>>>>>> origin/Master
 
   return (
     <React.Fragment>
@@ -23,11 +15,7 @@ function Header(props) {
         <img src="https://lamainnovationz.com/wp-content/uploads/2022/08/Logo-01.png" alt="Logo" style={{ width: '100px', marginRight: 'auto' }} />
         <div>
           {/* Use the Link component from react-router-dom */}
-<<<<<<< HEAD
-          <Button component={RouterLink} to="/Reg" variant="outlined" size="medium" sx={{ marginRight: '8px' }}>
-=======
           <Button component={RouterLink} to="/reg" variant="outlined" size="medium" sx={{ marginRight: '8px' }}>
->>>>>>> origin/Master
             Sign Up
           </Button>
           <Button component={RouterLink} to="/signin" variant="outlined" size="medium">

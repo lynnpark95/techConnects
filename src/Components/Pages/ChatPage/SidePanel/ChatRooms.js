@@ -1,10 +1,6 @@
 import React, { Component } from "react";
-<<<<<<< HEAD
-import { FaRegSmileWink, FaPlus } from "react-icons/fa";
-=======
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
->>>>>>> origin/Master
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -48,18 +44,12 @@ export class ChatRooms extends Component {
     const usersRef = ref(getDatabase(), "users");
 
     onValue(usersRef, (snapshot) => {
-<<<<<<< HEAD
-      if (snapshot.exists()) {
-        const userList = Object.values(snapshot.val()).map((user) => ({
-          ...user,
-=======
       console.log(snapshot)
       console.log(snapshot.val())
       if (snapshot.exists()) {
         const userList = Object.entries(snapshot.val()).map((obj) => ({
           uid: obj[0],
           ...obj[1],
->>>>>>> origin/Master
           selected: false,
         }));
         this.setState({ userList });
@@ -67,32 +57,12 @@ export class ChatRooms extends Component {
     });
   };
 
-<<<<<<< HEAD
-  handleUserCheckboxChange = (user) => {
-    if (!user || !user.target) {
-=======
   handleUserCheckboxChange = (e, uid) => {
     if (!e || !e.target) {
->>>>>>> origin/Master
       console.error("Event or target is undefined.");
       return;
     }
 
-<<<<<<< HEAD
-    const { target } = user;
-    const { value, checked } = target; // Use `checked` to determine if the checkbox is checked or unchecked
-    const { userList } = this.state;
-
-    const index = userList.findIndex((u) => u.uid === value);
-
-    if (index !== -1) {
-      // Toggle the selected property of the user in the userList
-      this.setState((prevState) => {
-        const updatedUserList = [...prevState.userList];
-        updatedUserList[index].selected = checked;
-        return { userList: updatedUserList };
-      });
-=======
     const { target } = e;
     const { value, checked } = target; 
     const { userList } = this.state;
@@ -103,7 +73,6 @@ export class ChatRooms extends Component {
       this.setState( 
          { userList: updatedUserList }
       );
->>>>>>> origin/Master
     }
   };
 
@@ -198,15 +167,10 @@ export class ChatRooms extends Component {
 
   addChatRoom = async () => {
     const key = push(this.state.chatRoomsRef).key;
-<<<<<<< HEAD
-    const { name, description, participants } = this.state;
-    const { user } = this.props;
-=======
     const { name, description } = this.state;
     const { user } = this.props;
     const selectedUsers = this.state.userList.filter((user) => user.selected);
 
->>>>>>> origin/Master
     const newChatRoom = {
       id: key,
       name: name,
@@ -215,11 +179,7 @@ export class ChatRooms extends Component {
         name: user.displayName,
         image: user.photoURL,
       },
-<<<<<<< HEAD
-      users: [user.uid, ...participants], // Include participants in the users array
-=======
       users: [user.uid, ...selectedUsers.map((user) => user.uid)], 
->>>>>>> origin/Master
     };
 
     try {
@@ -270,11 +230,7 @@ export class ChatRooms extends Component {
         >
           # {room.name}
           <Badge
-<<<<<<< HEAD
-            style={{ float: "right", marginTop: "4px" }}
-=======
             style={{ float: "right", marginTop: "5px" }}
->>>>>>> origin/Master
             badgeContent={this.getNotificationCount(room)}
             color="error"
           />
@@ -293,20 +249,12 @@ export class ChatRooms extends Component {
             width: "100%",
             display: "flex",
             alignItems: "center",
-<<<<<<< HEAD
-          }}
-        >
-          <FaRegSmileWink style={{ marginRight: 3 }} />
-          CHAT ROOMS ({this.state.chatRooms.length})
-          <FaPlus
-=======
             fontSize: "1.1em",
           }}
         >
           <ChatBubbleOutlineOutlinedIcon style={{ marginRight: 3 }} />
           USER ROOMS ({this.state.chatRooms.length})
           <AddOutlinedIcon
->>>>>>> origin/Master
             onClick={this.handleShow}
             style={{
               position: "absolute",
@@ -344,11 +292,7 @@ export class ChatRooms extends Component {
                 margin="normal"
               />
 
-<<<<<<< HEAD
-              {/* add more users to the chat room. Should be dynamic but we'll see what happens. Add the users to an array and add them to the group chat through that */}
-=======
               
->>>>>>> origin/Master
               <TextField
                 label="Chat Room Participants"
                 variant="outlined"
@@ -356,11 +300,7 @@ export class ChatRooms extends Component {
                 onChange={(e) => this.handleUserCheckboxChange(e)}
                 value={this.state.userList
                   .filter((user) => user.selected)
-<<<<<<< HEAD
-                  .map((user) => user.name)
-=======
                   .map((user) => user.first +" " + user.last)
->>>>>>> origin/Master
                   .join(", ")}
                 margin="normal"
               />
@@ -370,17 +310,10 @@ export class ChatRooms extends Component {
                   <li key={user.uid}>
                     <input
                       type="checkbox"
-<<<<<<< HEAD
-                      onChange={() => this.handleUserCheckboxChange(user)}
-                      checked={user.selected || false}
-                    />
-                    {user.firstName} {user.lastName}
-=======
                       onChange={(e) => this.handleUserCheckboxChange(e, user.uid)}
                       checked={user.selected || false}
                     />
                     {user.first}, {user.last}, {user.selected}
->>>>>>> origin/Master
                   </li>
                 ))}
               </ul>
@@ -409,8 +342,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-<<<<<<< HEAD
 export default connect(mapStateToProps)(ChatRooms);
-=======
-export default connect(mapStateToProps)(ChatRooms);
->>>>>>> origin/Master
