@@ -80,7 +80,7 @@ export class Favorited extends Component {
             chatRoom.id === this.state.activeChatRoomId && "#ffffff45",
         }}
       >
-        # {chatRoom.name}
+        {chatRoom.name}
       </li>
     ));
 

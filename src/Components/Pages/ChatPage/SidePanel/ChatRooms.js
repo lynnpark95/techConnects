@@ -227,7 +227,7 @@ export class ChatRooms extends Component {
           }}
           onClick={() => this.changeChatRoom(room)}
         >
-          # {room.name}
+          {room.name}
           <Badge
             style={{ float: "right", marginTop: "4px" }}
             badgeContent={this.getNotificationCount(room)}
