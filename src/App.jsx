@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
 import SignIn from "./Components/SignIn";
 import {
-  BrowserRouter,
   Routes,
   Route,
   useNavigate,
   useLocation,
 } from "react-router-dom";
-
 import Calendar from "./Components/Pages/CalendarComponents/Calendar";
 import Wallet from "./Components/Pages/Wallet";
 import TechSupport from "./Components/Pages/UserHelp/TechSupport";
@@ -18,7 +16,6 @@ import Confirm from "./Components/Pages/UserHelp/Confirm";
 import Profile from "./Components/Pages/UserProfile/Profile";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, clearUser } from "./Redux/Actions/user_action";
 import ChatPage from "./Components/Pages/ChatPage/ChatPage";
 import Welcome from "./Components/Pages/WelcomePage/Welcome";
 
@@ -33,6 +30,26 @@ function App(props) {
   const location = useLocation();
   let dispatch = useDispatch();
   const isLoading = useSelector((state) => state.user.isLoading);
+
+  useEffect(() => {
+    const auth = getAuth();
+
+    // Check if a user is authenticated
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is authenticated, allow navigation
+        // You can customize this logic based on your requirements
+      } else {
+        // User is not authenticated, navigate to the welcome page or sign-in
+        if (location.pathname !== "/" && location.pathname !== "/signin" && location.pathname !== "/reg") {
+          navigate("/");
+        }
+      }
+    });
+
+    // Clean up the subscription when the component unmounts
+    return () => unsubscribe();
+  }, [navigate, location.pathname]);
 
   if (isLoading) {
     return <div>...loading</div>;
@@ -57,9 +74,6 @@ function App(props) {
         <Route path="/reset" element={<ForgotPassword />} />
       </Routes>
     );
-    //   </BrowserRouter>
-    // </div>
-    // );
   }
 }
 

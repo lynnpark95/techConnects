@@ -38,7 +38,7 @@ const Navbar = () => {
       <div
         style={{ display: "flex", alignItems: "center", marginLeft: "90px" }}
       >
-        <Link to="/general" style={{ textDecoration: "none" }}>
+        <Link to="/profile" style={{ textDecoration: "none" }}>
           <PersonOutlineOutlinedIcon
             sx={{ fontSize: 36 }}
             style={{ color: "white" }}

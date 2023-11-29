@@ -1,12 +1,18 @@
 import React, { useState, useRef } from "react";
-import Form from "react-bootstrap/Form";
-import ProgressBar from "react-bootstrap/ProgressBar";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import firebase from "../../../../firebase";
+import TextField from "@mui/material/TextField";
+import LinearProgress from "@mui/material/LinearProgress";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 import { useSelector } from "react-redux";
-
-import { getDatabase, ref, set, remove, push, child } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  set,
+  remove,
+  push,
+  child,
+} from "firebase/database";
 import {
   getStorage,
   ref as strRef,
@@ -23,11 +29,11 @@ function MessageForm() {
   const [percentage, setPercentage] = useState(0);
   const messagesRef = ref(getDatabase(), "messages");
   const inputOpenImageRef = useRef();
-  // const storageRef = ref(getStorage());
   const typingRef = ref(getDatabase(), "typing");
   const isPrivateChatRoom = useSelector(
     (state) => state.chatRoom.isPrivateChatRoom
   );
+
   const handleChange = (event) => {
     setContent(event.target.value);
   };
@@ -57,12 +63,9 @@ function MessageForm() {
       return;
     }
     setLoading(true);
-    //firebase에 메시지를 저장하는 부분
-    try {
-      // await messagesRef.child(chatRoom.id).push().set(createMessage())
-      await set(push(child(messagesRef, chatRoom.id)), createMessage());
 
-      // typingRef.child(chatRoom.id).child(user.uid).remove();
+    try {
+      await set(push(child(messagesRef, chatRoom.id)), createMessage());
       await remove(child(typingRef, `${chatRoom.id}/${user.uid}`));
       setLoading(false);
       setContent("");
@@ -81,71 +84,49 @@ function MessageForm() {
   };
 
   const getPath = () => {
-    if (isPrivateChatRoom) {
-      return `/message/private/${chatRoom.id}`;
-    } else {
-      return `/message/public`;
-    }
+    return isPrivateChatRoom
+      ? `/message/private/${chatRoom.id}`
+      : `/message/public`;
   };
 
   const handleUploadImage = (event) => {
     const file = event.target.files[0];
     const storage = getStorage();
-
     const filePath = `${getPath()}/${file.name}`;
-    console.log("filePath", filePath);
     const metadata = { contentType: file.type };
     setLoading(true);
+
     try {
-      // https://firebase.google.com/docs/storage/web/upload-files#full_example
-      // Upload file and metadata to the object 'images/mountains.jpg'
       const storageRef = strRef(storage, filePath);
       const uploadTask = uploadBytesResumable(storageRef, file, metadata);
 
-      // Listen for state changes, errors, and completion of the upload.
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
-          switch (snapshot.state) {
-            case "paused":
-              console.log("Upload is paused");
-              break;
-            case "running":
-              console.log("Upload is running");
-              break;
-          }
+          setPercentage(progress);
         },
         (error) => {
-          // A full list of error codes is available at
-          // https://firebase.google.com/docs/storage/web/handle-errors
           switch (error.code) {
             case "storage/unauthorized":
-              // User doesn't have permission to access the object
               break;
             case "storage/canceled":
-              // User canceled the upload
               break;
-
-            // ...
-
             case "storage/unknown":
-              // Unknown error occurred, inspect error.serverResponse
+              break;
+            default:
               break;
           }
         },
         () => {
-          // Upload completed successfully, now we can get the download URL
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            // console.log('File available at', downloadURL);
             set(
               push(child(messagesRef, chatRoom.id)),
               createMessage(downloadURL)
             );
             setLoading(false);
+            setPercentage(0);
           });
         }
       );
@@ -171,56 +152,59 @@ function MessageForm() {
 
   return (
     <div>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="exampleForm.ControlTextarea1">
-          <Form.Control
-            onKeyDown={handleKeyDown}
-            value={content}
-            onChange={handleChange}
-            as="textarea"
-            rows={3}
-          />
-        </Form.Group>
-      </Form>
+      <TextField
+        fullWidth
+        multiline
+        rows={3}
+        variant="outlined"
+        label="Type your message"
+        value={content}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+      />
 
       {!(percentage === 0 || percentage === 100) && (
-        <ProgressBar
-          variant="warning"
-          label={`${percentage}%`}
-          now={percentage}
+        <LinearProgress
+          variant="determinate"
+          value={percentage}
+          sx={{ marginTop: 1 }}
         />
       )}
 
       <div>
         {errors.map((errorMsg) => (
-          <p style={{ color: "red" }} key={errorMsg}>
+          <Typography key={errorMsg} color="error">
             {errorMsg}
-          </p>
+          </Typography>
         ))}
       </div>
 
-      <Row>
-        <Col>
-          <button
-            onClick={handleSubmit}
-            className="message-form-button"
-            style={{ width: "100%" }}
-            disabled={loading ? true : false}
-          >
-            SEND
-          </button>
-        </Col>
-        <Col>
-          <button
+      <Grid container spacing={1}>
+        <Grid item xs={6}>
+          <Button
             onClick={handleOpenImageRef}
-            className="message-form-button"
-            style={{ width: "100%" }}
+            fullWidth
+            variant="contained"
+            color="secondary"
             disabled={loading ? true : false}
+            sx={{ backgroundColor: 'grey' }}
           >
             UPLOAD
-          </button>
-        </Col>
-      </Row>
+          </Button>
+        </Grid>
+        <Grid item xs={6}>
+          <Button
+            onClick={handleSubmit}
+            fullWidth
+            variant="contained"
+            color="primary"
+            disabled={loading ? true : false}
+            sx={{ backgroundColor: '#4B87C5' }}
+          >
+            SEND
+          </Button>
+        </Grid>
+      </Grid>
 
       <input
         accept="image/jpeg, image/png"

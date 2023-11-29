@@ -8,9 +8,15 @@ import listPlugin from "@fullcalendar/list";
 const FullCalendar = () => {
   const calendarRef = useRef(null);
 
+<<<<<<< HEAD
   function showCalendarAlert() {
     const time = prompt("Enter a time for the meeting: ");
     const title = prompt("Enter a meetign title: ");
+=======
+  function showCalendarAlert(config) {
+    const time = prompt("Enter a time for the meeting: ");
+    const title = prompt("Enter a meeting title: ");
+>>>>>>> origin/Master
 
     if (
       time === null ||
@@ -28,7 +34,14 @@ const FullCalendar = () => {
 
     function updateCalendar(time, title) {
       console.log("Updated");
+<<<<<<< HEAD
     }
+=======
+      console.log(title);
+      console.log(time);
+    }
+    config.callback({title,time})
+>>>>>>> origin/Master
   }
 
   useEffect(() => {
@@ -44,27 +57,67 @@ const FullCalendar = () => {
       initialView: "dayGridMonth",
       selectable: true,
       select: function (arg) {
+<<<<<<< HEAD
         alert(showCalendarAlert());
         // ADD BOOKING LOGIC
       },
       dayCellContent: function (arg) {
         return arg.dayNumberText + `<div></div>`;
+=======
+        showCalendarAlert({
+          start: arg.start,
+          title: arg.title,
+          callback: (data) => {
+            // ADD BOOKING LOGIC
+            console.log('title = ' + data.title);
+            console.log('time = ' + data.time);
+          },
+        });
+        
+      },
+       
+      dayCellContent: function (arg, title, time) {
+        
+        const popupInfo = 
+           
+          <div style="background-color: red; color: white; padding: 5px; border-radius: 5px;">
+            <strong>${arg.dayNumberText}</strong>
+            <br/>
+            <span>Event: ${title}</span>
+            <br/>
+            <span>Time: ${time}</span>
+          </div>
+        ;
+  
+        return popupInfo;
+>>>>>>> origin/Master
       },
       dayCellDidMount: function (arg) {
         if (arg.el) {
           arg.el.style.backgroundColor = "#edf3f9";
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> origin/Master
           const dayNumber = arg.el.querySelector(".fc-daygrid-day-number");
           if (dayNumber) {
             dayNumber.style.textDecoration = "none";
             dayNumber.style.fontSize = "20px";
           }
+<<<<<<< HEAD
 
           //Still trying to get this to work
 
           const dayNames = arg.el.querySelectorAll(
             ".fc-col-header-cell fc-day"
           );
+=======
+  
+          //Still trying to get this to work
+  
+          const dayNames = arg.el.querySelectorAll(".fc-col-header-cell.fc-day");
+>>>>>>> origin/Master
           if (dayNames) {
             for (let i = 0; i < dayNames.length; i++) {
               dayNames[i].style.fontSize = "40px";
@@ -72,16 +125,28 @@ const FullCalendar = () => {
           }
         }
       },
+<<<<<<< HEAD
 
       dayCellClassNames: "non-link",
     });
 
     calendar.render();
 
+=======
+      dayCellClassNames: "non-link",
+    });
+  
+    calendar.render();
+  
+>>>>>>> origin/Master
     return () => {
       calendar.destroy();
     };
   }, []);
+<<<<<<< HEAD
+=======
+  
+>>>>>>> origin/Master
 
   return (
     <div
@@ -92,4 +157,8 @@ const FullCalendar = () => {
   );
 };
 
+<<<<<<< HEAD
 export default FullCalendar;
+=======
+export default FullCalendar;
+>>>>>>> origin/Master

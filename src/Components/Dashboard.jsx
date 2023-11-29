@@ -16,10 +16,10 @@ import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import PersonIcon from "@mui/icons-material/Person";
-import Balance from "./Billing/Balance";
-import Funds from "./Billing/Funds";
-import Transaction from "./Billing/Transaction";
-import Navbar from "../Navbar Items/Navbar";
+import Balance from "./Pages/Billing/Balance";
+import Funds from "./Pages/Billing/Funds";
+import Transaction from "./Pages/Billing/Transaction";
+import Navbar from "./Navbar Items/Navbar";
 
 function Copyright(props) {
   return (

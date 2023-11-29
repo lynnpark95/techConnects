@@ -8,19 +8,18 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import InputLabel from "@mui/material/InputLabel";
+import { Select, MenuItem } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function Copyright(props) {
@@ -62,6 +61,10 @@ export default function SignUp() {
     try {
       setLoading(true);
 
+      // Sanitize user inputs to prevent XSS attacks
+      // const sanitizedFirstName = DOMPurify.sanitize(data.firstName);
+      // const sanitizedLastName = DOMPurify.sanitize(data.lastName);
+
       const auth = getAuth();
       let createdUser = await createUserWithEmailAndPassword(
         auth,
@@ -70,27 +73,62 @@ export default function SignUp() {
       );
 
       await updateProfile(auth.currentUser, {
-        displayName: data.name,
+        displayName: data.first + data.last,
         photoURL: `http://gravatar.com/avatar/${md5(
           createdUser.user.email
         )}?d=identicon`,
       });
 
-      //Firebase save in DB
-      set(ref(getDatabase(), `users/${createdUser.user.uid}`), {
-        name: createdUser.user.displayName,
+      // Firebase save in DB
+      const db = getDatabase();
+      const userRef = ref(db, `users/${createdUser.user.uid}`);
+      // What is being saved for the user
+      const userData = {
+        first: data.first,
+        last: data.last,
+        email: data.email,
+        phone: data.phone,
+        role: data.role,
         image: createdUser.user.photoURL,
-      });
+        //populate to include the room ids when they are added to them or create them
+      };
+
+      console.log("Created User:", createdUser.user);
+      console.log("User data to be saved: ", userData);
+
+      // Separate function for database update
+      await saveUserData(userRef, userData);
 
       setLoading(false);
 
       navigate("/signin");
     } catch (error) {
-      setErrorFromSubmit(error.message);
-      setLoading(false);
+      // This will show Email is already in use instead of firebase error message - John
+      if (error.code === "auth/email-already-in-use") {
+        setErrorFromSubmit(
+          "Email is already in use. Please use another email."
+        );
+      } else {
+        // Avoid exposing detailed error messages to users
+        setErrorFromSubmit("An error occurred. Please try again later.");
+        // Log detailed error information on the server side
+        console.error("Error:", error);
+      }
+
       setTimeout(() => {
         setErrorFromSubmit("");
       }, 8000);
+    }
+  };
+
+  // New function for database update
+  const saveUserData = async (userRef, userData) => {
+    try {
+      await set(userRef, userData);
+      console.log("User data saved successfully");
+    } catch (error) {
+      console.error("Error saving user data:", error.message);
+      // Handle the error as needed
     }
   };
 
@@ -122,18 +160,18 @@ export default function SignUp() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="first"
                   required
                   fullWidth
-                  id="firstName"
+                  id="first"
                   label="First Name"
                   autoFocus
-                  {...register("firstName", { required: true, maxLength: 10 })}
+                  {...register("first", { required: true, maxLength: 10 })}
                 />
-                {errors.firstName && errors.firstName.type === "required" && (
-                  <p>This firstName field is required</p>
+                {errors.first && errors.first.type === "required" && (
+                  <p>This first name field is required</p>
                 )}
-                {errors.firstName && errors.firstName.type === "maxLength" && (
+                {errors.first && errors.first.type === "maxLength" && (
                   <p>Your input exceed maximum length</p>
                 )}
               </Grid>
@@ -141,16 +179,16 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
+                  id="last"
                   label="Last Name"
-                  name="lastName"
+                  name="last"
                   autoComplete="family-name"
-                  {...register("lastName", { required: true, maxLength: 10 })}
+                  {...register("last", { required: true, maxLength: 10 })}
                 />
-                {errors.lastName && errors.lastName.type === "required" && (
-                  <p>This lastName field is required</p>
+                {errors.last && errors.last.type === "required" && (
+                  <p>This last name field is required</p>
                 )}
-                {errors.lastName && errors.lastName.type === "maxLength" && (
+                {errors.last && errors.last.type === "maxLength" && (
                   <p>Your input exceed maximum length</p>
                 )}
               </Grid>
@@ -167,7 +205,7 @@ export default function SignUp() {
                     pattern: /^\S+@\S+$/i,
                   })}
                 />
-                {errors.email && <p>This email field is required</p>}
+                {errors.email && <p>Email is required</p>}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -181,7 +219,7 @@ export default function SignUp() {
                   {...register("password", { required: true, minLength: 6 })}
                 />
                 {errors.password && errors.password.type === "required" && (
-                  <p>This password field is required</p>
+                  <p>Password is required</p>
                 )}
                 {errors.password && errors.password.type === "minLength" && (
                   <p>Password must have at least 6 characters</p>
@@ -203,7 +241,7 @@ export default function SignUp() {
                 />
                 {errors.password_confirm &&
                   errors.password_confirm.type === "required" && (
-                    <p>This password confirm field is required</p>
+                    <p>Confirm password is required</p>
                   )}
                 {errors.password_confirm &&
                   errors.password_confirm.type === "validate" && (
@@ -211,13 +249,44 @@ export default function SignUp() {
                   )}
               </Grid>
               <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="phone"
+                  label="Phone"
+                  name="phone"
+                  {...register("phone", { required: true, maxLength: 15 })}
+                />
+                {errors.phone && errors.phone.type === "required" && (
+                  <p>This phone field is required</p>
+                )}
+                {errors.phone && errors.phone.type === "maxLength" && (
+                  <p>Your input exceed maximum length</p>
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                <InputLabel id="role-label">Role</InputLabel>
+                <Select
+                  labelId="role-label"
+                  id="role"
+                  fullWidth
+                  {...register("role", { required: true })}
+                >
+                  <MenuItem value="Care Receiver">Care Receiver</MenuItem>
+                  <MenuItem value="Care Giver">Care Giver</MenuItem>
+                  <MenuItem value="Care Taker">Care Taker</MenuItem>
+                  <MenuItem value="Care Sponsor">Care Sponsor</MenuItem>
+                </Select>
+                {errors.role && <p>This role field is required</p>}
+              </Grid>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
                   label="I agree to let this program steal my identity."
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"
