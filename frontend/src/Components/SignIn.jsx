@@ -19,7 +19,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import app from "../firebase";
+import { app } from "../firebase";
 import GoogleIcon from "@mui/icons-material/Google";
 
 function Copyright(props) {
@@ -72,6 +72,9 @@ export default function SignIn() {
     } catch (error) {
       // TODO: error handle
     }
+  };
+  const handleForgotPassword = () => {
+    navigate("/reset"); // Navigate to the '/reset' route when clicking 'Forgot password?'
   };
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -149,7 +152,7 @@ export default function SignIn() {
                 Sign In
               </Button>
 
-              <Button
+              {/* <Button
                 fullWidth
                 variant="contained"
                 sx={{
@@ -163,10 +166,10 @@ export default function SignIn() {
               >
                 <GoogleIcon style={{ width: "24px", marginRight: "8px" }} />
                 Sign In with Google
-              </Button>
+              </Button> */}
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link href="#" variant="body2" onClick={handleForgotPassword}>
                     Forgot password?
                   </Link>
                 </Grid>

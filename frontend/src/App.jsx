@@ -22,6 +22,7 @@ import { setUser, clearUser } from "./Redux/Actions/user_action";
 import ChatPage from "./Components/Pages/ChatPage/ChatPage";
 import Welcome from "./Components/Pages/WelcomePage/Welcome";
 
+import ForgotPassword from "./Components/Pages/ForgotPassword";
 // function App() {
 //   return (
 //     <div className="App">
@@ -52,6 +53,8 @@ function App(props) {
         <Route path="/confirm" element={<Confirm />} />
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/profile" element={<Profile />} />
+
+        <Route path="/reset" element={<ForgotPassword />} />
       </Routes>
     );
     //   </BrowserRouter>
