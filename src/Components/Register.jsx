@@ -61,11 +61,6 @@ export default function SignUp() {
     try {
       setLoading(true);
 
-      // How to install: npm install dompurify
-      // Sanitize user inputs to prevent XSS attacks
-      //const sanitizedFirstName = DOMPurify.sanitize(data.firstName);
-      //const sanitizedLastName = DOMPurify.sanitize(data.lastName);
-  
       const auth = getAuth();
       let createdUser = await createUserWithEmailAndPassword(
         auth,
