@@ -8,7 +8,6 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { INITIAL_EVENTS } from "./Pages/CalendarComponents/event-utils";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -24,6 +23,8 @@ import { Select, MenuItem } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { saveUserData } from "../Api/saveUser";
 import { setUser } from "../Redux/Actions/user_action";
+import { useDispatch } from 'react-redux';
+
 
 function Copyright(props) {
   return (
@@ -53,6 +54,7 @@ export default function SignUp() {
     handleSubmit,
   } = useForm();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [errorFromSubmit, setErrorFromSubmit] = useState("");
   const [loading, setLoading] = useState(false);
@@ -84,12 +86,12 @@ export default function SignUp() {
         phone: data.phone,
         role: data.role,
         image: createdUser.user.photoURL,
-        events: data.events,
-        dayEvents: data.dayEvents
+        events: [],
+        
       };
       await saveUserData(userData, createdUser.user.uid)
 
-      dispatchEvent(setUser(userData));
+      dispatch(setUser(userData));
       setLoading(false);
 
       navigate("/signin");
@@ -247,16 +249,16 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <InputLabel id="role-label">Role</InputLabel>
                 <Select
-                  labelId="role-label"
-                  id="role"
-                  fullWidth
-                  {...register("role", { required: true })}
-                >
-                  <MenuItem value="Care Receiver">Care Receiver</MenuItem>
-                  <MenuItem value="Care Giver">Care Giver</MenuItem>
-                  <MenuItem value="Care Taker">Care Taker</MenuItem>
-                  <MenuItem value="Care Sponsor">Care Sponsor</MenuItem>
-                </Select>
+  labelId="role-label"
+  id="role"
+  fullWidth
+  {...register("role", { required: true, defaultValue: "Care Receiver" })}
+>
+  <MenuItem value="Care Receiver">Care Receiver</MenuItem>
+  <MenuItem value="Care Giver">Care Giver</MenuItem>
+  <MenuItem value="Care Taker">Care Taker</MenuItem>
+  <MenuItem value="Care Sponsor">Care Sponsor</MenuItem>
+</Select>
                 {errors.role && <p>This role field is required</p>}
               </Grid>
               {/* <Grid item xs={12}>
