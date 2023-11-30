@@ -30,7 +30,7 @@ function Header() {
   return (
     <AppBar style={headerStyles}>
       <Toolbar>
-        <Typography variant="h6">P</Typography>
+        <Typography variant="h6">Page Title</Typography>
         <div style={{ flexGrow: 1 }}></div>
         <div>
           <Button style={buttonStyles} onClick={handleMyAccountClick}>
