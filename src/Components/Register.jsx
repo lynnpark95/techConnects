@@ -8,6 +8,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
+import { INITIAL_EVENTS } from "./Pages/CalendarComponents/event-utils";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -21,6 +22,8 @@ import Container from "@mui/material/Container";
 import InputLabel from "@mui/material/InputLabel";
 import { Select, MenuItem } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { saveUserData } from "../Api/saveUser";
+import { setUser } from "../Redux/Actions/user_action";
 
 function Copyright(props) {
   return (
@@ -74,11 +77,6 @@ export default function SignUp() {
           createdUser.user.email
         )}?d=identicon`,
       });
-
-      // Firebase save in DB
-      const db = getDatabase();
-      const userRef = ref(db, `users/${createdUser.user.uid}`);
-      // What is being saved for the user
       const userData = {
         first: data.first,
         last: data.last,
@@ -86,15 +84,12 @@ export default function SignUp() {
         phone: data.phone,
         role: data.role,
         image: createdUser.user.photoURL,
-        //populate to include the room ids when they are added to them or create them
+        events: data.events,
+        dayEvents: data.dayEvents
       };
+      await saveUserData(userData, createdUser.user.uid)
 
-      console.log("Created User:", createdUser.user);
-      console.log("User data to be saved: ", userData);
-
-      // Separate function for database update
-      await saveUserData(userRef, userData);
-
+      dispatchEvent(setUser(userData));
       setLoading(false);
 
       navigate("/signin");
@@ -114,17 +109,6 @@ export default function SignUp() {
       setTimeout(() => {
         setErrorFromSubmit("");
       }, 8000);
-    }
-  };
-
-  // New function for database update
-  const saveUserData = async (userRef, userData) => {
-    try {
-      await set(userRef, userData);
-      console.log("User data saved successfully");
-    } catch (error) {
-      console.error("Error saving user data:", error.message);
-      // Handle the error as needed
     }
   };
 

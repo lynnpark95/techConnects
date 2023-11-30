@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import LogoutIcon from "@mui/icons-material/Logout";
-import Box from "@mui/material/Box";  // Import the Box component
+import Box from "@mui/material/Box"; // Import the Box component
 import { useDispatch, useSelector } from "react-redux";
 import { setPhotoURL } from "../../../../Redux/Actions/user_action";
 import { getDatabase, ref, update } from "firebase/database";
@@ -123,22 +123,27 @@ function UserPanel() {
       <div style={{ display: "flex", marginBottom: "0rem" }}>
         <Avatar
           src={user && user.photoURL}
-          style={{ width: "30p", height: "30px", marginTop: "0px" }}
+          style={{
+            marginLeft: "20px",
+            marginTop: "20px",
+          }}
           alt={user && user.displayName}
         />
 
         {/* Wrap the IconButton in a Box with a red background */}
         <Box
           bgcolor="red"
-          borderRadius="4px"  // Adjust the border radius as needed
-          marginLeft="20px"
+          borderRadius="4px" // Adjust the border radius as needed
+          marginTop="20px"
+          marginLeft="10px"
+          marginBottom="10px"
           display="inline-block"
         >
           <IconButton onClick={handleClick} style={{ padding: "8px" }}>
             <LogoutIcon style={{ color: "white" }} />
           </IconButton>
         </Box>
-        
+
         <Menu
           id="simple-menu"
           anchorEl={anchorEl}

@@ -1,3 +1,4 @@
+// user_actions.js
 import { SET_USER, CLEAR_USER, SET_PHOTO_URL } from "./types";
 
 export function setUser(user) {

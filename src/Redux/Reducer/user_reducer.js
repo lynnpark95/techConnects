@@ -1,3 +1,4 @@
+// user_reducer.js
 import { SET_USER, CLEAR_USER, SET_PHOTO_URL } from "../Actions/types";
 
 const initialUserState = {
@@ -25,7 +26,6 @@ export default function (state = initialUserState, action) {
         currentUser: { ...state.currentUser, photoURL: action.payload },
         isLoading: false,
       };
-
     default:
       return state;
   }

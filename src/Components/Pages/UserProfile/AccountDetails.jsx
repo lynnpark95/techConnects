@@ -52,6 +52,7 @@ const AccountProfileDetails = () => {
         });
   
         alert("User information saved!");
+        window.location.reload();
       } catch (error) {
         console.error("Error updating user information:", error.message);
         alert("Failed to save user information. Please try again.");
