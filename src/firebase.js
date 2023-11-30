@@ -1,6 +1,6 @@
 // import firebase from "firebase/app";
 import { initializeApp } from "firebase/app";
-import "firebase/auth";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import "firebase/database";
 import "firebase/storage";
 //
@@ -19,4 +19,6 @@ var firebaseConfig = {
 // firebase.initializeApp(firebaseConfig);
 const app = initializeApp(firebaseConfig);
 
-export default app;
+const auth = getAuth(app);
+
+export { app, auth, sendPasswordResetEmail };

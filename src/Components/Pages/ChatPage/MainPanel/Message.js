@@ -15,7 +15,7 @@ function Message({ message, user }) {
     };
 
     const messageContainerStyle = {
-        marginBottom: '3px',
+        marginBottom: '10px', // Increased margin for more separation between messages
         display: 'flex',
         flexDirection: isMessageMine(message, user) ? 'row-reverse' : 'row',
     };
@@ -31,6 +31,9 @@ function Message({ message, user }) {
         textAlign: isMessageMine(message, user) ? 'right' : 'left',
         padding: '10px',
         borderRadius: '10px',
+        display: 'flex',
+        flexDirection: 'column', // Stack name and content vertically
+        alignItems: isMessageMine(message, user) ? 'flex-end' : 'flex-start', // Align name to the end for right side
     };
 
     return (
@@ -44,11 +47,10 @@ function Message({ message, user }) {
                 alt={message.user.name}
             />
             <div style={messageContentStyle}>
-                <h6>{message.user.name}{" "}
-                    <span style={{ fontSize: '10px', color: 'gray' }}>
-                        {timeFromNow(message.timestamp)}
-                    </span>
-                </h6>
+                <h6 style={{ margin: '0' }}>{message.user.name}</h6>
+                <span style={{ fontSize: '10px', color: 'gray' }}>
+                    {timeFromNow(message.timestamp)}
+                </span>
                 {isImage(message) ?
                     <img style={{ maxWidth: '300px' }} alt="이미지" src={message.image} />
                     :
