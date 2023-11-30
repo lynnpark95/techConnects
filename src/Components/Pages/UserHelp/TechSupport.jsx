@@ -28,7 +28,7 @@ const TechSupport = () => {
         component="h1"
         marginTop={10}
         marginBottom={5}
-        style={{ fontFamily: "Sura", fontSize: "70px" }}
+        style={{ fontFamily: "Sura", fontSize: "60px" }}
       >
         How can we help you?
       </Typography>
@@ -52,7 +52,7 @@ const TechSupport = () => {
         fullWidth
         style={{
           marginBottom: "20px",
-          width: "650px",
+          width: "660px",
         }}
       />
 

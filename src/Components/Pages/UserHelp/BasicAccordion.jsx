@@ -14,10 +14,10 @@ export default function BasicAccordion() {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography variant="h5">How to create an account?</Typography>
+          <Typography variant="h6">How to create an account?</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography variant="h6">
+          <Typography variant="body1">
             1. First, log in to your elderlyFirst account.
             <br />
             2. After logging in, navigate to the "Settings" section.
@@ -35,10 +35,10 @@ export default function BasicAccordion() {
           aria-controls="panel2a-content"
           id="panel2a-header"
         >
-          <Typography variant="h5">How to add a payment by this app?</Typography>
+          <Typography variant="h6">How to add a payment by this app?</Typography>
         </AccordionSummary>
         <AccordionDetails>
-        <Typography variant="h6">
+        <Typography variant="body1">
           1. Click the "Wallet" tab.
           <br />
           2. Within the "Wallet" tab, locate and click on the "Add funds" option.
@@ -59,10 +59,10 @@ export default function BasicAccordion() {
           aria-controls="panel3a-content"
           id="panel3a-header"
         >
-          <Typography variant="h5">How to add multiple people into a group chat?</Typography>
+          <Typography variant="h6">How to add multiple people into a group chat?</Typography>
         </AccordionSummary>
         <AccordionDetails>
-        <Typography variant="h6">
+        <Typography variant="body1">
           1. Click the messaging tab.
           <br />
           2. In the messaging tab, click "New messages +."
@@ -82,10 +82,10 @@ export default function BasicAccordion() {
           aria-controls="panel4a-content"
           id="panel4a-header"
         >
-          <Typography variant="h5">How do I log out?</Typography>
+          <Typography variant="h6">How do I log out?</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography variant="h6">
+          <Typography variant="body1">
             1. Click the settings icon located on the top left corner of the page.
             <br />
             2. This action will direct you to the settings page.
@@ -104,10 +104,10 @@ export default function BasicAccordion() {
           aria-controls="panel5a-content"
           id="panel5a-header"
         >
-          <Typography variant="h5">How do I check my recent call history?</Typography>
+          <Typography variant="h6">How do I check my recent call history?</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography variant="h6">
+          <Typography variant="body1">
             1. On the left side of the page, click on the "History" tab.
             <br />
             2. This action will open up a history section, displaying a record of the individuals you have messaged and audio and video called.

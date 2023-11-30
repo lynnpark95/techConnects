@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ForwardIcon from '@mui/icons-material/Forward';
+import ForwardOutlinedIcon from '@mui/icons-material/ForwardOutlined';
 import firebase from "../../../../firebase";
 import { connect } from "react-redux";
 import {
@@ -80,7 +80,7 @@ export class DirectMessages extends Component {
     return (
       <div>
         <span style={{ display: "flex", alignItems: "center", marginBottom: "8px", fontSize: "1.1em", }}>
-          <ForwardIcon style={{ marginRight: 3 }} /> DIRECT MESSAGES ({users.length})
+          <ForwardOutlinedIcon style={{  fontSize: "1.7em" }} /> DIRECT MESSAGES ({users.length})
         </span>
 
         <ul style={{ listStyleType: "none", padding: 0 }}>

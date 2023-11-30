@@ -20,6 +20,7 @@ import Balance from "./Billing/Balance";
 import Funds from "./Billing/Funds";
 import Transaction from "./Billing/Transaction";
 import Navbar from "../Navbar Items/Navbar";
+import Header from "../Header";
 
 function Copyright(props) {
   return (
@@ -101,60 +102,16 @@ export default function Wallet() {
         <CssBaseline />
         <AppBar position="absolute" open={open}>
           <Toolbar
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
+           
           >
             <div>
-              <IconButton edge="start" color="inherit" aria-label="open drawer">
-                <MenuIcon />
-              </IconButton>
+              
+              <Header />
               <Navbar />
-              <Typography
-                component="h1"
-                variant="h5"
-                color="Black"
-                fontWeight="bold"
-                noWrap
-                sx={{
-                  flex: 1,
-                  marginLeft: "75px", // Keep the margin-left as needed
-                  marginTop: "-32px", // Adjust the margin-top as needed
-                }}
-              >
-                Wallet
-              </Typography>
+ 
             </div>
 
-            <IconButton color="inherit">
-              <Badge color="secondary">
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    border: "1px solid #4B87C5", // Add a border and set the color
-                    borderRadius: "5px", // Add border radius for rounded corners
-                    padding: "6px", // Add some padding
-                    backgroundColor: "#4B87C5", // Set the background color to #4B87C5
-                  }}
-                >
-                  <PersonIcon sx={{ color: "white" }} />{" "}
-                  {/* Icon color: white */}
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      marginLeft: "8px",
-                      fontSize: "16px",
-                      color: "white", // Text color: white
-                    }}
-                  >
-                    My Account
-                  </div>
-                </Box>
-              </Badge>
-            </IconButton>
+            
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
