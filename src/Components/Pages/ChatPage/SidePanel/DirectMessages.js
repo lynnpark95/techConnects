@@ -70,7 +70,7 @@ export class DirectMessages extends Component {
     const chatRoomId = this.getChatRoomId(user.uid);
     const chatRoomData = {
       id: chatRoomId,
-      name: `${user.first} ${user.last}`, // Change this line
+      name: `${user.first} ${user.last}`, 
     };
 
     this.props.dispatch(setCurrentChatRoom(chatRoomData));
@@ -82,7 +82,7 @@ export class DirectMessages extends Component {
     this.setState({ activeChatRoom: userId });
   };
 
-  //Able to render names - John
+
   renderDirectMessages = (users) =>
     users.length > 0 &&
     users.map((user) => (
@@ -102,14 +102,8 @@ export class DirectMessages extends Component {
     const { users } = this.state;
     return (
       <div>
-<<<<<<< HEAD
-        <span style={{ display: "flex", alignItems: "center" }}>
-          <FaRegSmile style={{ marginRight: 3 }} /> DIRECT MESSAGES(
-          {users.length})
-=======
         <span style={{ display: "flex", alignItems: "center", marginBottom: "8px", fontSize: "1.1em", }}>
           <ForwardIcon style={{ marginRight: 3 }} /> DIRECT MESSAGES ({users.length})
->>>>>>> 76d284362cc4a6e4825556c0010db3932033d8af
         </span>
 
         <ul style={{ listStyleType: "none", padding: 0 }}>

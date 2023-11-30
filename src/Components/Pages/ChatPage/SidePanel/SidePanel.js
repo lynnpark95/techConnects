@@ -4,13 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import UserPanel from "./UserPanel";
 import Favorited from "./Favorited";
 import ChatRooms from "./ChatRooms";
-<<<<<<< HEAD
-import DirectMessages from "./DirectMessages";
-=======
 import Header from "../../../Header";
 import Box from "@mui/material/Box";
 import DirectMessages from "./DirectMessages"
->>>>>>> 76d284362cc4a6e4825556c0010db3932033d8af
 
 function SidePanel() {
   const navigate = useNavigate();
@@ -21,37 +17,6 @@ function SidePanel() {
   };
 
   return (
-<<<<<<< HEAD
-    <div
-      style={{
-        backgroundColor: "#4B87C5",
-        padding: "2rem",
-        minHeight: "100vh",
-        color: "white",
-        minWidth: "275px",
-      }}
-    >
-      {/* Back Icon */}
-      <IoIosArrowBack
-        style={{ cursor: "pointer", marginBottom: "1rem" }}
-        size={24}
-        color="white"
-        onClick={handleGoBack}
-      />
-
-      {/* Logo */}
-      <h4 style={{ color: "white" }}>
-        <IoIosChatboxes /> Chat App
-      </h4>
-
-      <UserPanel />
-
-      <Favorited />
-
-      <ChatRooms />
-
-      <DirectMessages />
-=======
     <div style={{ position: "relative", display: "flex" }}>
       <Box
         sx={{
@@ -103,7 +68,6 @@ function SidePanel() {
         </div>
       </Box>
       <Header />
->>>>>>> 76d284362cc4a6e4825556c0010db3932033d8af
     </div>
   );
 }
