@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { FaRegSmileWink, FaPlus } from "react-icons/fa";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -43,8 +44,8 @@ export class ChatRooms extends Component {
     const usersRef = ref(getDatabase(), "users");
 
     onValue(usersRef, (snapshot) => {
-      console.log(snapshot)
-      console.log(snapshot.val())
+      console.log(snapshot);
+      console.log(snapshot.val());
       if (snapshot.exists()) {
         const userList = Object.entries(snapshot.val()).map((obj) => ({
           uid: obj[0],
@@ -63,15 +64,13 @@ export class ChatRooms extends Component {
     }
 
     const { target } = e;
-    const { value, checked } = target; 
+    const { value, checked } = target;
     const { userList } = this.state;
     const index = userList.findIndex((u) => u.uid === uid);
     if (index !== -1) {
       const updatedUserList = [...this.state.userList];
-        updatedUserList[index].selected = !updatedUserList[index].selected;
-      this.setState( 
-         { userList: updatedUserList }
-      );
+      updatedUserList[index].selected = !updatedUserList[index].selected;
+      this.setState({ userList: updatedUserList });
     }
   };
 
@@ -178,7 +177,7 @@ export class ChatRooms extends Component {
         name: user.displayName,
         image: user.photoURL,
       },
-      users: [user.uid, ...selectedUsers.map((user) => user.uid)], 
+      users: [user.uid, ...selectedUsers.map((user) => user.uid)],
     };
 
     try {
@@ -229,7 +228,7 @@ export class ChatRooms extends Component {
         >
           {room.name}
           <Badge
-            style={{ float: "right", marginTop: "4px" }}
+            style={{ float: "right", marginTop: "5px" }}
             badgeContent={this.getNotificationCount(room)}
             color="error"
           />
@@ -248,11 +247,12 @@ export class ChatRooms extends Component {
             width: "100%",
             display: "flex",
             alignItems: "center",
+            fontSize: "1.1em",
           }}
         >
-          <FaRegSmileWink style={{ marginRight: 3 }} />
-          CHAT ROOMS ({this.state.chatRooms.length})
-          <FaPlus
+          <ChatBubbleOutlineOutlinedIcon style={{ marginRight: 3 }} />
+          USER ROOMS ({this.state.chatRooms.length})
+          <AddOutlinedIcon
             onClick={this.handleShow}
             style={{
               position: "absolute",
@@ -290,7 +290,6 @@ export class ChatRooms extends Component {
                 margin="normal"
               />
 
-              {/* add more users to the chat room. Should be dynamic but we'll see what happens. Add the users to an array and add them to the group chat through that */}
               <TextField
                 label="Chat Room Participants"
                 variant="outlined"
@@ -298,7 +297,7 @@ export class ChatRooms extends Component {
                 onChange={(e) => this.handleUserCheckboxChange(e)}
                 value={this.state.userList
                   .filter((user) => user.selected)
-                  .map((user) => user.first +" " + user.last)
+                  .map((user) => user.first + " " + user.last)
                   .join(", ")}
                 margin="normal"
               />
@@ -308,7 +307,9 @@ export class ChatRooms extends Component {
                   <li key={user.uid}>
                     <input
                       type="checkbox"
-                      onChange={(e) => this.handleUserCheckboxChange(e, user.uid)}
+                      onChange={(e) =>
+                        this.handleUserCheckboxChange(e, user.uid)
+                      }
                       checked={user.selected || false}
                     />
                     {user.first}, {user.last}, {user.selected}

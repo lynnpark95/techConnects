@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FaRegSmileBeam } from "react-icons/fa";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { connect } from "react-redux";
 import {
   setCurrentChatRoom,
@@ -15,7 +15,7 @@ import {
   off,
 } from "firebase/database";
 
-export class Favorited extends Component {
+class Favorited extends Component {
   state = {
     favoritedChatRooms: [],
     activeChatRoomId: "",
@@ -88,8 +88,14 @@ export class Favorited extends Component {
     const { favoritedChatRooms } = this.state;
     return (
       <div>
-        <span style={{ display: "flex", alignItems: "center" }}>
-          <FaRegSmileBeam style={{ marginRight: "3px" }} />
+        <span
+          style={{
+            display: "flex",
+            alignItems: "center",
+            fontSize: "1.2em", // Adjust the font size as needed
+          }}
+        >
+          <FavoriteBorderOutlinedIcon style={{ marginRight: "3px" }} />
           FAVORITED ({favoritedChatRooms.length})
         </span>
         <ul style={{ listStyleType: "none", padding: "0" }}>
