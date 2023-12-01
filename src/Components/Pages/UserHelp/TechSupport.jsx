@@ -28,35 +28,14 @@ const TechSupport = () => {
       <Typography
         variant="h4" // Adjusted font size
         component="h1"
-        marginTop={10}
-        marginBottom={5}
-        style={{ fontFamily: "Sura", fontSize: "70px" }}
+        marginTop={6} // Adjusted top margin
+        marginBottom={3} // Adjusted bottom margin
+        textAlign="center"
       >
         Frequently Asked Questions 
       </Typography>
 
-      <TextField
-        label="e.g create account"
-        variant="outlined"
-        InputProps={{
-          style: {
-            borderRadius: "20px",
-            backgroundColor: "#4B87C5",
-            color: "white", // Change the font color to white
-          },
-        }}
-        InputLabelProps={{
-          style: {
-            color: "white", // Change the font color to white
-            fontSize: "19px",
-          },
-        }}
-        fullWidth
-        style={{
-          marginBottom: "20px",
-          width: "650px",
-        }}
-      />
+    
 
       <BasicAccordion />
 
