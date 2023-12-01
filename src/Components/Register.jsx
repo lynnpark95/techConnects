@@ -21,6 +21,10 @@ import Container from "@mui/material/Container";
 import InputLabel from "@mui/material/InputLabel";
 import { Select, MenuItem } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { saveUserData } from "../Api/saveUser";
+import { setUser } from "../Redux/Actions/user_action";
+import { useDispatch } from 'react-redux';
+
 
 function Copyright(props) {
   return (
@@ -50,6 +54,7 @@ export default function SignUp() {
     handleSubmit,
   } = useForm();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [errorFromSubmit, setErrorFromSubmit] = useState("");
   const [loading, setLoading] = useState(false);
@@ -74,11 +79,6 @@ export default function SignUp() {
           createdUser.user.email
         )}?d=identicon`,
       });
-
-      // Firebase save in DB
-      const db = getDatabase();
-      const userRef = ref(db, `users/${createdUser.user.uid}`);
-      // What is being saved for the user
       const userData = {
         first: data.first,
         last: data.last,
@@ -86,15 +86,12 @@ export default function SignUp() {
         phone: data.phone,
         role: data.role,
         image: createdUser.user.photoURL,
-        //populate to include the room ids when they are added to them or create them
+        events: [],
+        
       };
+      await saveUserData(userData, createdUser.user.uid)
 
-      console.log("Created User:", createdUser.user);
-      console.log("User data to be saved: ", userData);
-
-      // Separate function for database update
-      await saveUserData(userRef, userData);
-
+      dispatch(setUser(userData));
       setLoading(false);
 
       navigate("/signin");
@@ -114,17 +111,6 @@ export default function SignUp() {
       setTimeout(() => {
         setErrorFromSubmit("");
       }, 8000);
-    }
-  };
-
-  // New function for database update
-  const saveUserData = async (userRef, userData) => {
-    try {
-      await set(userRef, userData);
-      console.log("User data saved successfully");
-    } catch (error) {
-      console.error("Error saving user data:", error.message);
-      // Handle the error as needed
     }
   };
 
@@ -263,16 +249,16 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <InputLabel id="role-label">Role</InputLabel>
                 <Select
-                  labelId="role-label"
-                  id="role"
-                  fullWidth
-                  {...register("role", { required: true })}
-                >
-                  <MenuItem value="Care Receiver">Care Receiver</MenuItem>
-                  <MenuItem value="Care Giver">Care Giver</MenuItem>
-                  <MenuItem value="Care Taker">Care Taker</MenuItem>
-                  <MenuItem value="Care Sponsor">Care Sponsor</MenuItem>
-                </Select>
+  labelId="role-label"
+  id="role"
+  fullWidth
+  {...register("role", { required: true, defaultValue: "Care Receiver" })}
+>
+  <MenuItem value="Care Receiver">Care Receiver</MenuItem>
+  <MenuItem value="Care Giver">Care Giver</MenuItem>
+  <MenuItem value="Care Taker">Care Taker</MenuItem>
+  <MenuItem value="Care Sponsor">Care Sponsor</MenuItem>
+</Select>
                 {errors.role && <p>This role field is required</p>}
               </Grid>
               {/* <Grid item xs={12}>
