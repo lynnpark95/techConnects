@@ -151,7 +151,7 @@ function UserPanel() {
           onClose={handleClose}
         >
           {/* Wrap the MenuItem in a Box with a red background */}
-          <Box bgcolor="red">
+          <Box bgcolor="white">
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Box>
         </Menu>

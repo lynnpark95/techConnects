@@ -1,3 +1,5 @@
+
+
 import React from "react";
 import Navbar from "../../Navbar Items/Navbar";
 import { Typography, TextField } from "@mui/material";
@@ -15,46 +17,25 @@ const TechSupport = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "flex-start", // Adjusted to align items at the top
-        height: "90vh",
-        paddingTop: "20px", // Add some top padding
-        paddingLeft: "280px",
+          marginLeft: '280px', // Adjusted left padding
+          marginTop: '40px'
+          
       }}
     >
       <Navbar />
       <Header />
 
       <Typography
-        variant="h3"
+        variant="h4" // Adjusted font size
         component="h1"
-        marginTop={10}
-        marginBottom={5}
-        style={{ fontFamily: "Sura", fontSize: "60px" }}
+        marginTop={6} // Adjusted top margin
+        marginBottom={3} // Adjusted bottom margin
+        textAlign="center"
       >
-        How can we help you?
+        Frequently Asked Questions 
       </Typography>
 
-      <TextField
-        label="e.g create account"
-        variant="outlined"
-        InputProps={{
-          style: {
-            borderRadius: "20px",
-            backgroundColor: "#4B87C5",
-            color: "white", // Change the font color to white
-          },
-        }}
-        InputLabelProps={{
-          style: {
-            color: "white", // Change the font color to white
-            fontSize: "19px",
-          },
-        }}
-        fullWidth
-        style={{
-          marginBottom: "20px",
-          width: "660px",
-        }}
-      />
+    
 
       <BasicAccordion />
 
@@ -64,18 +45,19 @@ const TechSupport = () => {
         marginTop={10}
         marginBottom={5}
         fontSize={"45px"}
-        style={{
+        sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          marginTop: 1, // Adjusted top margin
         }}
       >
         <Link to="/contact" style={{ color: "black" }}>
-          Contact us <ArrowForwardIosIcon></ArrowForwardIosIcon>
+          Contact Us <ArrowForwardIosIcon></ArrowForwardIosIcon>
         </Link>
         <Typography style={{ marginTop: "10px", textAlign: "center" }}>
-          Monday to Thursday: 9:00 AM - 5:30 PM (Eastern Time) <br />
-          Friday: 9:00 AM - 4:00 PM (Eastern Time)
+          Monday to Thursday: 9:00 AM - 5:30 PM (Western Time) <br />
+          Friday: 9:00 AM - 4:00 PM (Western Time)
         </Typography>
       </Typography>
     </div>
