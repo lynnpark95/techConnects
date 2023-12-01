@@ -272,7 +272,9 @@ const Calendar = (props) => {
                 />
                 Toggle weekends
               </label>
-              <button onClick={handleSaveAndPopulate} >Save and Populate</button>
+              <div style={{ display: 'flex', justifyContent: 'center', marginTop: "40px" }}>
+  <button onClick={handleSaveAndPopulate}>Save Events</button>
+</div>
             </div>
           </div>
         </div>
