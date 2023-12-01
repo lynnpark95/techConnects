@@ -15,15 +15,50 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import { Link } from "react-router-dom";
 import UserPanel from "../Pages/ChatPage/SidePanel/UserPanel";
+import IconButton from "@mui/material/IconButton";
+import LogoutIcon from "@mui/icons-material/Logout";
+import Box from "@mui/material/Box"; // Import the Box component
+import { getAuth, signOut, updateProfile } from "firebase/auth";
+
 
 const drawerWidth = 220;
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
+  const handleClick = (event) => {
+    handleLogout()
+  };
+  
+  const handleLogout = () => {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
   return (
     <Drawer sx={navStyles.drawer} variant="permanent" anchor="left">
-      <UserPanel />
+      <Box
+      bgcolor="red"
+      borderRadius="4px"
+      marginTop="20px"
+      marginLeft="10px"
+      marginBottom="10px"
+      display="inline-block"
+      width={'120px'}
+      onClick={handleClick}
+      style={{ cursor: 'pointer' }} 
+    >
+      <IconButton style={{ padding: "8px" }}>
+        <LogoutIcon style={{ color: "white" }} />
+      </IconButton>
+      <span style={{ color: "white", marginLeft: "5px" }}>LOGOUT</span>
+    </Box>
 
       <div
         style={{ display: "flex", alignItems: "center", marginLeft: "110px" }}

@@ -21,7 +21,8 @@ function SidePanel() {
         sx={{
           backgroundColor: "#4B87C5",
           padding: "2rem",
-          minHeight: "100vh",
+          minHeight: "130vh",
+          
           color: "white",
           minWidth: "275px",
           zIndex: 1,
@@ -41,21 +42,21 @@ function SidePanel() {
             }}
             onClick={handleGoBack}
           >
-            Back
+            BACK
           </span>
         </div>
         <div>
-          <h4 style={{ color: 'white', marginBottom: '2rem' }}>
-            <IoIosChatboxes /> Messaging
+          <h4 style={{ color: 'white', marginBottom: '1rem' }}>
+            <IoIosChatboxes /> MESSAGING
           </h4>
 
-          <UserPanel style={{ marginBottom: '3rem' }} />
+          <UserPanel style={{ marginBottom: '1rem' }} />
 
-          <div style={{ marginBottom: '3rem', marginTop: '1rem' }}>
+          <div style={{ marginBottom: '2rem', marginTop: '1rem' }}>
             <Favorited />
           </div>
 
-          <div style={{ marginBottom: '3rem' }}>
+          <div style={{ marginBottom: '2rem' }}>
             <ChatRooms />
           </div>
 
@@ -66,7 +67,7 @@ function SidePanel() {
           {/* Add the missing closing tag for the div element */}
         </div>
       </Box>
-      <Header />
+      
     </div>
   );
 }
