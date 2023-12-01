@@ -4,7 +4,10 @@ import MainPanel from "./MainPanel/MainPanel";
 import { useSelector } from "react-redux";
 import NeedsLogin from "../../../Components/NeedsLogin";
 import Header from "../../Header";
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/Master
 
 function ChatPage() {
   const currentUser = useSelector((state) => state.user.currentUser);
