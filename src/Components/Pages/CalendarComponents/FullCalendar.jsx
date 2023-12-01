@@ -31,7 +31,7 @@ const FullCalendar = () => {
       console.log(title);
       console.log(time);
     }
-    config.callback({title,time})
+    config.callback({ title, time });
   }
 
   useEffect(() => {
@@ -52,41 +52,39 @@ const FullCalendar = () => {
           title: arg.title,
           callback: (data) => {
             // ADD BOOKING LOGIC
-            console.log('title = ' + data.title);
-            console.log('time = ' + data.time);
+            console.log("title = " + data.title);
+            console.log("time = " + data.time);
           },
         });
-        
       },
-       
+
       dayCellContent: function (arg, title, time) {
-        
-        const popupInfo = 
-           
+        const popupInfo = (
           <div style="background-color: red; color: white; padding: 5px; border-radius: 5px;">
             <strong>${arg.dayNumberText}</strong>
-            <br/>
+            <br />
             <span>Event: ${title}</span>
-            <br/>
+            <br />
             <span>Time: ${time}</span>
           </div>
-        ;
-  
+        );
         return popupInfo;
       },
       dayCellDidMount: function (arg) {
         if (arg.el) {
           arg.el.style.backgroundColor = "#edf3f9";
-  
+
           const dayNumber = arg.el.querySelector(".fc-daygrid-day-number");
           if (dayNumber) {
             dayNumber.style.textDecoration = "none";
             dayNumber.style.fontSize = "20px";
           }
-  
+
           //Still trying to get this to work
-  
-          const dayNames = arg.el.querySelectorAll(".fc-col-header-cell.fc-day");
+
+          const dayNames = arg.el.querySelectorAll(
+            ".fc-col-header-cell.fc-day"
+          );
           if (dayNames) {
             for (let i = 0; i < dayNames.length; i++) {
               dayNames[i].style.fontSize = "40px";
@@ -96,14 +94,13 @@ const FullCalendar = () => {
       },
       dayCellClassNames: "non-link",
     });
-  
+
     calendar.render();
-  
+
     return () => {
       calendar.destroy();
     };
   }, []);
-  
 
   return (
     <div
