@@ -4,15 +4,9 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import firebase from "../../../../firebase";
 import { useSelector } from "react-redux";
-import {
-  getDatabase,
-  ref,
-  set,
-  remove,
-  push,
-  child,
-} from "firebase/database";
+import { getDatabase, ref, set, remove, push, child } from "firebase/database";
 import {
   getStorage,
   ref as strRef,
@@ -160,7 +154,13 @@ function MessageForm() {
         label="Type your message"
         value={content}
         onChange={handleChange}
-        onKeyDown={handleKeyDown}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault(); // Prevents a new line on Enter press
+            handleSubmit();
+          }
+          handleKeyDown(e);
+        }}
       />
 
       {!(percentage === 0 || percentage === 100) && (
@@ -187,7 +187,7 @@ function MessageForm() {
             variant="contained"
             color="secondary"
             disabled={loading ? true : false}
-            sx={{ backgroundColor: 'grey' }}
+            sx={{ backgroundColor: "grey" }}
           >
             UPLOAD
           </Button>
@@ -199,7 +199,7 @@ function MessageForm() {
             variant="contained"
             color="primary"
             disabled={loading ? true : false}
-            sx={{ backgroundColor: '#4B87C5' }}
+            sx={{ backgroundColor: "#4B87C5" }}
           >
             SEND
           </Button>

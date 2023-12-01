@@ -1,6 +1,6 @@
 import React from "react";
 import { IoIosChatboxes, IoIosArrowBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UserPanel from "./UserPanel";
 import Favorited from "./Favorited";
 import ChatRooms from "./ChatRooms";
@@ -12,6 +12,7 @@ function SidePanel() {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
+    // Navigate to the specified route when the back icon is clicked
     navigate("/calendar");
   };
 

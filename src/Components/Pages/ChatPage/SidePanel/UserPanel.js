@@ -16,7 +16,6 @@ import {
   getDownloadURL,
   uploadBytesResumable,
 } from "firebase/storage";
-import MessageHeader from "../MainPanel/MessageHeader";
 
 function UserPanel() {
   const user = useSelector((state) => state.user.currentUser);

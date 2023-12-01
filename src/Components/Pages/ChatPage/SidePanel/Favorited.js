@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { connect } from "react-redux";
 import {
   setCurrentChatRoom,

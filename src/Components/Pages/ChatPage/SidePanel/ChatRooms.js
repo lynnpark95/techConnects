@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -44,8 +44,8 @@ export class ChatRooms extends Component {
     const usersRef = ref(getDatabase(), "users");
 
     onValue(usersRef, (snapshot) => {
-      console.log(snapshot)
-      console.log(snapshot.val())
+      console.log(snapshot);
+      console.log(snapshot.val());
       if (snapshot.exists()) {
         const userList = Object.entries(snapshot.val()).map((obj) => ({
           uid: obj[0],
@@ -64,15 +64,13 @@ export class ChatRooms extends Component {
     }
 
     const { target } = e;
-    const { value, checked } = target; 
+    const { value, checked } = target;
     const { userList } = this.state;
     const index = userList.findIndex((u) => u.uid === uid);
     if (index !== -1) {
       const updatedUserList = [...this.state.userList];
-        updatedUserList[index].selected = !updatedUserList[index].selected;
-      this.setState( 
-         { userList: updatedUserList }
-      );
+      updatedUserList[index].selected = !updatedUserList[index].selected;
+      this.setState({ userList: updatedUserList });
     }
   };
 
@@ -179,7 +177,7 @@ export class ChatRooms extends Component {
         name: user.displayName,
         image: user.photoURL,
       },
-      users: [user.uid, ...selectedUsers.map((user) => user.uid)], 
+      users: [user.uid, ...selectedUsers.map((user) => user.uid)],
     };
 
     try {
@@ -292,7 +290,6 @@ export class ChatRooms extends Component {
                 margin="normal"
               />
 
-              
               <TextField
                 label="Chat Room Participants"
                 variant="outlined"
@@ -300,7 +297,7 @@ export class ChatRooms extends Component {
                 onChange={(e) => this.handleUserCheckboxChange(e)}
                 value={this.state.userList
                   .filter((user) => user.selected)
-                  .map((user) => user.first +" " + user.last)
+                  .map((user) => user.first + " " + user.last)
                   .join(", ")}
                 margin="normal"
               />
@@ -310,7 +307,9 @@ export class ChatRooms extends Component {
                   <li key={user.uid}>
                     <input
                       type="checkbox"
-                      onChange={(e) => this.handleUserCheckboxChange(e, user.uid)}
+                      onChange={(e) =>
+                        this.handleUserCheckboxChange(e, user.uid)
+                      }
                       checked={user.selected || false}
                     />
                     {user.first}, {user.last}, {user.selected}

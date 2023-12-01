@@ -33,7 +33,7 @@ function MessageHeader({ handleSearchChange }) {
     if (chatRoom && user) {
       addFavoriteListener(chatRoom.id, user.uid);
     }
-  }, [chatRoom, user]); // Add dependencies to the useEffect dependency array
+  }, []);
 
   const addFavoriteListener = (chatRoomId, userId) => {
     onValue(child(usersRef, `${userId}/favorited`), (data) => {
@@ -54,6 +54,7 @@ function MessageHeader({ handleSearchChange }) {
       update(child(usersRef, `${user.uid}/favorited`), {
         [chatRoom.id]: {
           name: chatRoom.name,
+          description: chatRoom.description,
           createdBy: {
             name: chatRoom.createdBy.name,
             image: chatRoom.createdBy.image,
@@ -62,6 +63,23 @@ function MessageHeader({ handleSearchChange }) {
       });
     }
   };
+
+  const renderUserPosts = userPosts =>
+    Object.entries(userPosts)
+      .sort((a, b) => b[1].count - a[1].count)
+      .map(([key, val], i) => (
+        <div key={i} style={{ display: 'flex' }}>
+          <Avatar
+            style={{ borderRadius: '25px' }}
+            src={val.image}
+            alt={val.name}
+          />
+          <div>
+            <Typography variant="subtitle2">{key}</Typography>
+            <Typography variant="body2">{val.count} 개</Typography>
+          </div>
+        </div>
+      ));
 
   return (
     <div>

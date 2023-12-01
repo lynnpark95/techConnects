@@ -11,7 +11,7 @@ function Header() {
     backgroundColor: "#F5F5F5",
     position: "fixed",
     top: 0,
-    width: "85.6%",
+    width: "100%",
     zIndex: 1000,
   };
 

@@ -70,7 +70,7 @@ export class DirectMessages extends Component {
     const chatRoomId = this.getChatRoomId(user.uid);
     const chatRoomData = {
       id: chatRoomId,
-      name: `${user.first} ${user.last}`, // Change this line
+      name: `${user.first} ${user.last}`, 
     };
 
     this.props.dispatch(setCurrentChatRoom(chatRoomData));
@@ -82,7 +82,7 @@ export class DirectMessages extends Component {
     this.setState({ activeChatRoom: userId });
   };
 
-  //Able to render names - John
+
   renderDirectMessages = (users) =>
     users.length > 0 &&
     users.map((user) => (
